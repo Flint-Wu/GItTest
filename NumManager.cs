@@ -16,6 +16,7 @@ public class NumManager : MonoBehaviour
     void Update()
     {
         GotScore();
+        TotalScore = Score;
     }
 
     public void GotScore()
