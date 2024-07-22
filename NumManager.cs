@@ -14,7 +14,7 @@ public class NumManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GotScore();
     }
 
     public void GotScore()
