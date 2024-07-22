@@ -5,7 +5,8 @@ using UnityEngine;
 public class NumManager : MonoBehaviour
 {
     public int Score;
-
+    public int TotalScore;
+    // Start is called before the first frame update
     void Start()
     {
         Score = 0;
@@ -20,5 +21,10 @@ public class NumManager : MonoBehaviour
     public void GotScore()
     {
         Score++;
+    }
+
+    public void GotTotalScore()
+    {
+        Debug.Log(TotalScore);
     }
 }
