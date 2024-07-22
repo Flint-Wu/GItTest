@@ -6,6 +6,7 @@ public class NumManager : MonoBehaviour
 {
     public int Score;
     public int TotalScore;
+    public float ScorePerSecond;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class NumManager : MonoBehaviour
     void Update()
     {
         GotScore();
+        TotalScore += ScorePerSecond*Time.deltaTime;
     }
 
     public void GotScore()
