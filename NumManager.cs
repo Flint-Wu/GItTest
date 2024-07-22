@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,21 @@ public class NumManager : MonoBehaviour
     void Start()
     {
         Score = 0;
+    }
+
+    private void OnEnable()
+    {
+        EventCenter.Interact += Interact;
+    }
+
+    private void OnDisable()
+    {
+        EventCenter.Interact -= Interact;
+    }
+
+    private void Interact()
+    {
+        throw new NotImplementedException();
     }
 
     // Update is called once per frame
