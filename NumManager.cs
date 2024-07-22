@@ -18,6 +18,8 @@ public class NumManager : MonoBehaviour
     {
         GotScore();
         TotalScore = Score;
+        TotalScore += (int)(ScorePerSecond * Time.deltaTime);
+        UpdateScoreText(TotalScore);
     }
 
     public void GotScore()
@@ -29,4 +31,10 @@ public class NumManager : MonoBehaviour
     {
         Debug.Log(TotalScore);
     }
+    
+    void UpdateScoreText(int Score)
+    {
+        GetComponent<Text>().text = "Score: " + Score;
+    }
+    
 }
