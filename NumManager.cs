@@ -18,6 +18,7 @@ public class NumManager : MonoBehaviour
     {
         GotScore();
         TotalScore += ScorePerSecond*Time.deltaTime;
+        TotalScore = Score;
     }
 
     public void GotScore()
