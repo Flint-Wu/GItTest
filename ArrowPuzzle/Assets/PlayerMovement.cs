@@ -46,4 +46,10 @@ public class PlayerMovement : MonoBehaviour
             currentspeed = Vector2.zero;
         }
     }
+
+    //处理按钮交互
+    public void Interact(InputAction.CallbackContext context)
+    {
+        EventManager.CallButtonPressedEvent();
+    }
 }

@@ -7,8 +7,11 @@ public class PlayerBow : MonoBehaviour
 {
     // Start is called before the first frame update
     float fireRate = 0.3f;
+    [Header("射击点")]
     public Transform firePoint;
+    public Transform Bow;
     public GameObject arrowPrefab;
+    [Header("射击力度")]
     public float MinForce = 20;
     public float currentForce; // 当前力度
     bool isCharging = false;
@@ -33,15 +36,18 @@ public class PlayerBow : MonoBehaviour
             // 如果正在蓄力，增加力度值
             currentForce += Time.deltaTime * 20f; // 20是力度增加的速率，可以根据需要调整
             currentForce = Mathf.Min(currentForce, maxForce); // 限制最大力度
-            Debug.Log("currentForce: " + currentForce);
+            //Debug.Log("currentForce: " + currentForce);
         }
 
 
         if (Physics.Raycast(ray, out hit))
         {
             Vector3 hitPos = hit.point;
-            transform.LookAt(hitPos);
+            transform.LookAt(hitPos, Vector3.up);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+            
+            //弓箭的Up方向指向射线碰撞到的地方
+            Bow.LookAt(hitPos);
         }
         if (fireRate > 0)
         {
