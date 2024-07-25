@@ -6,14 +6,16 @@ using UnityEngine;
 public static class EventManager
 {
     public static event Action<float> UpdateUIEvent;
+
+    public static event Action ButtonPressedEvent;
     public static void CallUpdateUIEvent(float ScoreAdd)
     {
         UpdateUIEvent?.Invoke(ScoreAdd);
     }
 
-    public static event Action<GameObject> ItemSave;
-    public static void CallItemSave(GameObject gameObject)
+    public static void CallButtonPressedEvent()
     {
-        ItemSave?.Invoke(gameObject);
+        ButtonPressedEvent?.Invoke();
     }
+
 }
