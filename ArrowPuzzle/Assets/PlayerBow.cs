@@ -59,7 +59,7 @@ public class PlayerBow : MonoBehaviour
         fireRate = 0.3f;
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
         arrow.SetActive(true);
-        arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * currentForce, ForceMode.Impulse);
+        arrow.GetComponent<Rigidbody>().AddForce(firePoint.up * currentForce, ForceMode.Impulse);
         //Time.timeScale = 0.1f;
         Debug.Log(arrow.GetComponent<Rigidbody>().velocity);
         //Time.timeScale = 0.01f;
