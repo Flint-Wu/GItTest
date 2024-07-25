@@ -54,7 +54,7 @@ public class ParabolaDrawer : MonoBehaviour
             float t = i * 0.2f;
             float z = velocity * t ;
             float y = 0.5f * Physics.gravity.y * t * t ;
-            lineRenderer.SetPosition(i, new Vector3(0, z, -y));
+            lineRenderer.SetPosition(i, new Vector3(0, y, z));
             //Ray segament = new Ray(new Vector3(0, y, z), new Vector3(0, y, z));
 
         }

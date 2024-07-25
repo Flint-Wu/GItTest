@@ -24,6 +24,8 @@ public class Arrow : MonoBehaviour
     }
     void OnCollisionEnter(Collision other) {
         if (other.gameObject.tag == "Button") {
+
+            other.gameObject.GetComponentInChildren<ButtonScript>().PressButton();
             Debug.Log("Hit Button");
         }
         Destroy(this.gameObject);    
