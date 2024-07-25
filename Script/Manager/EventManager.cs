@@ -11,4 +11,9 @@ public static class EventManager
         UpdateUIEvent?.Invoke(ScoreAdd);
     }
 
+    public static event Action<GameObject> ItemSave;
+    public static void CallItemSave(GameObject gameObject)
+    {
+        ItemSave?.Invoke(gameObject);
+    }
 }
