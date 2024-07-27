@@ -13,9 +13,16 @@ public static class EventManager
         UpdateUIEvent?.Invoke(ScoreAdd);
     }
 
+
+
+
+
+
+
+
+
     public static void CallButtonPressedEvent()
     {
         ButtonPressedEvent?.Invoke();
     }
-
 }
