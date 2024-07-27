@@ -50,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
     //处理按钮交互
     public void Interact(InputAction.CallbackContext context)
     {
-        Debug.Log("ButtonPressedEvent");
         EventManager.CallButtonPressedEvent();
     }
 }

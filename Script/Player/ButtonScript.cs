@@ -21,6 +21,15 @@ public class ButtonScript : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+    }
+
+    private void OnDisable()
+    {
+        
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player" && !isPressed) {
             Debug.Log("Enter Range");
@@ -42,8 +51,10 @@ public class ButtonScript : MonoBehaviour
         
     }
     //在范围内按下按钮
-    public void Press() {
-        if (isInRange) {
+    public void Press()
+    {
+        if (isInRange) 
+        {
             PressButton();
         }
     }
