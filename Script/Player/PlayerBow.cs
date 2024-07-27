@@ -11,6 +11,7 @@ public class PlayerBow : MonoBehaviour
     public Transform firePoint;
     public Transform Bow;
     public GameObject arrowPrefab;
+
     [Header("射击力度")]
     public float MinForce = 20;
     public float currentForce; // 当前力度
