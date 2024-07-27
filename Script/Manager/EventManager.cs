@@ -13,9 +13,15 @@ public static class EventManager
         UpdateUIEvent?.Invoke(ScoreAdd);
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
     public static void CallButtonPressedEvent()
     {
         ButtonPressedEvent?.Invoke();
     }
 
+=======
+>>>>>>> parent of bf98cb4 (Ver2.1)
+=======
+>>>>>>> parent of bf98cb4 (Ver2.1)
 }
