@@ -17,6 +17,8 @@ public class PlayerBow : MonoBehaviour
     public Vector3 hitPos;//记录当前射线碰撞点
     public LayerMask mask;
     public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
+    public Transform AutoLock;//自动瞄准的目标
+    
     [Header("射击力度")]
     public float MinForce = 20;
     public float maxForce = 100f; // 最大力度
@@ -40,7 +42,26 @@ public class PlayerBow : MonoBehaviour
         if (Physics.Raycast(ray, out hit,100f,mask))
         {
             hitPos = hit.point;
-            //蓄力时不改变方向
+            
+            //自动瞄准逻辑
+
+            if (hit.collider.gameObject.tag == "Button" && hit.collider.isTrigger)
+            {
+                AutoLock = hit.collider.gameObject.transform.parent;
+                hitPos = AutoLock.position;    
+                Debug.Log("自动瞄准");
+                AutoLock.GetComponentInChildren<MeshRenderer>().material = AutoLock.GetComponentInChildren<ButtonScript>().ButtonMaterial[1];
+                
+                }
+            else //如果不是按钮，取消自动瞄准
+            {
+                if (AutoLock != null)
+                {
+                    AutoLock.GetComponentInChildren<MeshRenderer>().material = AutoLock.GetComponentInChildren<ButtonScript>().ButtonMaterial[0];
+                    AutoLock = null;
+                }
+            }
+            
         }
 
 
