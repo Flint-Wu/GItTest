@@ -111,6 +111,13 @@ public class PlayerBow : MonoBehaviour
         ChargeLine.SetPosition(0, firePoint.position);
         ChargeLine.SetPosition(1, firePoint.position -firePoint.forward * currentForce*0.2f);
         ChargeLine.widthCurve = AnimationCurve.Linear(0, MinForce/100f, 1, currentForce/100f);
+        
+        //设置颜色渐变,使得力度越大，颜色越接近绿色
+        Color endColor = Color.Lerp(Color.red, Color.green, currentForce / maxForce);
+        Gradient ColorGradient = new Gradient();
+        ColorGradient.SetKeys(  new GradientColorKey[] { new GradientColorKey(Color.red, 0.0f), new GradientColorKey(endColor, 1.0f) }, 
+                                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) });
+        ChargeLine.colorGradient = ColorGradient;
 
         return currentForce;
     }
