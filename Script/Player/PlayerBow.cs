@@ -14,7 +14,7 @@ public class PlayerBow : MonoBehaviour
     public Transform Bow;
     public GameObject arrowPrefab;
     public RaycastHit hit;
-    public Vector3 hitPos;
+    public Vector3 hitPos;//记录当前射线碰撞点
     public LayerMask mask;
     public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
     [Header("射击力度")]
@@ -37,31 +37,37 @@ public class PlayerBow : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //射线碰撞到的地方
         hit = new RaycastHit();
-        // 是否正在蓄力
-        if (isCharging)
-        {
-            // 如果正在蓄力，增加力度值
-            currentForce = GetCurrentForce();
-            //Debug.Log("currentForce: " + currentForce);
-        }
-
         if (Physics.Raycast(ray, out hit,100f,mask))
         {
             hitPos = hit.point;
             //蓄力时不改变方向
-            if(isCharging)return;
-
-
-            transform.LookAt(hitPos, Vector3.up);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-            
-            //弓箭的Up方向指向射线碰撞到的地方
-            Bow.LookAt(hitPos);
         }
+
+
         if (fireRate > 0)
         {
             fireRate -= Time.deltaTime;
         }
+
+
+        // 是否正在蓄力
+        if (isCharging)
+        {
+            // 如果正在蓄力，增加力度值
+            // 如果hitpos和raycastpoint的距离向量和firepoint的forward方向向量的点积大于0，说明向量同向，可以正确蓄力
+            if (Vector3.Dot((raycastPoint - hitPos).normalized, firePoint.forward) < 0) return;
+            currentForce = GetCurrentForce();
+            //Debug.Log("currentForce: " + currentForce);
+        }
+
+        //蓄力时不改变方向
+        if(isCharging)return;
+        transform.LookAt(hitPos, Vector3.up);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+        
+        //弓箭的Up方向指向射线碰撞到的地方
+        Bow.LookAt(hitPos);
+
         //计算方
     }
     public void Fire()
