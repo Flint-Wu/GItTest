@@ -965,6 +965,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   raycastPoint: {x: 0, y: 0, z: 0}
+  AutoLock: {fileID: 0}
   MinForce: 20
   maxForce: 100
   currentForce: 0

@@ -45,7 +45,8 @@ public class PlayerBow : MonoBehaviour
             
             //自动瞄准逻辑
 
-            if (hit.collider.gameObject.tag == "Button" && hit.collider.isTrigger)
+            if (hit.collider.gameObject.tag == "Button" && hit.collider.isTrigger&&
+            !hit.collider.gameObject.GetComponent<ButtonScript>().isPressed)
             {
                 AutoLock = hit.collider.gameObject.transform.parent;
                 hitPos = AutoLock.position;    
