@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Move(InputAction.CallbackContext context)
     {
+        //蓄力时不不能移动
+        if (GetComponentInChildren<PlayerBow>().isCharging) return;
+
+
         Vector2 moveVec2 = context.ReadValue<Vector2>();
         if (moveVec2.x > threshold || moveVec2.x < -threshold)
         {

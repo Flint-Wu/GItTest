@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,11 +13,17 @@ public class PlayerBow : MonoBehaviour
     public Transform firePoint;
     public Transform Bow;
     public GameObject arrowPrefab;
+    public RaycastHit hit;
+    public Vector3 hitPos;
+    public LayerMask mask;
+    public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
     [Header("射击力度")]
     public float MinForce = 20;
-    public float currentForce; // 当前力度
-    bool isCharging = false;
     public float maxForce = 100f; // 最大力度
+    public float currentForce; // 当前力度
+    public LineRenderer ChargeLine;
+    public bool isCharging = false;
+
 
     void Start()
     {
@@ -28,21 +36,22 @@ public class PlayerBow : MonoBehaviour
         //从屏幕中心发射一条射线
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //射线碰撞到的地方
-        RaycastHit hit;
-
+        hit = new RaycastHit();
         // 是否正在蓄力
         if (isCharging)
         {
             // 如果正在蓄力，增加力度值
-            currentForce += Time.deltaTime * 20f; // 20是力度增加的速率，可以根据需要调整
-            currentForce = Mathf.Min(currentForce, maxForce); // 限制最大力度
+            currentForce = GetCurrentForce();
             //Debug.Log("currentForce: " + currentForce);
         }
 
-
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit,100f,mask))
         {
-            Vector3 hitPos = hit.point;
+            hitPos = hit.point;
+            //蓄力时不改变方向
+            if(isCharging)return;
+
+
             transform.LookAt(hitPos, Vector3.up);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
             
@@ -80,6 +89,8 @@ public class PlayerBow : MonoBehaviour
             // 开始蓄力
             isCharging = true;
             currentForce = MinForce; // 初始化力度
+            raycastPoint = hit.point;
+            ChargeLine.gameObject.SetActive(true);
         }
         else if (context.canceled && isCharging)
         {
@@ -87,6 +98,21 @@ public class PlayerBow : MonoBehaviour
             Fire();
             isCharging = false;
             currentForce = MinForce;
+            ChargeLine.gameObject.SetActive(false);
         }
     }
+
+    public float GetCurrentForce()
+    {
+        //跟据鼠标位置计算射击力度
+        this.currentForce = Mathf.Clamp(Vector3.Distance(raycastPoint, hitPos)*3, MinForce, maxForce);
+
+        //绘制射击力度线
+        ChargeLine.SetPosition(0, firePoint.position);
+        ChargeLine.SetPosition(1, firePoint.position -firePoint.forward * currentForce*0.2f);
+        ChargeLine.widthCurve = AnimationCurve.Linear(0, MinForce/100f, 1, currentForce/100f);
+
+        return currentForce;
+    }
+
 }
