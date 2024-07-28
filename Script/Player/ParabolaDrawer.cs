@@ -11,12 +11,14 @@ public class ParabolaDrawer : MonoBehaviour
     public LineRenderer lineRenderer;
     private Material linemat;//实现抛物线的动态效果
     private int mainTex ;//缓存属性ID，提高效率https://blog.csdn.net/linxinfa/article/details/121507619
+
     private void Start()
     {
         linemat = lineRenderer.material;
         mainTex = Shader.PropertyToID("_MainTex");
         
     }
+
     private void Update()
     {
         velocity = GetComponent<PlayerBow>().currentForce;
@@ -45,6 +47,7 @@ public class ParabolaDrawer : MonoBehaviour
         //     arrow.transform.right = velocity.normalized;
         // }
     }
+
     //通过LineRender实时绘制抛物线,通过
     private void GetCurve()
     {

@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public float sidespeed = 1.2f;
     public float backspeed = 1.5f;
     Vector2 currentspeed = Vector2.zero;
+
     void Start()
     {
         
@@ -21,11 +22,13 @@ public class PlayerMovement : MonoBehaviour
     {
         
     }
+
     void FixedUpdate()
     {
         transform.Translate(currentspeed.x * Time.deltaTime, 0, currentspeed.y * Time.deltaTime);
         //Debug.Log(currentspeed);
     }
+
     public void Move(InputAction.CallbackContext context)
     {
         Vector2 moveVec2 = context.ReadValue<Vector2>();

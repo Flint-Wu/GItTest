@@ -2534,6 +2534,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 693550999}
     m_Modifications:
+    - target: {fileID: 1802821799902114330, guid: 71e3d77825088eb44abea68f3732fc9a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4713174509791268691, guid: 71e3d77825088eb44abea68f3732fc9a, type: 3}
       propertyPath: ButtonMaterial.Array.size
       value: 3

@@ -55,6 +55,7 @@ public class PlayerBow : MonoBehaviour
         }
         //计算方
     }
+
     public void Fire()
     {
         if (fireRate > 0)
