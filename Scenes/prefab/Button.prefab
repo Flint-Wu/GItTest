@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7802380887056598381}
   - component: {fileID: 1802821799902114330}
   - component: {fileID: 4713174509791268691}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tigger
   m_TagString: Button
   m_Icon: {fileID: 0}

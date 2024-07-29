@@ -19,7 +19,6 @@ public class PlayerBow : MonoBehaviour
     public LayerMask mask;
     public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
     public Transform MouseTransform;//鼠标位置，用于指animation rig
-    public Transform AutoLock;//自动瞄准的目标
     
     [Header("射击力度")]
     public float MinForce = 20;
@@ -50,24 +49,6 @@ public class PlayerBow : MonoBehaviour
         {
             hitPos = hit.point;
             //自动瞄准逻辑
-
-            if (hit.collider.gameObject.tag == "Button" && hit.collider.isTrigger&&
-            !hit.collider.gameObject.GetComponent<ButtonScript>().isPressed)
-            {
-                AutoLock = hit.collider.gameObject.transform.parent;
-                hitPos = AutoLock.position;    
-                Debug.Log("自动瞄准");
-                AutoLock.GetComponentInChildren<MeshRenderer>().material = AutoLock.GetComponentInChildren<ButtonScript>().ButtonMaterial[1];
-                
-                }
-            else //如果不是按钮，取消自动瞄准
-            {
-                if (AutoLock != null&&!AutoLock.GetComponentInChildren<ButtonScript>().isPressed)
-                {
-                    AutoLock.GetComponentInChildren<MeshRenderer>().material = AutoLock.GetComponentInChildren<ButtonScript>().ButtonMaterial[0];
-                    AutoLock = null;
-                }
-            }
             
         }
 
@@ -107,10 +88,12 @@ public class PlayerBow : MonoBehaviour
         Debug.Log("Fire");
         fireRate = 0.3f;
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
+        
+        //arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * currentForce, ForceMode.Impulse);
+        //设置箭矢的反射点
+        arrow.GetComponent<Arrow>().parabolaDrawer = this.GetComponentInChildren<ParabolaDrawer>();
         arrow.SetActive(true);
-        arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * currentForce, ForceMode.Impulse);
         //Time.timeScale = 0.1f;
-        Debug.Log(arrow.GetComponent<Rigidbody>().velocity);
         //Time.timeScale = 0.01f;
    
     }
