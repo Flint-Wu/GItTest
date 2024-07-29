@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using StarterAssets;
 
 public class PlayerBow : MonoBehaviour
 {
@@ -17,19 +18,25 @@ public class PlayerBow : MonoBehaviour
     public Vector3 hitPos;//记录当前射线碰撞点
     public LayerMask mask;
     public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
+    public Transform MouseTransform;//鼠标位置，用于指animation rig
     public Transform AutoLock;//自动瞄准的目标
     
     [Header("射击力度")]
     public float MinForce = 20;
     public float maxForce = 100f; // 最大力度
-    public float currentForce; // 当前力度
+    public float currentForce = 20f; // 当前力度
     public LineRenderer ChargeLine;
     public bool isCharging = false;
-
+    private StarterAssetsInputs inputs;
+    private Animator _animator;
+    public bool isPaused = false;
 
     void Start()
     {
-        
+        inputs = this.transform.root.GetComponent<StarterAssetsInputs>();
+        //世界原点生成chargeLine
+        ChargeLine = Instantiate(ChargeLine, Vector3.zero, Quaternion.identity);
+        _animator = this.transform.root.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -42,7 +49,6 @@ public class PlayerBow : MonoBehaviour
         if (Physics.Raycast(ray, out hit,100f,mask))
         {
             hitPos = hit.point;
-            
             //自动瞄准逻辑
 
             if (hit.collider.gameObject.tag == "Button" && hit.collider.isTrigger&&
@@ -56,7 +62,7 @@ public class PlayerBow : MonoBehaviour
                 }
             else //如果不是按钮，取消自动瞄准
             {
-                if (AutoLock != null)
+                if (AutoLock != null&&!AutoLock.GetComponentInChildren<ButtonScript>().isPressed)
                 {
                     AutoLock.GetComponentInChildren<MeshRenderer>().material = AutoLock.GetComponentInChildren<ButtonScript>().ButtonMaterial[0];
                     AutoLock = null;
@@ -81,16 +87,16 @@ public class PlayerBow : MonoBehaviour
             currentForce = GetCurrentForce();
             //Debug.Log("currentForce: " + currentForce);
         }
+        else
+        {
+            // 如果不在蓄力，更改player的朝向
+            MouseTransform.position = hitPos;
+        }
 
         //蓄力时不改变方向
-        if(isCharging)return;
-        transform.LookAt(hitPos, Vector3.up);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
-        
-        //弓箭的Up方向指向射线碰撞到的地方
-        Bow.LookAt(hitPos);
-
+        OnCharge();
         //计算方
+    
     }
     public void Fire()
     {
@@ -110,23 +116,29 @@ public class PlayerBow : MonoBehaviour
     }
 
     //用来调整射击力度，点击射击键后，按住不放，力度增加，松开射击键，射击
-    public void OnCharge(InputAction.CallbackContext context)
+    public void OnCharge()
     {
-        if (context.started)
+        if(inputs.charge && !isCharging)
         {
             // 开始蓄力
             isCharging = true;
             currentForce = MinForce; // 初始化力度
             raycastPoint = hit.point;
             ChargeLine.gameObject.SetActive(true);
+            //设置player的朝向
+            //this.transform.root.right = -(hitPos - firePoint.position).normalized;
+
+            _animator.CrossFade("Charge", 0f);
+            _animator.SetBool("isCharge", true);
         }
-        else if (context.canceled && isCharging)
+        else if (!inputs.charge && isCharging)
         {
             // 松开按键，执行攻击
             Fire();
             isCharging = false;
             currentForce = MinForce;
             ChargeLine.gameObject.SetActive(false);
+            _animator.SetBool("isCharge", false);
         }
     }
 
