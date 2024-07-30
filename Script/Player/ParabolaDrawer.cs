@@ -7,7 +7,7 @@ public class ParabolaDrawer : MonoBehaviour
 {
     public Transform firePoint;
     public float[] Theta = new float[3];
-    public float velocity;
+    public float angle;
     //private List<GameObject> arrows = new List<GameObject>();
     public LineRenderer lineRenderer;
     public LineRenderer reflectLine;
@@ -43,7 +43,7 @@ public class ParabolaDrawer : MonoBehaviour
     {
         TracePoints.Clear();
         TraceForward.Clear();
-        velocity = GetComponent<PlayerBow>().currentForce;
+        angle = GetComponent<PlayerBow>().currentAngle;
         //theta为forward方向分别与x轴,z轴,y轴的夹角(全局坐标系)
         GetCurve(firePoint,lineRenderer,true);
         if (isReflect)
@@ -68,7 +68,7 @@ public class ParabolaDrawer : MonoBehaviour
         for (int i = 0; i < 300; i++)
         {
             float t = i * 0.02f;
-            float z = velocity * t ;
+            float z = 20 * t ;
             float y = 0.5f * Physics.gravity.y * t * t ;
             GameObject point = new GameObject("point");
             point.transform.parent = origin;
