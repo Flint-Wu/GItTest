@@ -11,6 +11,7 @@ public class Arrow : MonoBehaviour
     public bool isReflect = false;
     public Vector3 reflectPointFoward;
     public List<Vector3> TracePoints = new List<Vector3>();
+    public List<Vector3> TraceForward = new List<Vector3>();
     [Tooltip("碰撞检测距离")]
     public float DectDistance = 1f;
     void OnEnable() {
@@ -20,28 +21,33 @@ public class Arrow : MonoBehaviour
         {
             Debug.LogError("parabolaDrawer is null");
         }
+
         foreach (Vector3 point in parabolaDrawer.TracePoints)
         {
             TracePoints.Add(point);
         }
+        foreach (Vector3 forward in parabolaDrawer.TraceForward)
+        {
+            TraceForward.Add(forward);
+        }
         reflectPointFoward = parabolaDrawer.reflectPoint.forward;
-        //Time.timeScale = 0.1f;
     }
     // Update is called once per frame
     void FixedUpdate()
     {
         lifeTime += Time.deltaTime;
         int index = (int)(lifeTime * 50);
-        if (index >= TracePoints.Count - 1)
-        {
-            return;
-        }
-        this.transform.position = Vector3.Lerp(TracePoints[index], TracePoints[index + 1], index -lifeTime * 50);
         ColiderCheck();
+        if (index < TracePoints.Count - 1 && index < TraceForward.Count - 1)
+        {
+            this.transform.position = Vector3.Lerp(TracePoints[index], TracePoints[index + 1], index -lifeTime * 50);
+            this.transform.forward = Vector3.Lerp(TraceForward[index], TraceForward[index + 1], index - lifeTime * 50);
+        }
+        
         //Debug.Log(this.gameObject.GetComponent<Rigidbody>().velocity); 
         //tracer.transform.position = this.transform.position;
     }
-
+    // 用射线检测碰撞
     void ColiderCheck()
     {
         Ray ray = new Ray(this.transform.position, this.transform.forward);
@@ -56,7 +62,7 @@ public class Arrow : MonoBehaviour
             {
                 if (!isReflect)
                 {
-                    this.transform.forward = reflectPointFoward;
+                    Debug.Log(hit.collider.gameObject.name);
                     isReflect = true;
                 }
                 //只能反弹一次

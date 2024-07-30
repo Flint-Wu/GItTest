@@ -56,7 +56,6 @@ MonoBehaviour:
     m_Bits: 55
   raycastPoint: {x: 0, y: 0, z: 0}
   MouseTransform: {fileID: 0}
-  AutoLock: {fileID: 0}
   MinForce: 20
   maxForce: 100
   currentForce: 0
@@ -85,6 +84,9 @@ MonoBehaviour:
   reflectLine: {fileID: 8908076931453318598}
   isReflect: 0
   reflectPoint: {fileID: 0}
+  reflectEffect: {fileID: 3676515868970221223, guid: 423f5da4675aa4b42b5f6372db0d5dad, type: 3}
+  TracePoints: []
+  TraceForward: []
 --- !u!1 &6369304671485957952
 GameObject:
   m_ObjectHideFlags: 0

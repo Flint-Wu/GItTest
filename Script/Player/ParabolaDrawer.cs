@@ -17,7 +17,10 @@ public class ParabolaDrawer : MonoBehaviour
     private int reflectTex;
     public bool isReflect = false;
     public Transform reflectPoint;
+    [Tooltip("用来储存反射特效")]
+    public GameObject reflectEffect;
     public List<Vector3> TracePoints;//用于存储抛物线的点
+    public List<Vector3> TraceForward;//用于存储抛物线的方向
     private LayerMask _mask;
     private void Start()
     {
@@ -32,11 +35,14 @@ public class ParabolaDrawer : MonoBehaviour
         reflectLine.gameObject.transform.position = Vector3.zero;
         reflectLine.gameObject.transform.rotation = Quaternion.identity;
 
+        reflectEffect = Instantiate(reflectEffect, Vector3.zero, Quaternion.identity);
+
         
     }
     private void LateUpdate()
     {
         TracePoints.Clear();
+        TraceForward.Clear();
         velocity = GetComponent<PlayerBow>().currentForce;
         //theta为forward方向分别与x轴,z轴,y轴的夹角(全局坐标系)
         GetCurve(firePoint,lineRenderer,true);
@@ -79,6 +85,7 @@ public class ParabolaDrawer : MonoBehaviour
             if(i>0 )
             {
                 Vector3 direction = DectPoints[i] - DectPoints[i - 1];
+                TraceForward.Add(direction);
                 Ray segament = new Ray(DectPoints[i - 1], direction);
                 float distance = Vector3.Distance(DectPoints[i - 1], DectPoints[i]);
                 Debug.DrawLine(DectPoints[i - 1], DectPoints[i], Color.green, 0.1f);
@@ -93,6 +100,7 @@ public class ParabolaDrawer : MonoBehaviour
                     Vector3 normal = hit.normal;
                     reflectPoint.position = hit.point;
                     reflectPoint.forward = Vector3.Reflect(direction, normal);
+                    reflectEffect.transform.position = hit.point;
                     }
                     Debug.DrawRay(reflectPoint.position, reflectPoint.forward, Color.blue, 0.1f);
                     isReflect = true;
