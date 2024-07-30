@@ -2209,7 +2209,7 @@ MonoBehaviour:
     m_MaxLimit: 60
     m_AimAxis: 2
     m_UpAxis: 0
-    m_WorldUpType: 0
+    m_WorldUpType: 1
     m_WorldUpObject: {fileID: 0}
     m_WorldUpAxis: 2
     m_MaintainOffset: 0
