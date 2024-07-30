@@ -16,13 +16,16 @@ public class Arrow : MonoBehaviour
     void OnEnable() {
         Destroy(this.gameObject,10f);
         tracer = this.gameObject.GetComponentInChildren<TrailRenderer>();
-
+        if (parabolaDrawer == null)
+        {
+            Debug.LogError("parabolaDrawer is null");
+        }
         foreach (Vector3 point in parabolaDrawer.TracePoints)
         {
             TracePoints.Add(point);
         }
         reflectPointFoward = parabolaDrawer.reflectPoint.forward;
-        Time.timeScale = 0.1f;
+        //Time.timeScale = 0.1f;
     }
     // Update is called once per frame
     void FixedUpdate()
