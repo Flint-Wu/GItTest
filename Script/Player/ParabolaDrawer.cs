@@ -10,8 +10,18 @@ public class ParabolaDrawer : MonoBehaviour
     //private List<GameObject> arrows = new List<GameObject>();
     public LineRenderer lineRenderer;
     private Material linemat;//实现抛物线的动态效果
+<<<<<<< Updated upstream
     private int mainTex ;//缓存属性ID，提高效率https://blog.csdn.net/linxinfa/article/details/121507619
 
+=======
+    private Material reflectmat;
+    private int mainTex ;//缓存属性ID，提高效率
+    private int reflectTex;
+    public bool isReflect = false;
+    public Transform reflectPoint;
+    public List<Vector3> TracePoints;//用于存储抛物线的点
+    private LayerMask _mask;
+>>>>>>> Stashed changes
     private void Start()
     {
         linemat = lineRenderer.material;
