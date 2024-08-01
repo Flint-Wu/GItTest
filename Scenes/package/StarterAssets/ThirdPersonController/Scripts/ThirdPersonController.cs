@@ -159,7 +159,8 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             //拉弓时不能移动
-            if(GetComponentInChildren<PlayerBow>().isCharging)return;
+            PlayerBow playerBow = GetComponentInChildren<PlayerBow>();
+            if (playerBow != null && playerBow.isCharging) return;
             Move();
         }
 
