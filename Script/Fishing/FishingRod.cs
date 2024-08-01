@@ -42,6 +42,11 @@ public class FishingRod : MonoBehaviour
             //鱼上钩后,鱼钩位置跟随鱼的位置
             HookTransform.position = hookedFish.transform.position;
         }
+        else
+        {
+            //鱼钩做正弦运动（y方向）
+            HookTransform.position = new Vector3(HookTransform.position.x, HookTransform.position.y + Mathf.Sin(Time.time * 2) * 0.01f, HookTransform.position.z);
+        }
         Test();
         
     }
