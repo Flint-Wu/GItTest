@@ -47,9 +47,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishState: 0
   TargetTransform: {fileID: 0}
-  PoolRange: {fileID: 0}
+  EscapeTransform: {fileID: 0}
+  fishPool: {fileID: 0}
   MoveSpeed: 2
+  FollowSpeed: 3
   stateTime: 0
+  StruggleRate: 0.5
 --- !u!1001 &2845527420755499098
 PrefabInstance:
   m_ObjectHideFlags: 0

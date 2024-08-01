@@ -77,7 +77,7 @@ public class FishingRod : MonoBehaviour
     {
         //计算鱼线的拉伸程度
         float distance = Vector3.Distance(HookTransform.position, EndTransform.position);
-        strengeth = Mathf.Clamp(distance / 5, 0, 1);
+        strengeth = Mathf.Clamp(distance-4, 0, 1);
     }
     //获取鱼竿的起始点和结束点
     List<Vector3> GetFishingRodPoints()

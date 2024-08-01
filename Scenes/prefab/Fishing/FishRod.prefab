@@ -262,7 +262,7 @@ MonoBehaviour:
   - DiifH: 0.7
     DiifV: 0.5
   - DiifH: 0.9
-    DiifV: 0.5
+    DiifV: 2
   isHooked: 0
   hookedFish: {fileID: 0}
 --- !u!120 &1615657010486841613

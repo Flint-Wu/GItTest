@@ -65,7 +65,7 @@ public class ParabolaDrawer : MonoBehaviour
         {
             lineRenderer.positionCount = 0;
         }
-        for (int i = 0; i < 300; i++)
+        for (int i = 0; i < 600; i++)
         {
             float t = i * 0.02f;
             float z = 20 * t ;

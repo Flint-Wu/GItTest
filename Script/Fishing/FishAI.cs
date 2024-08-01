@@ -24,6 +24,7 @@ public class FishAI : MonoBehaviour
         fishState = FishState.Move;
         fishPool = this.transform.parent.GetComponentInChildren<FishPool>();
         TargetTransform = Instantiate(new GameObject()).transform;
+        EscapeTransform = fishPool.transform.parent.Find("EscapePoint");
         GenerateTarget();
 
     }
@@ -77,12 +78,11 @@ public class FishAI : MonoBehaviour
     }
     void OnHooked()
     {
-        float escapeRate = Mathf.Exp(-stateTime);
         //模拟鱼挣扎
-        this.transform.position = _GetHookTransform + new Vector3(
-            Random.Range(-escapeRate, escapeRate),
-            Random.Range(-escapeRate, escapeRate),
-            Random.Range(-escapeRate, escapeRate));
+        transform.position = Vector3.Lerp(_GetHookTransform, EscapeTransform.position, (StruggleRate-0.5f)/2);
+        transform.Rotate(Vector3.up, Random.Range(-360,360) * Time.deltaTime);
+        
+
         StruggleRate += Time.deltaTime*0.5F;//挣扎值逐渐增加
         if(StruggleRate < 0f)
         {
