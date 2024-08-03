@@ -239,4 +239,4 @@ MonoBehaviour:
   reflectPointFoward: {x: 0, y: 0, z: 0}
   TracePoints: []
   TraceForward: []
-  DectDistance: 0.1
+  DectDistance: 0.2

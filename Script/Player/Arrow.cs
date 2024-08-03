@@ -57,6 +57,7 @@ public class Arrow : MonoBehaviour
             if (hit.collider.gameObject.tag == "Button")
             {
                 hit.collider.gameObject.GetComponentInChildren<ButtonScript>().PressButton();
+                isReflect = true;
             }
             else
             {
