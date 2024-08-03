@@ -29,6 +29,7 @@ public class PlayerBow : MonoBehaviour
     private StarterAssetsInputs inputs;
     private Animator _animator;
     public bool isPaused = false;
+    private ParabolaDrawer _pd;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class PlayerBow : MonoBehaviour
         //世界原点生成chargeLine
         ChargeLine = Instantiate(ChargeLine, Vector3.zero, Quaternion.identity);
         _animator = this.transform.root.GetComponent<Animator>();
+        _pd = this.GetComponentInChildren<ParabolaDrawer>();
     }
 
     // Update is called once per frame
@@ -112,6 +114,9 @@ public class PlayerBow : MonoBehaviour
             //设置player的朝向
             //this.transform.root.right = -(hitPos - firePoint.position).normalized;
 
+            //显示蓄力线
+            _pd.EnableLineRenderer(true);
+            
             _animator.CrossFade("Charge", 0f);
             _animator.SetBool("isCharge", true);
         }
@@ -122,6 +127,10 @@ public class PlayerBow : MonoBehaviour
             isCharging = false;
             currentAngle = MinAngle;
             ChargeLine.gameObject.SetActive(false);
+
+            //隐藏指使线
+            _pd.EnableLineRenderer(false);
+            
             _animator.SetBool("isCharge", false);
         }
     }

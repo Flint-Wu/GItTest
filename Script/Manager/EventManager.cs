@@ -18,11 +18,11 @@ public static class EventManager
         ItemSave?.Invoke(gameObject);
     }
 
-    public static event Action ButtonPressedEvent;
-    public static void CallButtonPressedEvent()
+    public static event Action InteractEvent;
+    public static void CallInteractEvent()
     {
-        Debug.Log("ButtonPressedEvent");
-        ButtonPressedEvent?.Invoke();
+        InteractEvent?.Invoke();
     }
+    
 
 }

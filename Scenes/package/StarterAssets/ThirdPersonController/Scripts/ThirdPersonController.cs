@@ -155,6 +155,8 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
+            Interact();
+            if (_animator.GetBool("isFishing")) return;//钓鱼时不能移动
 
             JumpAndGravity();
             GroundedCheck();
@@ -162,6 +164,7 @@ namespace StarterAssets
             PlayerBow playerBow = GetComponentInChildren<PlayerBow>();
             if (playerBow != null && playerBow.isCharging) return;
             Move();
+            
         }
 
         // private void LateUpdate()
@@ -192,8 +195,13 @@ namespace StarterAssets
                 _animator.SetBool(_animIDGrounded, Grounded);
             }
         }
-
-
+        //触发按钮
+        private void Interact()
+        {
+            if(Input.GetKeyDown(KeyCode.F)){
+                EventManager.CallInteractEvent();
+            }
+        }
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed

@@ -10,9 +10,11 @@ public class ButtonScript : MonoBehaviour
     public Material[] ButtonMaterial;//0 = Default, 1 = 可按, 2 = 按下
     public bool isPressed = false;
     public bool isInRange = false;
+    public Door door;
     void Start()
     {
         Range = GetComponent<SphereCollider>();
+        door = this.transform.root.GetComponent<Door>();
     }
 
     // Update is called once per frame
@@ -36,7 +38,7 @@ public class ButtonScript : MonoBehaviour
             this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[1];
             isInRange = true;
             
-            EventManager.ButtonPressedEvent += Press;
+            EventManager.InteractEvent += Press;
         }
         
     }
@@ -46,15 +48,28 @@ public class ButtonScript : MonoBehaviour
             this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[0];
             isInRange = false;
 
-            EventManager.ButtonPressedEvent -= Press;
+            EventManager.InteractEvent -= Press;
         }
         
+    }
+    public void Rest()
+    {
+        if (isPressed) 
+        {
+            this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[0];
+            isPressed = false;
+            if(door.type == Door.DoorType.mutiple || door.type == Door.DoorType.timelimited)
+            {
+                door.LightOff(this);
+            }
+        }
     }
     //在范围内按下按钮
     public void Press()
     {
         if (isInRange) 
         {
+            GameObject.FindWithTag("Player").GetComponent<Animator>().CrossFade("button push", 0.1f);
             PressButton();
         }
     }
@@ -64,5 +79,15 @@ public class ButtonScript : MonoBehaviour
         this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[2];
         isPressed = true;
         EventManager.CallUpdateUIEvent(10);
+        door.CheckButton();
+
+        if(door.type == Door.DoorType.mutiple || door.type == Door.DoorType.timelimited)
+        {
+            door.LightOn(this);
+            if(door.type == Door.DoorType.timelimited)
+            {
+                door.isInteract = true;
+            }
+        }
     }
 }

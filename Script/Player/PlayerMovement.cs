@@ -123,6 +123,6 @@ public class PlayerMovement : MonoBehaviour
     //处理按钮交互dw
     public void Interact(InputAction.CallbackContext context)
     {
-        EventManager.CallButtonPressedEvent();
+        EventManager.CallInteractEvent();
     }
 }

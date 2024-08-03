@@ -114,11 +114,6 @@ public class FishingRod : MonoBehaviour
 
     void Test()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            GameObject fishpool = GameObject.Find("FishPool");
-            fishpool.GetComponentInChildren<FishPool>().StartFish(HookTransform);
-        }
         //按空格键,减少鱼的挣扎值
         if (Input.GetKeyDown(KeyCode.Space))
         {

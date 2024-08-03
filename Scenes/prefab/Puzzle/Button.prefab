@@ -66,7 +66,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540ce953147357845a2b281dffe6388b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ButtonMaterial: []
+  ButtonMaterial:
+  - {fileID: 2100000, guid: 5a26de236ce89e94b963be8fa2b7ade6, type: 2}
+  - {fileID: 2100000, guid: b234e1586ac9f524f8162eb03da23c35, type: 2}
+  - {fileID: 2100000, guid: c852af001dae0064e9acaa832f1dadb7, type: 2}
   isPressed: 0
   isInRange: 0
 --- !u!1 &9013432981965385047

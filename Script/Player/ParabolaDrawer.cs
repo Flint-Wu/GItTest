@@ -36,7 +36,9 @@ public class ParabolaDrawer : MonoBehaviour
         reflectLine.gameObject.transform.rotation = Quaternion.identity;
 
         reflectEffect = Instantiate(reflectEffect, Vector3.zero, Quaternion.identity);
-
+        
+        EnableLineRenderer(false);
+        
         
     }
     private void LateUpdate()
@@ -54,6 +56,13 @@ public class ParabolaDrawer : MonoBehaviour
         linemat.SetTextureOffset(mainTex, new Vector2(-Time.time*2, 0));
         reflectmat.SetTextureOffset(reflectTex, new Vector2(-Time.time*2, 0));
         
+    }
+    public void EnableLineRenderer(bool isEnable)
+    {
+        
+        lineRenderer.enabled = isEnable;
+        reflectLine.enabled = isEnable;
+        reflectEffect.SetActive(isEnable);
     }
     //通过LineRender实时绘制抛物线,通过
     private void GetCurve(Transform origin,LineRenderer lineRenderer,bool DoReflect = false)

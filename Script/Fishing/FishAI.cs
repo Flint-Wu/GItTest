@@ -24,7 +24,7 @@ public class FishAI : MonoBehaviour
         fishState = FishState.Move;
         fishPool = this.transform.parent.GetComponentInChildren<FishPool>();
         TargetTransform = Instantiate(new GameObject()).transform;
-        EscapeTransform = fishPool.transform.parent.Find("EscapePoint");
+        EscapeTransform = fishPool.transform.Find("EscapePoint");
         GenerateTarget();
 
     }
