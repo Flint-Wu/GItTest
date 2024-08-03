@@ -70,12 +70,16 @@ public class ParabolaDrawer : MonoBehaviour
         //DectPoints用于存储raycast检测的点，ParaPoints用于存储抛物线的点
         List<Vector3> DectPoints = new List<Vector3>();
         List<Vector3> ParaPoints = new List<Vector3>();
+        
         if (!isReflect)
         {
             lineRenderer.positionCount = 0;
         }
+        TraceForward.Add(origin.forward);
         for (int i = 0; i < 600; i++)
         {
+            
+
             float t = i * 0.02f;
             float z = 20 * t ;
             float y = 0.5f * Physics.gravity.y * t * t ;
