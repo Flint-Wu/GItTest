@@ -1,17 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    static BagManager instance;
-
     public CanvasGroup fadeCanvasGroup;
 
-    public string currentLevel;
+    public LevelName currentLevel;
 
     public float fadeDuration;
     private bool isFade;
+
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+
+    }
+
+
+    public void LevelChange(LevelName from, LevelName to)
+    {
+        StartCoroutine(LevelChanged(from, to));
+    }
+
+    private IEnumerator LevelChanged(LevelName from, LevelName to)
+    {
+        yield return Fade(1);
+
+        yield return Fade(0);
+        Debug.Log("¸ü»»½áÊø");
+    }
+
 
     private IEnumerator Fade(float targetAlpha)
     {
@@ -31,4 +55,6 @@ public class LevelManager : MonoBehaviour
 
         isFade = false;
     }
+
+
 }

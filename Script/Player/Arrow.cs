@@ -38,7 +38,7 @@ public class Arrow : MonoBehaviour
         lifeTime += Time.deltaTime;
         int index = (int)(lifeTime * 50);
         ColiderCheck();
-        Debug.Log(lifeTime+" "+index);
+        //Debug.Log(lifeTime+" "+index);
         if (index < TracePoints.Count - 1 && index < TraceForward.Count - 1)
         {
             this.transform.position = Vector3.Lerp(TracePoints[index], TracePoints[index + 1], index -lifeTime * 50);
