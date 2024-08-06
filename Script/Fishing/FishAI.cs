@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,7 +19,8 @@ public class FishAI : MonoBehaviour
     public float MoveSpeed;
     public float FollowSpeed;
     public float stateTime;
-    public float StruggleRate = 0.5f;
+    public float StruggleTime = 0f;
+    public List<float> StruggleTimeList = new List<float>();
     void Start()
     {
         fishState = FishState.Move;
@@ -67,35 +69,42 @@ public class FishAI : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, TargetTransform.position, speed * Time.deltaTime);
     }
     //减少挣扎值
-    public void ReduceStruggleRate(float rate)
-    {
-        StruggleRate -= rate;
-    }
     void DeadBehavior()
     {
-        this.transform.position = Vector3.MoveTowards(this.transform.position,
-                fishPool.FishHookTransform.parent.GetComponent<FishingRod>().EndTransform.position, MoveSpeed * Time.deltaTime);
+        this.transform.position = Vector3.MoveTowards(transform.position, _GetHookTransform + Vector3.up, 0.5f * Time.deltaTime);
     }
     void OnHooked()
     {
-        //模拟鱼挣扎
-        transform.position = Vector3.Lerp(_GetHookTransform, EscapeTransform.position, (StruggleRate-0.5f)/2);
-        transform.Rotate(Vector3.up, Random.Range(-360,360) * Time.deltaTime);
-        
-
-        StruggleRate += Time.deltaTime*0.5F;//挣扎值逐渐增加
-        if(StruggleRate < 0f)
-        {
-            fishState = FishState.Dead;
-        }
+        //模拟鱼挣扎(下沉)
+        transform.Translate(Vector3.down * 1f * (1-StruggleTime) * Time.deltaTime);
+        StruggleTime += Time.deltaTime;//挣扎值逐渐增加
         //如果挣扎值大于1,则脱钩
-        else if (StruggleRate > 1f)
+        if (StruggleTime > StruggleTimeList[1])
         {
             fishState = FishState.Move;
             _GetHookTransform = Vector3.zero;
             fishPool.FishHookTransform.parent.GetComponent<FishingRod>().ReleaseFish();
         }
 
+    }
+    public int GetHooked()//鱼上钩的判断
+    {
+        //1代表完美钓到鱼，2代表普通起鱼，3代表鱼逃跑
+        //被钩住后,鱼钩位置跟随鱼的位置
+        if(StruggleTime<StruggleTimeList[0])
+        {
+            fishState = FishState.Dead;
+            return 1;
+        }
+        else if(StruggleTime<StruggleTimeList[1])
+        {
+            fishState = FishState.Dead;
+            return 2;
+        }
+        else
+        {
+            return 3;
+        }
     }
     void CheckReachTarget()
     {

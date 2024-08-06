@@ -45,7 +45,7 @@ public class FishingRod : MonoBehaviour
         else
         {
             //鱼钩做正弦运动（y方向）
-            HookTransform.position = new Vector3(HookTransform.position.x, HookTransform.position.y + Mathf.Sin(Time.time * 2) * 0.01f, HookTransform.position.z);
+            HookTransform.position = new Vector3(HookTransform.position.x, HookTransform.position.y + Mathf.Sin(Time.time * 2) * 0.005f, HookTransform.position.z);
         }
         Test();
         
@@ -82,7 +82,7 @@ public class FishingRod : MonoBehaviour
     {
         //计算鱼线的拉伸程度
         float distance = Vector3.Distance(HookTransform.position, EndTransform.position);
-        strengeth = Mathf.Clamp(distance-4, 0, 1);
+        strengeth = Mathf.Clamp(distance-4, 0, 1)/3f;
     }
     //获取鱼竿的起始点和结束点
     List<Vector3> GetFishingRodPoints()
@@ -114,12 +114,17 @@ public class FishingRod : MonoBehaviour
 
     void Test()
     {
-        //按空格键,减少鱼的挣扎值
+        //按空格键钓鱼
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isHooked)
             {
-                hookedFish.ReduceStruggleRate(0.1f);
+                int Hooklevel = hookedFish.GetHooked();
+                Debug.Log("Hooklevel:" + Hooklevel+"time:"+hookedFish.StruggleTime);
+                if (Hooklevel == 1 || Hooklevel == 2)
+                {
+                    ReleaseFish();
+                }
             }
         }
     }

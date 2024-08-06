@@ -52,7 +52,10 @@ MonoBehaviour:
   MoveSpeed: 2
   FollowSpeed: 3
   stateTime: 0
-  StruggleRate: 0.5
+  StruggleTime: 0
+  StruggleTimeList:
+  - 0.34
+  - 0.67
 --- !u!1001 &2845527420755499098
 PrefabInstance:
   m_ObjectHideFlags: 0
