@@ -53,7 +53,7 @@ namespace StarterAssets
 			ChargeInput(value.isPressed);
 		}
 
-		public void OpenMenu(InputValue value)
+		public void OnMenu(InputValue value)
 		{
 			EscInput(value.isPressed);
 		}

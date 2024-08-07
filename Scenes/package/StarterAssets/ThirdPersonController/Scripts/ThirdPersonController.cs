@@ -276,7 +276,12 @@ namespace StarterAssets
         private void MenuPress()
         {
             if (_input.menu)
+            {
                 _Menu.SetActive(!_Menu.activeSelf);
+                Debug.Log("Menu");
+                _input.menu = false;
+            }
+
 
         }
 
