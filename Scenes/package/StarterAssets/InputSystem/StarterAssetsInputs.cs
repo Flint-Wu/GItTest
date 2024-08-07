@@ -13,6 +13,7 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool charge;
+		public bool menu;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -51,6 +52,11 @@ namespace StarterAssets
 			// Pause the game
 			ChargeInput(value.isPressed);
 		}
+
+		public void OpenMenu(InputValue value)
+		{
+			EscInput(value.isPressed);
+		}
 #endif
 
 
@@ -79,10 +85,16 @@ namespace StarterAssets
 			charge = newChargeState;
 		}
 
-		private void OnApplicationFocus(bool hasFocus)
+        private void EscInput(bool newEscState)
+        {
+            menu = newEscState;
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
+
 
 		private void SetCursorState(bool newState)
 		{
