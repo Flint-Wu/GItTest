@@ -54,11 +54,14 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 55
+  MouseMask:
+    serializedVersion: 2
+    m_Bits: 128
   raycastPoint: {x: 0, y: 0, z: 0}
-  MouseTransform: {fileID: 0}
-  MinForce: 20
-  maxForce: 100
-  currentForce: 0
+  AimTransform: {fileID: 0}
+  MinAngle: 0
+  MaxAngle: 90
+  currentAngle: 0
   ChargeLine: {fileID: 6035330432671509160, guid: d9bf1787ebf79e442b83178f44b4964d, type: 3}
   isCharging: 0
   isPaused: 0
@@ -79,7 +82,7 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  velocity: 0
+  angle: 0
   lineRenderer: {fileID: 3080680287945835379}
   reflectLine: {fileID: 8908076931453318598}
   isReflect: 0

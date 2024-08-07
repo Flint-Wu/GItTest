@@ -17,6 +17,8 @@ public class PlayerBow : MonoBehaviour
     public RaycastHit hit;
     public Vector3 hitPos;//记录当前射线碰撞点
     public LayerMask mask;
+    [Tooltip ("鼠标射线碰撞点的层，用来控制主角的瞄准点")]
+    public LayerMask MouseMask;
     public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
     public Transform AimTransform;//鼠标位置，用于指animation rig
     
@@ -47,13 +49,12 @@ public class PlayerBow : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //射线碰撞到的地方
         hit = new RaycastHit();
-        if (Physics.Raycast(ray, out hit,100f,mask))
+        if (Physics.Raycast(ray, out hit,100f,MouseMask))
         {
             hitPos = hit.point;
             //自动瞄准逻辑
             
         }
-
 
         if (fireRate > 0)
         {
@@ -69,7 +70,7 @@ public class PlayerBow : MonoBehaviour
             currentAngle = GetCurrentAngle();
             //Debug.Log("currentForce: " + currentForce);
             float y = Vector3.Distance(firePoint.position, AimTransform.position)*Mathf.Tan(currentAngle*Mathf.Deg2Rad);
-            AimTransform.position = new Vector3(AimTransform.position.x, transform.position.y + y, AimTransform.position.z);
+            AimTransform.position = new Vector3(hitPos.x, transform.position.y + y,hitPos.z);
         }
         else
         {
