@@ -92,11 +92,15 @@ public class PlayerBow : MonoBehaviour
         Debug.Log("Fire");
         fireRate = 0.3f;
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
-        
-        //arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * currentForce, ForceMode.Impulse);
-        //设置箭矢的反射点
-        arrow.GetComponent<Arrow>().parabolaDrawer = this.GetComponentInChildren<ParabolaDrawer>();
+        arrow.GetComponent<Arrow>().predictPos = _pd.reflectPoint.position;
+        arrow.GetComponent<Arrow>().predictForward = _pd.reflectPoint.forward;
+        arrow.GetComponent<Arrow>()._mask = mask;
         arrow.SetActive(true);
+        arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * 20, ForceMode.Impulse);
+        
+        //设置箭矢的反射点
+        //arrow.GetComponent<Arrow>().parabolaDrawer = this.GetComponentInChildren<ParabolaDrawer>();
+        
         //Time.timeScale = 0.1f;
         //Time.timeScale = 0.01f;
    

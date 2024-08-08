@@ -198,13 +198,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5465761354392739814}
   - component: {fileID: 6254591184441699077}
+  - component: {fileID: 6874238579330418658}
   m_Layer: 0
   m_Name: Arrow_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5465761354392739814
 Transform:
   m_ObjectHideFlags: 0
@@ -239,4 +240,38 @@ MonoBehaviour:
   reflectPointFoward: {x: 0, y: 0, z: 0}
   TracePoints: []
   TraceForward: []
-  DectDistance: 0.1
+  DectDistance: 0.4
+  predictPos: {x: 0, y: 0, z: 0}
+  predictForward: {x: 0, y: 0, z: 0}
+  actualPos: {x: 0, y: 0, z: 0}
+  actualForward: {x: 0, y: 0, z: 0}
+  _mask:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!54 &6874238579330418658
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1794898111543927883}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

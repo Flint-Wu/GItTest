@@ -76,13 +76,16 @@ public class ParabolaDrawer : MonoBehaviour
             lineRenderer.positionCount = 0;
         }
         TraceForward.Add(origin.forward);
-        for (int i = 0; i < 600; i++)
+        for (int i = 0; i < 1000; i++)
         {
             
-
             float t = i * 0.02f;
-            float z = 20 * t ;
-            float y = 0.5f * Physics.gravity.y * t * t ;
+            float z = Mathf.Cos(angle*Mathf.Deg2Rad) * 20 * t;
+            float y = 0.5f * Physics.gravity.y * t * t + Mathf.Sin(angle*Mathf.Deg2Rad) * 20 * t;
+            z = z * Mathf.Cos(angle*Mathf.Deg2Rad) + y * Mathf.Sin(angle*Mathf.Deg2Rad);
+            y = -z * Mathf.Sin(angle*Mathf.Deg2Rad) + y * Mathf.Cos(angle*Mathf.Deg2Rad);
+
+
             GameObject point = new GameObject("point");
             point.transform.parent = origin;
             point.transform.position = new Vector3(0, y, z);
