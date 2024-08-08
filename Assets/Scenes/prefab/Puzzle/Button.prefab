@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7802380887056598381}
   - component: {fileID: 1802821799902114330}
   - component: {fileID: 4713174509791268691}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: Tigger
   m_TagString: Button
   m_Icon: {fileID: 0}
@@ -72,6 +72,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c852af001dae0064e9acaa832f1dadb7, type: 2}
   isPressed: 0
   isInRange: 0
+  door: {fileID: 0}
 --- !u!1 &9013432981965385047
 GameObject:
   m_ObjectHideFlags: 0

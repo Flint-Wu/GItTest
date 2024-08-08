@@ -49,7 +49,7 @@ public class PlayerBow : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //射线碰撞到的地方
         hit = new RaycastHit();
-        if (Physics.Raycast(ray, out hit,100f,MouseMask))
+        if (Physics.Raycast(ray, out hit,1000f,MouseMask))
         {
             hitPos = hit.point;
             //自动瞄准逻辑
