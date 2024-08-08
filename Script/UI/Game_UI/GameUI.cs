@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameUI : MonoBehaviour
 {
     public RectTransform rectTransform;
     public GameObject gameMenu;
-    private Menu_block menu_Block;
+    public Menu_block menu_Block;
 
-    // Start is called before the first frame update
+
+
     void Start()
     {
         gameMenu.gameObject.SetActive(false);
@@ -17,8 +19,13 @@ public class GameUI : MonoBehaviour
 
     private void Awake()
     {
+        rectTransform = FindObjectOfType<Menu_block>().transform.parent.GetComponentsInChildren<RectTransform>()[2];
+
+
         menu_Block = GetComponentInChildren<Menu_block>();
+        gameMenu = FindObjectOfType<Menu_block>().transform.parent.gameObject;
         ChangeRect(rectTransform);
+
     }
     // Update is called once per frame
     void Update()
