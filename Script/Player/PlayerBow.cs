@@ -21,8 +21,10 @@ public class PlayerBow : MonoBehaviour
     public LayerMask MouseMask;
     public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
     public Transform AimTransform;//鼠标位置，用于指animation rig
-    
+    [Header("弓箭速度")]
+    public float velocity = 10f;
     [Header("射击力度")]
+
     public float MinAngle = 0f;
     public float MaxAngle = 90f; // 最大力度
     public float currentAngle = 0f; // 当前力度
@@ -40,6 +42,7 @@ public class PlayerBow : MonoBehaviour
         ChargeLine = Instantiate(ChargeLine, Vector3.zero, Quaternion.identity);
         _animator = this.transform.root.GetComponent<Animator>();
         _pd = this.GetComponentInChildren<ParabolaDrawer>();
+        _pd.InitPar(mask,velocity);
     }
 
     // Update is called once per frame
@@ -92,11 +95,10 @@ public class PlayerBow : MonoBehaviour
         Debug.Log("Fire");
         fireRate = 0.3f;
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
-        arrow.GetComponent<Arrow>().predictPos = _pd.reflectPoint.position;
-        arrow.GetComponent<Arrow>().predictForward = _pd.reflectPoint.forward;
-        arrow.GetComponent<Arrow>()._mask = mask;
+        
+        arrow.GetComponent<Arrow>().InitPar(_pd.reflectPoint.position,_pd.reflectPoint.forward,mask,velocity);
         arrow.SetActive(true);
-        arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * 20, ForceMode.Impulse);
+        arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * velocity, ForceMode.Impulse);
         
         //设置箭矢的反射点
         //arrow.GetComponent<Arrow>().parabolaDrawer = this.GetComponentInChildren<ParabolaDrawer>();

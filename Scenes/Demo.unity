@@ -1140,6 +1140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3080680287945835379, guid: 493e84e01698a9240af3a153bbc05fda,
         type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3080680287945835379, guid: 493e84e01698a9240af3a153bbc05fda,
+        type: 3}
       propertyPath: m_Parameters.widthMultiplier
       value: 0.1
       objectReference: {fileID: 0}
@@ -1177,6 +1182,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725590065281114644, guid: 493e84e01698a9240af3a153bbc05fda,
+        type: 3}
+      propertyPath: velocity
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3725590065281114644, guid: 493e84e01698a9240af3a153bbc05fda,
         type: 3}
@@ -1243,6 +1253,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5425460176248949417, guid: 493e84e01698a9240af3a153bbc05fda,
+        type: 3}
+      propertyPath: endEffect
+      value: 
+      objectReference: {fileID: 3676515868970221223, guid: 14c6dd2ea7cd1f54385cf51348c16e7d,
+        type: 3}
     - target: {fileID: 5425460176248949417, guid: 493e84e01698a9240af3a153bbc05fda,
         type: 3}
       propertyPath: reflectLine
@@ -1352,6 +1368,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 92.892
+      objectReference: {fileID: 0}
+    - target: {fileID: 8908076931453318598, guid: 493e84e01698a9240af3a153bbc05fda,
+        type: 3}
+      propertyPath: m_UseWorldSpace
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8908076931453318598, guid: 493e84e01698a9240af3a153bbc05fda,
         type: 3}
