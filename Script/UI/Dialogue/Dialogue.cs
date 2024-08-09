@@ -17,6 +17,7 @@ public class Dialogue : MonoBehaviour
 {
     public Image portraitImage;  // 用于显示头像的UI组件
     public TextMeshProUGUI dialogueText;    // 用于显示对话的UI组件
+    public TextAsset dialogueTextAsset;
 
     public DialogueEntry[] DialogueEntries;
 
@@ -30,10 +31,25 @@ public class Dialogue : MonoBehaviour
         LoadCharacterPortraits();
 
         // 读取并解析对话文件
-        LoadDialogueFile("可控制角色功能.txt");
+        //LoadDialogueFile(dialogueTextAsset);
 
         // 显示第一段对话
         ShowDialogue(currentDialogueIndex);
+    }
+
+    private void OnEnable()
+    {
+        EventManager.DialogueEvent += DialogueBegin;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.DialogueEvent -= DialogueBegin;
+    }
+
+    private void DialogueBegin(TextAsset asset)
+    {
+        LoadDialogueFile(asset);
     }
 
     void LoadCharacterPortraits()
@@ -43,13 +59,11 @@ public class Dialogue : MonoBehaviour
         characterPortraits[DialogueEntries[1].characterName] = DialogueEntries[1].characterPortrait;
     }
 
-    void LoadDialogueFile(string fileName)
+    void LoadDialogueFile(TextAsset filePath)
     {
-        string filePath = "I:/UnityProject/ArrowBeta/Assets/GItTest/Image/UI/Char/可控制角色功能.txt";
-
-        if (File.Exists(filePath))
+        if (filePath != null)
         {
-            string[] lines = File.ReadAllLines(filePath);
+            string[] lines = filePath.text.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string line in lines)
             {
@@ -100,6 +114,7 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
+            currentDialogueIndex = 0;
             this.gameObject.SetActive(false);
         }
     }
