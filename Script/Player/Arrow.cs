@@ -14,6 +14,7 @@ public class Arrow : MonoBehaviour
     public Vector3 predictPos;
     public Vector3 predictForward;
     public Vector3 actualPos;
+    public Vector3 actualForward;
     public LayerMask _mask;
     private float _velocity;
     void OnEnable() {
@@ -62,6 +63,7 @@ public class Arrow : MonoBehaviour
                 }
             }
             actualPos = hit.point;
+            actualForward = Vector3.Reflect(this.transform.forward, hit.normal);
             return true;
         }
         return false;
@@ -69,12 +71,21 @@ public class Arrow : MonoBehaviour
 
     void JudgeError()
     {
+        //判断预测位置和实际位置的误差如果大于0.5f则认为是移动靶，重新设置反射位置和方向
         if (Vector3.Distance(predictPos, actualPos) < 0.5f)
         {
             Debug.Log("predictPos: " + predictPos + " actualPos: " + actualPos);
             Debug.Log("error: " + Vector3.Distance(predictPos, actualPos));
             this.transform.position = predictPos;
             this.transform.forward = predictForward;
+            this.GetComponent<Rigidbody>().velocity = _velocity * this.transform.forward;
+        }
+        else
+        {
+            Debug.Log("predictPos: " + predictPos + " actualPos: " + actualPos);
+            Debug.Log("error: " + Vector3.Distance(predictPos, actualPos));
+            this.transform.position = actualPos;
+            this.transform.forward = actualForward;
             this.GetComponent<Rigidbody>().velocity = _velocity * this.transform.forward;
         }
     }
