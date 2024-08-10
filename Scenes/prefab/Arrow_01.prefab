@@ -237,9 +237,6 @@ MonoBehaviour:
   parabolaDrawer: {fileID: 0}
   tracer: {fileID: 4284903694518629956}
   isReflect: 0
-  reflectPointFoward: {x: 0, y: 0, z: 0}
-  TracePoints: []
-  TraceForward: []
   DectDistance: 0.4
   predictPos: {x: 0, y: 0, z: 0}
   predictForward: {x: 0, y: 0, z: 0}
