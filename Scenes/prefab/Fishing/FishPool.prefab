@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10651, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 594ea882c5a793440b60ff72d896021e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -259,5 +259,7 @@ MonoBehaviour:
   FishHookTransform: {fileID: 5153676157501974905}
   PoolRange: {fileID: 8061102509521270640}
   fishes: []
-  FishPrefab: {fileID: 8544741453592788305, guid: bd1673ae39152244e9ac69dd70e4be9f, type: 3}
+  FishPrefab: {fileID: 8544741453592788305, guid: bd1673ae39152244e9ac69dd70e4be9f,
+    type: 3}
   FishCount: 5
+  fishingRod: {fileID: 0}

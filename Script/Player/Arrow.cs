@@ -9,70 +9,84 @@ public class Arrow : MonoBehaviour
     float lifeTime;
     public TrailRenderer tracer;
     public bool isReflect = false;
-    public Vector3 reflectPointFoward;
-    public List<Vector3> TracePoints = new List<Vector3>();
-    public List<Vector3> TraceForward = new List<Vector3>();
     [Tooltip("碰撞检测距离")]
     public float DectDistance = 1f;
+    public Vector3 predictPos;
+    public Vector3 predictForward;
+    public Vector3 actualPos;
+    public Vector3 actualForward;
+    public LayerMask _mask;
+    private float _velocity;
     void OnEnable() {
         Destroy(this.gameObject,10f);
         tracer = this.gameObject.GetComponentInChildren<TrailRenderer>();
-        if (parabolaDrawer == null)
-        {
-            Debug.LogError("parabolaDrawer is null");
-        }
-
-        foreach (Vector3 point in parabolaDrawer.TracePoints)
-        {
-            TracePoints.Add(point);
-        }
-        foreach (Vector3 forward in parabolaDrawer.TraceForward)
-        {
-            TraceForward.Add(forward);
-        }
-        reflectPointFoward = parabolaDrawer.reflectPoint.forward;
     }
+    public void InitPar(Vector3 _predictPos,Vector3 _predictForward,LayerMask mask,float velocity)
+    {
+        predictPos = _predictPos;
+        predictForward = _predictForward;
+        _mask = mask;
+        _velocity = velocity;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        lifeTime += Time.deltaTime;
-        int index = (int)(lifeTime * 50);
-        ColiderCheck();
-        //Debug.Log(lifeTime+" "+index);
-        if (index < TracePoints.Count - 1 && index < TraceForward.Count - 1)
+        this.transform.forward = GetComponent<Rigidbody>().velocity.normalized;
+        if(ColiderCheck())
         {
-            this.transform.position = Vector3.Lerp(TracePoints[index], TracePoints[index + 1], index -lifeTime * 50);
-            this.transform.forward = Vector3.Lerp(TraceForward[index], TraceForward[index + 1], index - lifeTime * 50);
-        }
-        
-        //Debug.Log(this.gameObject.GetComponent<Rigidbody>().velocity); 
-        //tracer.transform.position = this.transform.position;
-    }
-    // 用射线检测碰撞
-    void ColiderCheck()
-    {
-        Ray ray = new Ray(this.transform.position, this.transform.forward);
-        Debug.DrawRay(this.transform.position, this.transform.forward, Color.red, DectDistance);
-        if (Physics.Raycast(ray, out RaycastHit hit, DectDistance))
-        {
-            if (hit.collider.gameObject.tag == "Button")
+            JudgeError();
+            if(!isReflect)
             {
-                hit.collider.gameObject.GetComponentInChildren<ButtonScript>().PressButton();
                 isReflect = true;
             }
             else
             {
-                if (!isReflect)
+                //取消rigidbody
+                this.GetComponent<Rigidbody>().isKinematic = true;
+            }
+        }
+    }
+    // 用射线检测碰撞
+    bool ColiderCheck()
+    {
+        Ray ray = new Ray(this.transform.position, this.transform.forward);
+        Debug.DrawRay(this.transform.position, this.transform.forward, Color.red, DectDistance);
+        if (Physics.Raycast(ray, out RaycastHit hit, DectDistance,_mask))
+        {
+            RaycastHit[] hits = Physics.RaycastAll(ray, DectDistance,_mask);
+            foreach (RaycastHit h in hits)
+            {
+                if (h.collider.gameObject.tag == "Button")
                 {
-                    Debug.Log(hit.collider.gameObject.name);
-                    isReflect = true;
-                }
-                //只能反弹一次
-                else
-                {
-                    Destroy(this.gameObject); 
+                    h.collider.gameObject.GetComponentInChildren<ButtonScript>().PressButton();
                 }
             }
-        } 
+            actualPos = hit.point;
+            actualForward = Vector3.Reflect(this.transform.forward, hit.normal);
+            return true;
+        }
+        return false;
+    }
+
+    void JudgeError()
+    {
+        //判断预测位置和实际位置的误差如果大于0.5f则认为是移动靶，重新设置反射位置和方向
+        if (Vector3.Distance(predictPos, actualPos) < 0.5f)
+        {
+            Debug.Log("predictPos: " + predictPos + " actualPos: " + actualPos);
+            Debug.Log("error: " + Vector3.Distance(predictPos, actualPos));
+            this.transform.position = predictPos;
+            this.transform.forward = predictForward;
+            this.GetComponent<Rigidbody>().velocity = _velocity * this.transform.forward;
+        }
+        else
+        {
+            Debug.Log("predictPos: " + predictPos + " actualPos: " + actualPos);
+            Debug.Log("error: " + Vector3.Distance(predictPos, actualPos));
+            this.transform.position = actualPos;
+            this.transform.forward = actualForward;
+            this.GetComponent<Rigidbody>().velocity = _velocity * this.transform.forward;
+        }
     }
 }

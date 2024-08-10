@@ -17,10 +17,14 @@ public class PlayerBow : MonoBehaviour
     public RaycastHit hit;
     public Vector3 hitPos;//记录当前射线碰撞点
     public LayerMask mask;
+    [Tooltip ("鼠标射线碰撞点的层，用来控制主角的瞄准点")]
+    public LayerMask MouseMask;
     public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
     public Transform AimTransform;//鼠标位置，用于指animation rig
-    
+    [Header("弓箭速度")]
+    public float velocity = 10f;
     [Header("射击力度")]
+
     public float MinAngle = 0f;
     public float MaxAngle = 90f; // 最大力度
     public float currentAngle = 0f; // 当前力度
@@ -38,6 +42,7 @@ public class PlayerBow : MonoBehaviour
         ChargeLine = Instantiate(ChargeLine, Vector3.zero, Quaternion.identity);
         _animator = this.transform.root.GetComponent<Animator>();
         _pd = this.GetComponentInChildren<ParabolaDrawer>();
+        _pd.InitPar(mask,velocity);
     }
 
     // Update is called once per frame
@@ -47,13 +52,12 @@ public class PlayerBow : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //射线碰撞到的地方
         hit = new RaycastHit();
-        if (Physics.Raycast(ray, out hit,100f,mask))
+        if (Physics.Raycast(ray, out hit,100f,MouseMask))
         {
             hitPos = hit.point;
             //自动瞄准逻辑
             
         }
-
 
         if (fireRate > 0)
         {
@@ -69,7 +73,7 @@ public class PlayerBow : MonoBehaviour
             currentAngle = GetCurrentAngle();
             //Debug.Log("currentForce: " + currentForce);
             float y = Vector3.Distance(firePoint.position, AimTransform.position)*Mathf.Tan(currentAngle*Mathf.Deg2Rad);
-            AimTransform.position = new Vector3(AimTransform.position.x, transform.position.y + y, AimTransform.position.z);
+            AimTransform.position = new Vector3(hitPos.x, transform.position.y + y,hitPos.z);
         }
         else
         {
@@ -93,10 +97,13 @@ public class PlayerBow : MonoBehaviour
         fireRate = 0.3f;
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
         
-        //arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * currentForce, ForceMode.Impulse);
-        //设置箭矢的反射点
-        arrow.GetComponent<Arrow>().parabolaDrawer = this.GetComponentInChildren<ParabolaDrawer>();
+        arrow.GetComponent<Arrow>().InitPar(_pd.reflectPoint.position,_pd.reflectPoint.forward,mask,velocity);
         arrow.SetActive(true);
+        arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * velocity, ForceMode.Impulse);
+        
+        //设置箭矢的反射点
+        //arrow.GetComponent<Arrow>().parabolaDrawer = this.GetComponentInChildren<ParabolaDrawer>();
+        
         //Time.timeScale = 0.1f;
         //Time.timeScale = 0.01f;
    
