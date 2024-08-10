@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1cc26e9d5f386445ab562811df4ad95, type: 3}
+  m_Name: Button E
+  m_EditorClassIdentifier: 
+  itemName: Button E
+  holdCount: 0
+  itemImg: {fileID: 21300000, guid: 0d4eb710b9252564984f0d031a9c002b, type: 3}
+  itemInfo: "\u8FD9\u53EF\u80FD\u662F\u53E6\u4E00\u4E2A\u4E16\u754C\u7684\u7269\u4EF6"
+  used: 0

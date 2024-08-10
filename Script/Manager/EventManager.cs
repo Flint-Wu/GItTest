@@ -23,6 +23,10 @@ public static class EventManager
     {
         InteractEvent?.Invoke();
     }
-    
 
+    public static event Action<TextAsset> DialogueEvent;
+    public static void CallDialogutEvent(TextAsset text)
+    {
+        DialogueEvent?.Invoke(text);
+    }
 }
