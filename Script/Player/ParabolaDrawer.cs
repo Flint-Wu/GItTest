@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
 
 public class ParabolaDrawer : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class ParabolaDrawer : MonoBehaviour
     //private List<GameObject> arrows = new List<GameObject>();
     public LineRenderer lineRenderer;
     public LineRenderer reflectLine;
+    [Tooltip("用来储存地面投影线的,1是绘制最后到墙上的线,2是绘制到地面的线,这是为了解决落地点比较低的情况下投影线绘制不完全的问题")]
+    public DecalProjector projector;
+    public DecalProjector projector2;
     private Material linemat;//实现抛物线的动态效果
     private Material reflectmat;
     private int mainTex ;//缓存属性ID，提高效率https://blog.csdn.net/linxinfa/article/details/121507619
@@ -58,6 +63,9 @@ public class ParabolaDrawer : MonoBehaviour
         //实现抛物线的动态效果
         linemat.SetTextureOffset(mainTex, new Vector2(-Time.time*2, 0));
         reflectmat.SetTextureOffset(reflectTex, new Vector2(-Time.time*2, 0));
+
+        //实现地面投影线的效果
+        GetProjector(firePoint.position, endEffect.transform.position);
         
     }
     public void EnableLineRenderer(bool isEnable)
@@ -65,8 +73,28 @@ public class ParabolaDrawer : MonoBehaviour
         
         lineRenderer.enabled = isEnable;
         reflectLine.enabled = isEnable;
+        projector.enabled = isEnable;
+        projector2.enabled = isEnable;
         reflectEffect.SetActive(isEnable);
         endEffect.SetActive(isEnable);
+    }
+
+    private void GetProjector(Vector3 StartPoint,Vector3 EndPoint)
+    {
+        float distance = Vector2.Distance(new Vector2(StartPoint.x, StartPoint.z), 
+                                            new Vector2(EndPoint.x, EndPoint.z));
+        //绘制到墙面的投影线
+        projector.transform.position = EndPoint;
+        projector.transform.forward =StartPoint- new Vector3(EndPoint.x, StartPoint.y, EndPoint.z);
+
+        projector.size = new Vector3(0.1f, 20f, distance);
+        projector.pivot = new Vector3(0, -10f, distance / 2);
+
+        //绘制到地面的投影线,distance-0.5f是防止绘制到墙上
+        projector2.transform.position = StartPoint;
+        projector2.transform.forward = -projector.transform.forward;
+        projector2.size = new Vector3(0.1f, 20f, distance-0.5f);
+        projector2.pivot = new Vector3(0, 0f, distance / 2);
     }
     //通过LineRender实时绘制抛物线,通过
     private void GetCurve(Transform origin,LineRenderer lineRenderer,bool DoReflect = false)

@@ -34,6 +34,7 @@ public class PlayerBow : MonoBehaviour
     private Animator _animator;
     public bool isPaused = false;
     private ParabolaDrawer _pd;
+    private Transform _playerTransform;
 
     void Start()
     {
@@ -43,6 +44,7 @@ public class PlayerBow : MonoBehaviour
         _animator = this.transform.root.GetComponent<Animator>();
         _pd = this.GetComponentInChildren<ParabolaDrawer>();
         _pd.InitPar(mask,velocity);
+        _playerTransform = this.transform.root;
     }
 
     // Update is called once per frame
@@ -150,9 +152,11 @@ public class PlayerBow : MonoBehaviour
         this.currentAngle = Mathf.Clamp(Vector3.Distance(raycastPoint, hitPos), MinAngle, MaxAngle);
 
         //绘制射击力度线
-        ChargeLine.SetPosition(0, firePoint.position);
-        ChargeLine.SetPosition(1, firePoint.position -firePoint.forward * currentAngle*0.2f);
-        ChargeLine.widthCurve = AnimationCurve.Linear(0, MinAngle/100f, 1, currentAngle/100f);
+        ChargeLine.SetPosition(0, _playerTransform.position);
+        Vector3 EndPos = _playerTransform.position - firePoint.forward * (currentAngle+10f)*0.2f;
+        EndPos.y = _playerTransform.position.y;
+        ChargeLine.SetPosition(1, EndPos);
+        ChargeLine.widthCurve = AnimationCurve.Linear(0, 0.2f, 1, 0.2f+currentAngle/30f);
         
         //设置颜色渐变,使得力度越大，颜色越接近绿色
         Color endColor = Color.Lerp(Color.red, Color.green, currentAngle / MaxAngle);
