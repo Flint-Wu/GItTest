@@ -1,3 +1,4 @@
+using StarterAssets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,13 +9,20 @@ public class _DialogueStart : MonoBehaviour
 {
     public DialogueEntry _dialogueEntry;
 
-    public GameObject _dialogue;
+    public UIManager UIManager;
 
     public TextAsset _dialogueText;
 
+    private StarterAssetsInputs _playerInput;
+
     private void Awake()
     {
-        _dialogue = FindObjectOfType<Dialogue>().gameObject;
+        UIManager = FindObjectOfType<UIManager>();
+    }
+
+    private void Start()
+    {
+        _playerInput = FindObjectOfType<StarterAssetsInputs>();
     }
 
 
@@ -25,11 +33,11 @@ public class _DialogueStart : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
+        if (other.CompareTag("Player") && _playerInput.inter)
         {
-            EventManager.CallDialogutEvent(_dialogueText);
+            UIManager.Dialogue.SetActive(true);
 
-            _dialogue.SetActive(true);
+            EventManager.CallDialogutEvent(_dialogueText);
         }
     }
 }

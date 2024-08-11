@@ -277,12 +277,10 @@ namespace StarterAssets
         {
             if (_input.menu)
             {
-                _Menu.SetActive(!_Menu.activeSelf);
-                Debug.Log("Menu");
-                _input.menu = false;
+                //_Menu.SetActive(!_Menu.activeSelf);
+                //Debug.Log("Menu");
+                //_input.menu = false;
             }
-
-
         }
 
         private void JumpAndGravity()
