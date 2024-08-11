@@ -11,58 +11,60 @@ public class ParabolaDrawer : MonoBehaviour
     public float angle;
     //private List<GameObject> arrows = new List<GameObject>();
     public LineRenderer lineRenderer;
-    public LineRenderer reflectLine;
+    //public LineRenderer reflectLine;
     [Tooltip("用来储存地面投影线的,1是绘制最后到墙上的线,2是绘制到地面的线,这是为了解决落地点比较低的情况下投影线绘制不完全的问题")]
     public DecalProjector projector;
     public DecalProjector projector2;
     private Material linemat;//实现抛物线的动态效果
-    private Material reflectmat;
+    //private Material reflectmat;
     private int mainTex ;//缓存属性ID，提高效率https://blog.csdn.net/linxinfa/article/details/121507619
-    private int reflectTex;
-    public bool isReflect = false;
-    public Transform reflectPoint;
+    //private int reflectTex;
+    //public bool isReflect = false;
+    //public Transform reflectPoint;
     public GameObject endEffect;
     [Tooltip("用来储存反射特效")]
-    public GameObject reflectEffect;
+    //public GameObject reflectEffect;
     private LayerMask _mask;
     private float _velocity;
+    private float _gravity;
     private void Start()
     {
         linemat = lineRenderer.material;
         mainTex = Shader.PropertyToID("_MainTex");
-        reflectmat = reflectLine.material;
-        reflectTex = Shader.PropertyToID("_MainTex");
+        // reflectmat = reflectLine.material;
+        // reflectTex = Shader.PropertyToID("_MainTex");
         
 
-        reflectPoint = new GameObject("reflect").transform;
-        reflectLine.gameObject.transform.parent = reflectPoint;
-        reflectLine.gameObject.transform.position = Vector3.zero;
-        reflectLine.gameObject.transform.rotation = Quaternion.identity;
+        // reflectPoint = new GameObject("reflect").transform;
+        // reflectLine.gameObject.transform.parent = reflectPoint;
+        // reflectLine.gameObject.transform.position = Vector3.zero;
+        // reflectLine.gameObject.transform.rotation = Quaternion.identity;
 
-        reflectEffect = Instantiate(reflectEffect, Vector3.zero, Quaternion.identity);
+        // reflectEffect = Instantiate(reflectEffect, Vector3.zero, Quaternion.identity);
         endEffect = Instantiate(endEffect, Vector3.zero, Quaternion.identity);
         EnableLineRenderer(false);
+
         
     }
-    public void InitPar(LayerMask mask,float velocity)
+    public void InitPar(LayerMask mask,float velocity,float gravity)
     {
         _velocity = velocity; 
         _mask =mask;
+        _gravity = gravity;
     }
+
     private void LateUpdate()
     {
-        // TracePoints.Clear();
-        // TraceForward.Clear();
         angle = GetComponent<PlayerBow>().currentAngle;
         //theta为forward方向分别与x轴,z轴,y轴的夹角(全局坐标系)
-        GetCurve(firePoint,lineRenderer,true);
-        if (isReflect)
-        {
-            GetCurve(reflectPoint, reflectLine, false);
-        }
+        GetCurve(firePoint,lineRenderer,false);
+        // if (isReflect)
+        // {
+        //     GetCurve(reflectPoint, reflectLine, false);
+        // }
         //实现抛物线的动态效果
         linemat.SetTextureOffset(mainTex, new Vector2(-Time.time*2, 0));
-        reflectmat.SetTextureOffset(reflectTex, new Vector2(-Time.time*2, 0));
+        // reflectmat.SetTextureOffset(reflectTex, new Vector2(-Time.time*2, 0));
 
         //实现地面投影线的效果
         GetProjector(firePoint.position, endEffect.transform.position);
@@ -72,10 +74,10 @@ public class ParabolaDrawer : MonoBehaviour
     {
         
         lineRenderer.enabled = isEnable;
-        reflectLine.enabled = isEnable;
+        //reflectLine.enabled = isEnable;
         projector.enabled = isEnable;
         projector2.enabled = isEnable;
-        reflectEffect.SetActive(isEnable);
+        //reflectEffect.SetActive(isEnable);
         endEffect.SetActive(isEnable);
     }
 
@@ -115,7 +117,7 @@ public class ParabolaDrawer : MonoBehaviour
             Vector3 velocity = origin.forward * _velocity;
             float x = velocity.x * t;
             float z = velocity.z * t;
-            float y = velocity.y * t + 0.5f * Physics.gravity.y * t * t;
+            float y = velocity.y * t + 0.5f * _gravity * t * t;
 
             ParaPoints.Add(new Vector3(x, y, z) + origin.position);
 
@@ -136,16 +138,16 @@ public class ParabolaDrawer : MonoBehaviour
                     {
                     //计算入射角和反射角
                     
-                        reflectPoint.position = hit.point;
-                        reflectPoint.forward = Vector3.Reflect(direction, normal);
-                        reflectEffect.transform.position = hit.point;
+                        // reflectPoint.position = hit.point;
+                        // reflectPoint.forward = Vector3.Reflect(direction, normal);
+                        // reflectEffect.transform.position = hit.point;
                     }
                     else
                     {
                         endEffect.transform.position = hit.point;
                     }
-                    Debug.DrawRay(reflectPoint.position, reflectPoint.forward, Color.blue, 0.1f);
-                    isReflect = true;
+                    // Debug.DrawRay(reflectPoint.position, reflectPoint.forward, Color.blue, 0.1f);
+                    // isReflect = true;
                     //将循环重置
                     break;
                 }

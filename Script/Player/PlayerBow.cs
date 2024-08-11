@@ -21,9 +21,12 @@ public class PlayerBow : MonoBehaviour
     public LayerMask MouseMask;
     public Vector3 raycastPoint;//记录蓄力时的射线碰撞点
     public Transform AimTransform;//鼠标位置，用于指animation rig
+    [Header("拉弓力度灵敏度")]
+    public float angleSensitive = 2f;
     [Header("弓箭速度")]
     public float velocity = 10f;
     [Header("射击力度")]
+    public float gravity = 15f;
 
     public float MinAngle = 0f;
     public float MaxAngle = 90f; // 最大力度
@@ -43,7 +46,7 @@ public class PlayerBow : MonoBehaviour
         ChargeLine = Instantiate(ChargeLine, Vector3.zero, Quaternion.identity);
         _animator = this.transform.root.GetComponent<Animator>();
         _pd = this.GetComponentInChildren<ParabolaDrawer>();
-        _pd.InitPar(mask,velocity);
+        _pd.InitPar(mask,velocity,gravity);
         _playerTransform = this.transform.root;
     }
 
@@ -79,15 +82,12 @@ public class PlayerBow : MonoBehaviour
             AimTransform.position = new Vector3(2*transform.position.x-hitPos.x, transform.position.y + y,2*transform.position.z-hitPos.z);
             // AimTransform.position = new Vector3(hitPos.x, transform.position.y + y,hitPos.z);
 
-                    //设置player的朝向
-            //this.transform.root.right = -(hitPos - firePoint.position).normalized;
-                    //得到物体指向鼠标位置的向量
-            Vector3 direction = hitPos- transform.position;
-            //通过反正切函数得到弧度并转化为角度
-            float rotateAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            //指定向屏幕外的z轴为旋转轴并且旋转
-            Quaternion rotation = Quaternion.AngleAxis(rotateAngle, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation,rotation,1f*Time.deltaTime);
+            //旋转player的rotation方向
+            Vector3 newRotation = new Vector3(0, Mathf.Atan2(hitPos.x - transform.position.x, hitPos.z - transform.position.z) * Mathf.Rad2Deg, 0);
+            this.transform.root.rotation = Quaternion.Euler(newRotation+new Vector3(0,-90f,0));
+
+            //FirePoint以player为，angle为当前角度绕forward旋转
+            firePoint.localRotation = Quaternion.Euler(new Vector3(-currentAngle, -90f, 0));
 
         }
         else
@@ -113,10 +113,11 @@ public class PlayerBow : MonoBehaviour
         fireRate = 0.3f;
         GameObject arrow = Instantiate(arrowPrefab, firePoint.position, firePoint.rotation);
         
-        arrow.GetComponent<Arrow>().InitPar(_pd.reflectPoint.position,_pd.reflectPoint.forward,mask,velocity);
+        arrow.GetComponent<Arrow>().InitPar(_pd.endEffect.transform.position,_pd.endEffect.transform.forward,mask,velocity,gravity);
         arrow.SetActive(true);
         arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * velocity, ForceMode.Impulse);
         
+        Debug.Log(Vector3.up*(gravity-Physics.gravity.y));
         //设置箭矢的反射点
         //arrow.GetComponent<Arrow>().parabolaDrawer = this.GetComponentInChildren<ParabolaDrawer>();
         
@@ -163,7 +164,7 @@ public class PlayerBow : MonoBehaviour
     public float GetCurrentAngle()
     {
         //跟据鼠标位置计算射击力度
-        this.currentAngle = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPos), MinAngle, MaxAngle);
+        this.currentAngle = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPos)*angleSensitive, MinAngle, MaxAngle);
 
         //绘制射击力度线
         ChargeLine.SetPosition(0, _playerTransform.position);
