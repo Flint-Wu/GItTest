@@ -54,9 +54,10 @@ public class PlayerBow : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //射线碰撞到的地方
         hit = new RaycastHit();
-        if (Physics.Raycast(ray, out hit,100f,MouseMask))
+        if (Physics.Raycast(ray, out hit,500f,MouseMask))
         {
             hitPos = hit.point;
+            Debug.DrawLine(ray.origin, hit.point, Color.red);
             //自动瞄准逻辑
             
         }
@@ -75,13 +76,26 @@ public class PlayerBow : MonoBehaviour
             currentAngle = GetCurrentAngle();
             //Debug.Log("currentForce: " + currentForce);
             float y = Vector3.Distance(firePoint.position, AimTransform.position)*Mathf.Tan(currentAngle*Mathf.Deg2Rad);
-            AimTransform.position = new Vector3(hitPos.x, transform.position.y + y,hitPos.z);
+            AimTransform.position = new Vector3(2*transform.position.x-hitPos.x, transform.position.y + y,2*transform.position.z-hitPos.z);
+            // AimTransform.position = new Vector3(hitPos.x, transform.position.y + y,hitPos.z);
+
+                    //设置player的朝向
+            //this.transform.root.right = -(hitPos - firePoint.position).normalized;
+                    //得到物体指向鼠标位置的向量
+            Vector3 direction = hitPos- transform.position;
+            //通过反正切函数得到弧度并转化为角度
+            float rotateAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //指定向屏幕外的z轴为旋转轴并且旋转
+            Quaternion rotation = Quaternion.AngleAxis(rotateAngle, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation,rotation,1f*Time.deltaTime);
+
         }
         else
         {
             // 如果没有蓄力，保持力度值为最小值
             AimTransform.position = new Vector3(hitPos.x, transform.position.y, hitPos.z);
         }
+
 
         //蓄力时不改变方向
         OnCharge();
@@ -149,7 +163,7 @@ public class PlayerBow : MonoBehaviour
     public float GetCurrentAngle()
     {
         //跟据鼠标位置计算射击力度
-        this.currentAngle = Mathf.Clamp(Vector3.Distance(raycastPoint, hitPos), MinAngle, MaxAngle);
+        this.currentAngle = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPos), MinAngle, MaxAngle);
 
         //绘制射击力度线
         ChargeLine.SetPosition(0, _playerTransform.position);
