@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
         GameMenu = FindObjectOfType<GameMenu>().gameObject;
         GameMenu.SetActive(false);
         Dialogue = FindObjectOfType<Dialogue>().gameObject;
+        Dialogue.SetActive(false);
         _playerInput = FindObjectOfType<StarterAssetsInputs>();
 
     }

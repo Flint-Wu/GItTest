@@ -105,12 +105,10 @@ namespace StarterAssets
         private CharacterController _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
-        public GameObject _Menu;
 
         private const float _threshold = 0.01f;
 
         private bool _hasAnimator;
-        private bool _menuEnabled;
 
         private bool IsCurrentDeviceMouse
         {
@@ -162,7 +160,6 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
-            MenuPress();
             //拉弓时不能移动
             PlayerBow playerBow = GetComponentInChildren<PlayerBow>();
             if (playerBow != null && playerBow.isCharging) return;
@@ -270,16 +267,6 @@ namespace StarterAssets
             {
                 _animator.SetFloat(_animIDSpeed, _animationBlend);
                 _animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
-            }
-        }
-
-        private void MenuPress()
-        {
-            if (_input.menu)
-            {
-                //_Menu.SetActive(!_Menu.activeSelf);
-                //Debug.Log("Menu");
-                //_input.menu = false;
             }
         }
 

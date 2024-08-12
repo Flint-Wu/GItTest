@@ -19,44 +19,62 @@ public class Dialogue : MonoBehaviour
     public TextMeshProUGUI dialogueText;    // 用于显示对话的UI组件
     public TextAsset dialogueTextAsset;
 
-    public DialogueEntry[] DialogueEntries;
+    //public DialogueEntry[] DialogueEntries;
+    public List<DialogueEntry> DialogueEntries;
 
     private Dictionary<string, Sprite> characterPortraits = new Dictionary<string, Sprite>();
     private List<(string characterName, string dialogueText)> dialogues = new List<(string characterName, string dialogueText)>();
     private int currentDialogueIndex = 0;
 
+    public int talkCount;
+
     void Start()
     {
         // 加载角色头像
-        LoadCharacterPortraits();
+        //LoadCharacterPortraits();
 
         // 读取并解析对话文件
         //LoadDialogueFile(dialogueTextAsset);
 
         // 显示第一段对话
-        ShowDialogue(currentDialogueIndex);
+        //ShowDialogue(currentDialogueIndex);
     }
 
     private void OnEnable()
     {
-        EventManager.DialogueEvent += DialogueBegin;
+        EventManager.DialogueBeginEvent += DialogueBegin;
     }
 
     private void OnDisable()
     {
-        EventManager.DialogueEvent -= DialogueBegin;
+        EventManager.DialogueBeginEvent -= DialogueBegin;
     }
 
-    private void DialogueBegin(TextAsset asset)
+    private void Update()
     {
+        talkCount = dialogues.Count;
+    }
+
+    private void DialogueBegin(TextAsset asset, DialogueEntry dialogueEntry)
+    {
+        dialogues.Clear();
+        LoadCharacterPortraits();
+
+        DialogueEntries.Add(dialogueEntry);
+        characterPortraits[DialogueEntries[1].characterName] = DialogueEntries[1].characterPortrait;
+
         LoadDialogueFile(asset);
+
+        ShowDialogue(currentDialogueIndex);
     }
 
     void LoadCharacterPortraits()
     {
         // 这里加载每个角色的头像，根据需要添加更多角色
-        characterPortraits[DialogueEntries[0].characterName] = DialogueEntries[0].characterPortrait;
-        characterPortraits[DialogueEntries[1].characterName] = DialogueEntries[1].characterPortrait;
+        for (int i = 0; i < DialogueEntries.Count; i++)
+        {
+            characterPortraits[DialogueEntries[i].characterName] = DialogueEntries[i].characterPortrait;
+        }
     }
 
     void LoadDialogueFile(TextAsset filePath)
@@ -115,7 +133,10 @@ public class Dialogue : MonoBehaviour
         else
         {
             currentDialogueIndex = 0;
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            DialogueEntries.RemoveAt(1);
+            dialogues.Clear();
+            EventManager.CallDialogutFinishEvent();
         }
     }
 }

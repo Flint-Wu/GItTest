@@ -9,35 +9,48 @@ public class _DialogueStart : MonoBehaviour
 {
     public DialogueEntry _dialogueEntry;
 
-    public UIManager UIManager;
+    private UIManager UIManager;
 
     public TextAsset _dialogueText;
 
     private StarterAssetsInputs _playerInput;
 
-    private void Awake()
+    private void OnEnable()
     {
-        UIManager = FindObjectOfType<UIManager>();
+        EventManager.DialogueFinishEvent += DialogueFinish;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.DialogueFinishEvent -= DialogueFinish;
     }
 
     private void Start()
     {
+        UIManager = FindObjectOfType<UIManager>();
         _playerInput = FindObjectOfType<StarterAssetsInputs>();
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void DialogueFinish()
     {
-        
+        GetComponent<Collider>().enabled = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && _playerInput.inter)
+        if (UIManager.Dialogue.activeSelf)
         {
-            UIManager.Dialogue.SetActive(true);
-
-            EventManager.CallDialogutEvent(_dialogueText);
+            Debug.Log("nope");
+            return;
+        }
+        
+        if (other.CompareTag("Player") && _playerInput.inter )
+        {
+            Debug.Log("talk");
+            GetComponent<Collider>().enabled = false;
+            UIManager.DialogueEnable();
+            EventManager.CallDialogutBeginEvent(_dialogueText, _dialogueEntry);
+            _playerInput.inter = false;
         }
     }
 }

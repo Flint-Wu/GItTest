@@ -65,12 +65,6 @@ namespace StarterAssets
 			InterInput(value.isPressed);
 		}
 #endif
-
-		public void InterInput(bool newInputState)
-		{
-			inter = newInputState;
-		}
-
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
@@ -99,6 +93,11 @@ namespace StarterAssets
         private void EscInput(bool newEscState)
         {
             menu = newEscState;
+        }
+
+        public void InterInput(bool newInputState)
+        {
+            inter = newInputState;
         }
 
         private void OnApplicationFocus(bool hasFocus)
