@@ -73,6 +73,7 @@ public class PlayerBow : MonoBehaviour
         // 是否正在蓄力
         if (isCharging)
         {
+            _pd.InitPar(mask,velocity,gravity);
             // 如果正在蓄力，增加力度值
             // 如果hitpos和raycastpoint的距离向量和firepoint的forward方向向量的点积大于0，说明向量同向，可以正确蓄力
             if (Vector3.Dot((raycastPoint - hitPos).normalized, firePoint.forward) < 0) return;
