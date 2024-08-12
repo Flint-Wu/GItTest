@@ -1,6 +1,7 @@
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 #endif
 
 namespace StarterAssets
@@ -14,6 +15,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool charge;
 		public bool menu;
+		public bool inter;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -57,9 +59,12 @@ namespace StarterAssets
 		{
 			EscInput(value.isPressed);
 		}
+
+		public void OnInter(InputValue value)
+		{
+			InterInput(value.isPressed);
+		}
 #endif
-
-
 		public void MoveInput(Vector2 newMoveDirection)
 		{
 			move = newMoveDirection;
@@ -90,6 +95,11 @@ namespace StarterAssets
             menu = newEscState;
         }
 
+        public void InterInput(bool newInputState)
+        {
+            inter = newInputState;
+        }
+
         private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
@@ -98,7 +108,7 @@ namespace StarterAssets
 
 		private void SetCursorState(bool newState)
 		{
-			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+			UnityEngine.Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 	}
 	

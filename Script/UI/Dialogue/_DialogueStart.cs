@@ -1,3 +1,4 @@
+using StarterAssets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,28 +9,48 @@ public class _DialogueStart : MonoBehaviour
 {
     public DialogueEntry _dialogueEntry;
 
-    public GameObject _dialogue;
+    private UIManager UIManager;
 
     public TextAsset _dialogueText;
 
-    private void Awake()
+    private StarterAssetsInputs _playerInput;
+
+    private void OnEnable()
     {
-        _dialogue = FindObjectOfType<Dialogue>().gameObject;
+        EventManager.DialogueFinishEvent += DialogueFinish;
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnDisable()
     {
-        
+        EventManager.DialogueFinishEvent -= DialogueFinish;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
+        UIManager = FindObjectOfType<UIManager>();
+        _playerInput = FindObjectOfType<StarterAssetsInputs>();
+    }
+
+    private void DialogueFinish()
+    {
+        GetComponent<Collider>().enabled = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (UIManager.Dialogue.activeSelf)
         {
-            EventManager.CallDialogutEvent(_dialogueText);
-
-            _dialogue.SetActive(true);
+            Debug.Log("nope");
+            return;
+        }
+        
+        if (other.CompareTag("Player") && _playerInput.inter )
+        {
+            Debug.Log("talk");
+            GetComponent<Collider>().enabled = false;
+            UIManager.DialogueEnable();
+            EventManager.CallDialogutBeginEvent(_dialogueText, _dialogueEntry);
+            _playerInput.inter = false;
         }
     }
 }
