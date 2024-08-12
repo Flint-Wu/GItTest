@@ -18,6 +18,7 @@ public class Arrow : MonoBehaviour
     private float _velocity;
     private Vector3 previousVelocity;
     private float _gravity;
+    public GameObject hitEffect;
     void OnEnable() {
         Destroy(this.gameObject,10f);
         tracer = this.gameObject.GetComponentInChildren<TrailRenderer>();
@@ -51,7 +52,14 @@ public class Arrow : MonoBehaviour
             // else
             // {
                 //取消rigidbody
+            GameObject effect = Instantiate(hitEffect,actualPos,Quaternion.identity);
+            effect.transform.forward = actualForward;
+            
+            Destroy(effect,1f);
             Destroy(this.gameObject);
+
+            //Destroy(this.gameObject);
+
             // }
         }
         
