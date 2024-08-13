@@ -59,21 +59,21 @@ namespace StarterAssets
         [Tooltip("What layers the character uses as ground")]
         public LayerMask GroundLayers;
 
-        [Header("Cinemachine")]
-        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-        public GameObject CinemachineCameraTarget;
+        // [Header("Cinemachine")]
+        // [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
+        // public GameObject CinemachineCameraTarget;
 
-        [Tooltip("How far in degrees can you move the camera up")]
-        public float TopClamp = 70.0f;
+        // [Tooltip("How far in degrees can you move the camera up")]
+        // public float TopClamp = 70.0f;
 
-        [Tooltip("How far in degrees can you move the camera down")]
-        public float BottomClamp = -30.0f;
+        // [Tooltip("How far in degrees can you move the camera down")]
+        // public float BottomClamp = -30.0f;
 
-        [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
-        public float CameraAngleOverride = 0.0f;
+        // [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
+        // public float CameraAngleOverride = 0.0f;
 
-        [Tooltip("For locking the camera position on all axis")]
-        public bool LockCameraPosition = false;
+        // [Tooltip("For locking the camera position on all axis")]
+        // public bool LockCameraPosition = false;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -135,7 +135,7 @@ namespace StarterAssets
 
         private void Start()
         {
-            _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
+            //_cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
