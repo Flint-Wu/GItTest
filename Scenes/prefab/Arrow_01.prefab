@@ -234,9 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c22741f1a3034147ad20b8ef7457f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parabolaDrawer: {fileID: 0}
   tracer: {fileID: 4284903694518629956}
-  isReflect: 0
   DectDistance: 0.4
   predictPos: {x: 0, y: 0, z: 0}
   predictForward: {x: 0, y: 0, z: 0}
@@ -245,6 +243,8 @@ MonoBehaviour:
   _mask:
     serializedVersion: 2
     m_Bits: 0
+  hitEffect: {fileID: 3463157229188906966, guid: 47096eff328e11a418ace7db2d72aa97,
+    type: 3}
 --- !u!54 &6874238579330418658
 Rigidbody:
   m_ObjectHideFlags: 0

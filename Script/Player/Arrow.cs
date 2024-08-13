@@ -5,10 +5,9 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     // Start is called before the first frame update
-    public ParabolaDrawer parabolaDrawer;
     float lifeTime;
     public TrailRenderer tracer;
-    public bool isReflect = false;
+    //public bool isReflect = false;
     [Tooltip("碰撞检测距离")]
     public float DectDistance = 1f;
     public Vector3 predictPos;
@@ -17,35 +16,53 @@ public class Arrow : MonoBehaviour
     public Vector3 actualForward;
     public LayerMask _mask;
     private float _velocity;
+    private Vector3 previousVelocity;
+    private float _gravity;
+    public GameObject hitEffect;
     void OnEnable() {
         Destroy(this.gameObject,10f);
         tracer = this.gameObject.GetComponentInChildren<TrailRenderer>();
     }
-    public void InitPar(Vector3 _predictPos,Vector3 _predictForward,LayerMask mask,float velocity)
+    public void InitPar(Vector3 _predictPos,Vector3 _predictForward,LayerMask mask,float velocity,float gravity)
     {
         predictPos = _predictPos;
         predictForward = _predictForward;
         _mask = mask;
         _velocity = velocity;
+        _gravity = gravity;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         this.transform.forward = GetComponent<Rigidbody>().velocity.normalized;
+        GetComponent<Rigidbody>().AddForce(Vector3.up*(_gravity-Physics.gravity.y),ForceMode.Acceleration);
+
+        float Acceleration = (this.GetComponent<Rigidbody>().velocity-previousVelocity).magnitude*50f;
+        Debug.Log($"Acceleration: {Acceleration}");
+        previousVelocity = this.GetComponent<Rigidbody>().velocity;
+
         if(ColiderCheck())
         {
             JudgeError();
-            if(!isReflect)
-            {
-                isReflect = true;
-            }
-            else
-            {
+            // if(!isReflect)
+            // {
+            //     isReflect = true;
+            // }
+            // else
+            // {
                 //取消rigidbody
-                this.GetComponent<Rigidbody>().isKinematic = true;
-            }
+            GameObject effect = Instantiate(hitEffect,actualPos,Quaternion.identity);
+            effect.transform.forward = actualForward;
+            
+            Destroy(effect,1f);
+            Destroy(this.gameObject);
+
+            //Destroy(this.gameObject);
+
+            // }
         }
+        
     }
     // 用射线检测碰撞
     bool ColiderCheck()
