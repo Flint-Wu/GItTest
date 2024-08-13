@@ -42,26 +42,26 @@ public class Arrow : MonoBehaviour
         Debug.Log($"Acceleration: {Acceleration}");
         previousVelocity = this.GetComponent<Rigidbody>().velocity;
 
-        if(ColiderCheck())
-        {
-            JudgeError();
-            // if(!isReflect)
-            // {
-            //     isReflect = true;
-            // }
-            // else
-            // {
-                //取消rigidbody
-            GameObject effect = Instantiate(hitEffect,actualPos,Quaternion.identity);
-            effect.transform.forward = actualForward;
+        // if(ColiderCheck())
+        // {
+        //     JudgeError();
+        //     // if(!isReflect)
+        //     // {
+        //     //     isReflect = true;
+        //     // }
+        //     // else
+        //     // {
+        //         //取消rigidbody
+        //     GameObject effect = Instantiate(hitEffect,actualPos,Quaternion.identity);
+        //     effect.transform.forward = actualForward;
             
-            Destroy(effect,1f);
-            Destroy(this.gameObject);
+        //     Destroy(effect,1f);
+        //     Destroy(this.gameObject);
 
-            //Destroy(this.gameObject);
+        //     //Destroy(this.gameObject);
 
-            // }
-        }
+        //     // }
+        // }
         
     }
     // 用射线检测碰撞
@@ -84,6 +84,21 @@ public class Arrow : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    void OnCollisionEnter(Collision other) 
+    {
+        if (other.collider.gameObject.tag == "Button")
+        {
+            other.collider.gameObject.GetComponentInChildren<ButtonScript>().PressButton();
+        }
+
+        GameObject effect = Instantiate(hitEffect,other.contacts[0].point,Quaternion.identity);
+        effect.transform.forward = other.contacts[0].normal;
+        
+        Destroy(effect,1f);
+        Destroy(this.gameObject);
+
     }
 
     void JudgeError()
