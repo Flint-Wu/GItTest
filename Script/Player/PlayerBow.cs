@@ -116,7 +116,7 @@ public class PlayerBow : MonoBehaviour
         
         arrow.GetComponent<Arrow>().InitPar(_pd.endEffect.transform.position,_pd.endEffect.transform.forward,mask,velocity,gravity);
         arrow.SetActive(true);
-        arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * velocity, ForceMode.Impulse);
+        arrow.GetComponent<Rigidbody>().AddForce(firePoint.forward * velocity*arrow.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
         
         Debug.Log(Vector3.up*(gravity-Physics.gravity.y));
         //设置箭矢的反射点

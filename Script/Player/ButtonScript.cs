@@ -15,6 +15,10 @@ public class ButtonScript : MonoBehaviour
     {
         Range = GetComponent<SphereCollider>();
         door = this.transform.root.GetComponent<Door>();
+        if(isPressed)
+        {
+            this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[2];
+        }
     }
 
     // Update is called once per frame

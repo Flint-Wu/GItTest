@@ -43,6 +43,14 @@ public class Door : MonoBehaviour
             }
         }
 
+        foreach (var button in Buttons)
+        {
+           if(button.isPressed)
+            {
+                LightOn(button);
+            }
+        }
+
     }
 
 
@@ -62,7 +70,7 @@ public class Door : MonoBehaviour
                 ResetAll();
                 timeLimit = 10f;
             }
-            this.GetComponentInChildren<TextMeshPro>().text = timeLimit.ToString("F2");
+            //this.GetComponentInChildren<TextMeshPro>().text = timeLimit.ToString("F2");
         }   
     }
 
@@ -70,12 +78,15 @@ public class Door : MonoBehaviour
     {
         isOpen = true;
         isInteract = true;
+        //播放开门动画，tag为opendoor
         _animation.CrossFade("opendoor", 0.1f);
     }
     void CloseDoor()
     {
         isOpen = false;
         isInteract = false;
+        //更改closedoor的speed为 0.5/Timelimit
+        _animation.speed = 1/ timeLimit;
         _animation.CrossFade("closedoor", 0.1f);
     }
     public void CheckButton()
