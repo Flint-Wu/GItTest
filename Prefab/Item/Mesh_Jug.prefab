@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1864270034432493400}
   - component: {fileID: -6377379929998664614}
   - component: {fileID: 5790940885408465717}
+  - component: {fileID: -2530758298389415498}
   m_Layer: 0
   m_Name: Mesh_Jug
   m_TagString: Untagged
@@ -171,8 +172,33 @@ MonoBehaviour:
   callbackOptions:
     onFracture:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: -2530758298389415498}
+          m_TargetAssemblyTypeName: ItemBreak, Assembly-CSharp
+          m_MethodName: Break
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     onCompleted:
       m_PersistentCalls:
         m_Calls: []
   currentRefractureCount: 0
+--- !u!114 &-2530758298389415498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2201459037164323563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fabec5e5310c15640a751394609ac201, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakSound: {fileID: 8300000, guid: e517ce67e05efb64187f2bc697b571f8, type: 3}

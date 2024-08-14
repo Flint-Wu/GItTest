@@ -19,6 +19,7 @@ public class Arrow : MonoBehaviour
     private Vector3 previousVelocity;
     private float _gravity;
     public GameObject hitEffect;
+    public AudioClip hitSound;
     void OnEnable() {
         Destroy(this.gameObject,10f);
         tracer = this.gameObject.GetComponentInChildren<TrailRenderer>();
@@ -96,6 +97,7 @@ public class Arrow : MonoBehaviour
         GameObject effect = Instantiate(hitEffect,other.contacts[0].point,Quaternion.identity);
         effect.transform.forward = other.contacts[0].normal;
         
+        AudioSource.PlayClipAtPoint(hitSound,this.transform.position);
         Destroy(effect,1f);
         Destroy(this.gameObject);
 

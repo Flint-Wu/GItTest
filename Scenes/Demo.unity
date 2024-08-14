@@ -4824,6 +4824,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\u5C0F\u5973\u5B69\u5B8C\u6210"
       objectReference: {fileID: 0}
+    - target: {fileID: 60596885625750751, guid: a30b473068b835f4fb6fdf0e37694d84,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 427200275849443567, guid: a30b473068b835f4fb6fdf0e37694d84,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -5368,7 +5373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5204440153972159832
 Transform:
   m_ObjectHideFlags: 0

@@ -246,6 +246,7 @@ MonoBehaviour:
     m_Bits: 0
   hitEffect: {fileID: 3463157229188906966, guid: 47096eff328e11a418ace7db2d72aa97,
     type: 3}
+  hitSound: {fileID: 8300000, guid: 74bcf508cd4b1c64ea3e4a003a2626b8, type: 3}
 --- !u!54 &6874238579330418658
 Rigidbody:
   m_ObjectHideFlags: 0
