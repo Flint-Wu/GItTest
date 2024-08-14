@@ -55,7 +55,7 @@ Animator:
   m_GameObject: {fileID: 60596885625750751}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e9c3aacca611d954f901006da49ad0d3, type: 3}
-  m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
+  m_Controller: {fileID: 9100000, guid: c73067514fa087b4da99cb83d37d1558, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -291,8 +291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26e54e5a728a9234ab24fcf1460ed8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 2
-  SprintSpeed: 5.335
+  MoveSpeed: 1
+  SprintSpeed: 2.5
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10
   LandingAudioClip: {fileID: 8300000, guid: ff697d3070687ce4583faa0561a145a2, type: 3}
@@ -377,6 +377,7 @@ MonoBehaviour:
   climbAngle: 45
   bodyHeight: 1
   valutDistance: 0.2
+  ledge: {x: 0, y: 0, z: 0}
 --- !u!114 &2309123387748452455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,6 +391,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosture: 0
+  climbPlayer: 1
+  leftHandPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &293725992891765616
 GameObject:
   m_ObjectHideFlags: 0

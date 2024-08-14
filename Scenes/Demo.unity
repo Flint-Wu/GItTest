@@ -4844,6 +4844,11 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2375914846887581980}
+    - target: {fileID: 617209352584820819, guid: a30b473068b835f4fb6fdf0e37694d84,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c73067514fa087b4da99cb83d37d1558, type: 2}
     - target: {fileID: 861841119308837083, guid: a30b473068b835f4fb6fdf0e37694d84,
         type: 3}
       propertyPath: endEffect
@@ -4859,6 +4864,11 @@ PrefabInstance:
       propertyPath: projector2
       value: 
       objectReference: {fileID: 1704726185}
+    - target: {fileID: 2309123387748452455, guid: a30b473068b835f4fb6fdf0e37694d84,
+        type: 3}
+      propertyPath: climbPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4595890952768934270, guid: a30b473068b835f4fb6fdf0e37694d84,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4908,6 +4918,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810970123725668530, guid: a30b473068b835f4fb6fdf0e37694d84,
+        type: 3}
+      propertyPath: MoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810970123725668530, guid: a30b473068b835f4fb6fdf0e37694d84,
+        type: 3}
+      propertyPath: SprintSpeed
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6696611646757579328, guid: a30b473068b835f4fb6fdf0e37694d84,
         type: 3}
@@ -6357,6 +6377,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosture: 0
+  climbPlayer: 0
+  leftHandPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &7847462089925073015
 GameObject:
   m_ObjectHideFlags: 0
@@ -6537,6 +6559,7 @@ MonoBehaviour:
   climbAngle: 45
   bodyHeight: 1
   valutDistance: 0.2
+  ledge: {x: 0, y: 0, z: 0}
 --- !u!1 &8180275714553320639
 GameObject:
   m_ObjectHideFlags: 0

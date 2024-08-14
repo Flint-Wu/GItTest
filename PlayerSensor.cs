@@ -34,7 +34,7 @@ public class PlayerSensor : MonoBehaviour
 
 
     float climbDistance;  //攀爬的实际距离，距离墙壁小于这个距离才会攀爬
-    Vector3 ledge;    //墙壁边缘
+    public Vector3 ledge;    //墙壁边缘
     Vector3 climbHitNormal;   //墙壁法线
     public Vector3 Ledge { get => ledge;}
     public Vector3 ClimbHitNormal { get => climbHitNormal;}

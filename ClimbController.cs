@@ -17,8 +17,15 @@ public class ClimbController : MonoBehaviour
         noClimbing,
         Climbing
     };
+    public enum ClimbPlayer
+    {
+        defaultPlayer,
+        child,
+        adult
+    };
     //[HideInInspector]
     public PlayerPosture playerPosture = PlayerPosture.noClimbing;
+    public ClimbPlayer climbPlayer = ClimbPlayer.defaultPlayer;
     //玩家运动状态
 
     #region 翻越相关
@@ -31,7 +38,7 @@ public class ClimbController : MonoBehaviour
     int highClimbParameter = 3;
     int currentClimbparameter;
 
-    Vector3 leftHandPosition;
+    public Vector3 leftHandPosition;
     Vector3 rightHandPosition;
     Vector3 rightFootPosition;
     private StarterAssetsInputs _input;
@@ -117,7 +124,7 @@ public class ClimbController : MonoBehaviour
                     break;
 
                 case PlayerSensor.NextPlayerMovement.climbHigh:
-
+                    leftHandPosition = playerSensor.Ledge + Vector3.Cross(playerSensor.ClimbHitNormal, Vector3.up) * 0.3f;        //右手的位置处于ledge右边0.3米
                     rightHandPosition = playerSensor.Ledge + Vector3.Cross(playerSensor.ClimbHitNormal, Vector3.up) * 0.3f;        //右手的位置处于ledge右边0.3米
                     rightFootPosition = playerSensor.Ledge + Vector3.down * 1.2f;   //脚的位置在顶端以下1.2米
                     isClimbReady = true;
@@ -125,13 +132,6 @@ public class ClimbController : MonoBehaviour
                     _input.jump = false;
                     break;
 
-                case PlayerSensor.NextPlayerMovement.vault:
-
-                    rightHandPosition = playerSensor.Ledge;     //右手位置居中
-                    isClimbReady = true;
-                    currentClimbparameter = vaultParameter;
-                    _input.jump = false;
-                    break;
             }
         }
     }
@@ -158,23 +158,43 @@ public class ClimbController : MonoBehaviour
         
 
             playerTransform.rotation = Quaternion.Lerp(playerTransform.rotation, Quaternion.LookRotation(-playerSensor.ClimbHitNormal), 0.5f);
-            if (info.IsName("ClimbLow"))
+            switch (climbPlayer)
             {
-                currentClimbparameter = defaultClimbParameter;
-                animator.MatchTarget(leftHandPosition, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.one, 0f), 0f, 0.1f);
-                animator.MatchTarget(leftHandPosition + Vector3.up * 0.18f, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.up, 0f), 0.1f, 0.3f);
-            }
-            else if (info.IsName("ClimbHigh"))
-            {
-                currentClimbparameter = defaultClimbParameter;
-                animator.MatchTarget(rightFootPosition, Quaternion.identity, AvatarTarget.RightFoot, new MatchTargetWeightMask(Vector3.one, 0f), 0f, 0.13f);
-                animator.MatchTarget(rightHandPosition, Quaternion.identity, AvatarTarget.RightHand, new MatchTargetWeightMask(Vector3.one, 0f), 0.2f, 0.32f);
-            }
-            else if (info.IsName("翻越"))
-            {
-                currentClimbparameter = defaultClimbParameter;
-                animator.MatchTarget(rightHandPosition, Quaternion.identity, AvatarTarget.RightHand, new MatchTargetWeightMask(Vector3.one, 0f), 0.1f, 0.2f);
-                animator.MatchTarget(rightHandPosition + Vector3.up * 0.1f, Quaternion.identity, AvatarTarget.RightHand, new MatchTargetWeightMask(Vector3.one, 0f), 0.35f, 0.45f);
+                case ClimbPlayer.defaultPlayer:   
+                    if (info.IsName("ClimbLow"))
+                    {
+                        currentClimbparameter = defaultClimbParameter;
+                        animator.MatchTarget(leftHandPosition, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.one, 0f), 0f, 0.1f);
+                        animator.MatchTarget(leftHandPosition + Vector3.up * 0.18f, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.up, 0f), 0.1f, 0.3f);
+                    }
+                    else if (info.IsName("ClimbHigh"))
+                    {
+                        currentClimbparameter = defaultClimbParameter;
+                        animator.MatchTarget(rightFootPosition, Quaternion.identity, AvatarTarget.RightFoot, new MatchTargetWeightMask(Vector3.one, 0f), 0f, 0.13f);
+                        animator.MatchTarget(rightHandPosition, Quaternion.identity, AvatarTarget.RightHand, new MatchTargetWeightMask(Vector3.one, 0f), 0.2f, 0.32f);
+                    }
+                    break;
+                
+                case ClimbPlayer.child:
+                    if (info.IsName("ClimbLow"))
+                    {
+                        currentClimbparameter = defaultClimbParameter;
+                        animator.MatchTarget(leftHandPosition, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.one, 0f), 0f, 0.6f);
+                        //animator.MatchTarget(leftHandPosition + Vector3.up * 0.18f, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.up, 0f), 0.6f, 0.9f);
+                    }
+                    else if (info.IsName("ClimbHigh"))
+                    {
+                        currentClimbparameter = defaultClimbParameter;
+                        animator.MatchTarget(leftHandPosition, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.one, 0f), 0f, 0.6f);
+                        //animator.MatchTarget(leftHandPosition + Vector3.up * 0.18f, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.up, 0f), 0.6f, 0.76f);
+                    }
+                    break;
+                // else if (info.IsName("翻越"))
+                // {
+                //     currentClimbparameter = defaultClimbParameter;
+                //     animator.MatchTarget(rightHandPosition, Quaternion.identity, AvatarTarget.RightHand, new MatchTargetWeightMask(Vector3.one, 0f), 0.1f, 0.2f);
+                //     animator.MatchTarget(rightHandPosition + Vector3.up * 0.1f, Quaternion.identity, AvatarTarget.RightHand, new MatchTargetWeightMask(Vector3.one, 0f), 0.35f, 0.45f);
+                // }
             }
         }
 
