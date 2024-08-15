@@ -27,6 +27,7 @@ public class ParabolaDrawer : MonoBehaviour
     private LayerMask _mask;
     private float _velocity;
     private float _gravity;
+    public GameObject UIcursor;
     private void Start()
     {
         linemat = lineRenderer.material;
@@ -53,7 +54,7 @@ public class ParabolaDrawer : MonoBehaviour
         _gravity = gravity;
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         angle = GetComponent<PlayerBow>().currentAngle;
         //theta为forward方向分别与x轴,z轴,y轴的夹角(全局坐标系)
@@ -79,6 +80,7 @@ public class ParabolaDrawer : MonoBehaviour
         projector2.enabled = isEnable;
         //reflectEffect.SetActive(isEnable);
         endEffect.SetActive(isEnable);
+        UIcursor.SetActive(isEnable);
     }
 
     private void GetProjector(Vector3 StartPoint,Vector3 EndPoint)
@@ -97,6 +99,9 @@ public class ParabolaDrawer : MonoBehaviour
         projector2.transform.forward = -projector.transform.forward;
         projector2.size = new Vector3(0.1f, 20f, distance-0.5f);
         projector2.pivot = new Vector3(0, 0f, distance / 2);
+
+        //位置为鼠标在UI上的位置
+        UIcursor.transform.position = Input.mousePosition; 
     }
     //通过LineRender实时绘制抛物线,通过
     private void GetCurve(Transform origin,LineRenderer lineRenderer,bool DoReflect = false)
@@ -144,7 +149,9 @@ public class ParabolaDrawer : MonoBehaviour
                     }
                     else
                     {
-                        endEffect.transform.position = hit.point;
+                        endEffect.transform.forward = normal;
+                        endEffect.transform.position = hit.point + normal * 0.01f;
+                        
                     }
                     // Debug.DrawRay(reflectPoint.position, reflectPoint.forward, Color.blue, 0.1f);
                     // isReflect = true;
