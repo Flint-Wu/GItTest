@@ -188,7 +188,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5c2b89cdc6a3145baf864141cc9279, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreText: {fileID: 1295315598}
+  CurrentUI: {fileID: 0}
+  GamePlay: {fileID: 0}
+  GameMenu: {fileID: 0}
+  Dialogue: {fileID: 0}
+  _playerInput: {fileID: 0}
+  _menuEnabled: 0
 --- !u!114 &123671531
 MonoBehaviour:
   m_ObjectHideFlags: 0

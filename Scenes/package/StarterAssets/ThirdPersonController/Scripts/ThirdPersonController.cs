@@ -79,22 +79,8 @@ namespace StarterAssets
 
         [Tooltip("What layers the character uses as ground")]
         public LayerMask GroundLayers;
-
-        // [Header("Cinemachine")]
-        // [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
-        // public GameObject CinemachineCameraTarget;
-
-        // [Tooltip("How far in degrees can you move the camera up")]
-        // public float TopClamp = 70.0f;
-
-        // [Tooltip("How far in degrees can you move the camera down")]
-        // public float BottomClamp = -30.0f;
-
-        // [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
-        // public float CameraAngleOverride = 0.0f;
-
-        // [Tooltip("For locking the camera position on all axis")]
-        // public bool LockCameraPosition = false;
+        [Header("地面类型")]
+        public string GroundedType = "石头";
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -211,7 +197,11 @@ namespace StarterAssets
                 transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
-
+            
+            if(Grounded)
+            {
+                GroundedType = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers)[0].gameObject.tag;
+            }
             // update animator if using character
             if (_hasAnimator)
             {
@@ -395,6 +385,23 @@ namespace StarterAssets
                 {
                     var index = Random.Range(0, FootstepAudioClips.Length);
                     AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                }
+            }
+        }
+
+        public void OnFootstepGrounded(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            {
+                foreach (var group in groundedAudioGroup)
+                {
+                    if (group.type == GroundedType)
+                    {
+                        var index = Random.Range(0, group.clipGroup.Length);
+                        Debug.Log(group.type);
+                        AudioSource.PlayClipAtPoint(group.clipGroup[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                        break;
+                    }
                 }
             }
         }
