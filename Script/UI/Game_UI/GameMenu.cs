@@ -19,7 +19,7 @@ public class GameMenu : MonoBehaviour
 
     private void Awake()
     {
-        rectTransform = FindObjectOfType<Menu_block>().transform.parent.GetComponentsInChildren<RectTransform>()[2];
+        rectTransform = FindObjectOfType<Menu_block>().transform.parent.GetComponentsInChildren<RectTransform>()[3];
 
 
         menu_Block = GetComponentInChildren<Menu_block>();
@@ -37,7 +37,7 @@ public class GameMenu : MonoBehaviour
     {
         menu_Block.Target_RectTransform = rect;
         int childCount = rectTransform.transform.childCount;
-        for (int i = 0; i < childCount; i++)
+        for (int i = 0; i < 1; i++)
         {
             Transform child = rectTransform.transform.GetChild(i);
             child.gameObject.SetActive(false);
@@ -46,7 +46,7 @@ public class GameMenu : MonoBehaviour
         rectTransform = rect;
 
         childCount = rectTransform.transform.childCount;
-        for (int i = 0; i < childCount; i++)
+        for (int i = 0; i < 1; i++)
         {
             Transform child = rectTransform.transform.GetChild(i);
             child.gameObject.SetActive(true);
