@@ -401,6 +401,7 @@ MonoBehaviour:
     characterName: A
   - characterPortrait: {fileID: 21300000, guid: 7c9e86300f1a97042b9eb5bc6810257f, type: 3}
     characterName: B
+  talkCount: 0
 --- !u!1 &8334473776138711684
 GameObject:
   m_ObjectHideFlags: 0
