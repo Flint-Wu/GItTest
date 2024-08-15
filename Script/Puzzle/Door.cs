@@ -15,6 +15,7 @@ public class Door : MonoBehaviour
     public DoorType type;
     // Start is called before the first frame update
     public float timeLimit = 10f;
+    private float _currentTime;
     public List<ButtonScript> Buttons;
     public List<GameObject> lights;
     //建立按钮与状态的映射
@@ -23,6 +24,7 @@ public class Door : MonoBehaviour
     public bool isOpen = false;
     public bool isInteract = false;//是否被触发过，time limited door用
     private Animator _animation;
+    public float ClipTime;
 
     void Start()
     {
@@ -34,6 +36,8 @@ public class Door : MonoBehaviour
             {
                 _ButtonStatus.Add(Buttons[i], lights[i]);
             }
+            _currentTime = timeLimit;
+            //获取关闭门的state,名字叫closedoor
         }
         else if (type == DoorType.single)
         {
@@ -43,6 +47,7 @@ public class Door : MonoBehaviour
             }
         }
 
+
         foreach (var button in Buttons)
         {
            if(button.isPressed)
@@ -51,25 +56,38 @@ public class Door : MonoBehaviour
             }
         }
 
+
+
     }
 
 
     // Update is called once per frame
-    void Update()
-    {
-        if(isOpen)
-        {
-            return;
-        }
+    void FixedUpdate() {
+        
         //如果是时间限制的门，时间减少
         if (type == DoorType.timelimited && isInteract)
         {
-            timeLimit -= Time.deltaTime;
-            if (timeLimit <= 0)
+            if (_animation.GetCurrentAnimatorStateInfo(0).IsName("opendoor"))
             {
-                ResetAll();
-                timeLimit = 10f;
+                //如果动画播放完毕，重置所有
+                if (_animation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+                {
+                    _animation.SetBool("isTimelimited", true);
+                }
             }
+            
+            if(_animation.GetCurrentAnimatorStateInfo(0).IsName("closedoor"))
+            {
+                _animation.speed = 1f / timeLimit;
+                _currentTime -= Time.deltaTime;
+                ClipTime = 1 - _animation.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                if (timeLimit <= 0)
+                {
+                    ResetAll();
+                    _currentTime = 10f;
+                }
+            }
+
             //this.GetComponentInChildren<TextMeshPro>().text = timeLimit.ToString("F2");
         }   
     }
@@ -81,14 +99,7 @@ public class Door : MonoBehaviour
         //播放开门动画，tag为opendoor
         _animation.CrossFade("opendoor", 0.1f);
     }
-    void CloseDoor()
-    {
-        isOpen = false;
-        isInteract = false;
-        //更改closedoor的speed为 0.5/Timelimit
-        _animation.speed = 1/ timeLimit;
-        _animation.CrossFade("closedoor", 0.1f);
-    }
+    
     public void CheckButton()
     {
         bool allPressed = true;
@@ -123,5 +134,8 @@ public class Door : MonoBehaviour
             button.Rest();
         }
         isInteract = false;
+        isOpen = false;
+        _animation.speed = 1f;
+        _animation.CrossFade("empty", 0f);
     }
 }
