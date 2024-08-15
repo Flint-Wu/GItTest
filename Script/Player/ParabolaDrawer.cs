@@ -42,7 +42,7 @@ public class ParabolaDrawer : MonoBehaviour
         // reflectLine.gameObject.transform.rotation = Quaternion.identity;
 
         // reflectEffect = Instantiate(reflectEffect, Vector3.zero, Quaternion.identity);
-        endEffect = Instantiate(endEffect, Vector3.zero, Quaternion.identity);
+        //endEffect = Instantiate(endEffect, Vector3.zero, Quaternion.identity);
         EnableLineRenderer(false);
 
         

@@ -36,18 +36,28 @@ public class PlayerBow : MonoBehaviour
     private StarterAssetsInputs inputs;
     private Animator _animator;
     public bool isPaused = false;
+    [Header("射击音效")]
+    public AudioClip chargeStartSound;
+    public AudioClip chargingSound;
+    public AudioClip fireSound;
     private ParabolaDrawer _pd;
     private Transform _playerTransform;
+    private AudioSource _audioSource;
 
     void Start()
     {
         inputs = this.transform.root.GetComponent<StarterAssetsInputs>();
         //世界原点生成chargeLine
-        ChargeLine = Instantiate(ChargeLine, Vector3.zero, Quaternion.identity);
+        //ChargeLine = Instantiate(ChargeLine, Vector3.zero, Quaternion.identity);
         _animator = this.transform.root.GetComponent<Animator>();
         _pd = this.GetComponentInChildren<ParabolaDrawer>();
         _pd.InitPar(mask,velocity,gravity);
         _playerTransform = this.transform.root;
+
+
+        _audioSource = this.AddComponent<AudioSource>();
+        _audioSource.clip = chargingSound;
+        _audioSource.loop = true;
     }
 
     // Update is called once per frame
@@ -90,11 +100,16 @@ public class PlayerBow : MonoBehaviour
             //FirePoint以player为，angle为当前角度绕forward旋转
             firePoint.localRotation = Quaternion.Euler(new Vector3(-currentAngle, -90f, 0));
 
+            if (!_audioSource.isPlaying)
+                _audioSource.Play();
+
         }
         else
         {
             // 如果没有蓄力，保持力度值为最小值
             AimTransform.position = new Vector3(hitPos.x, transform.position.y, hitPos.z);
+
+            _audioSource.Stop();
         }
 
 
@@ -172,16 +187,26 @@ public class PlayerBow : MonoBehaviour
         Vector3 EndPos = _playerTransform.position - firePoint.forward * (currentAngle+10f)*0.2f;
         EndPos.y = _playerTransform.position.y;
         ChargeLine.SetPosition(1, EndPos);
-        ChargeLine.widthCurve = AnimationCurve.Linear(0, 0.2f, 1, 0.2f+currentAngle/30f);
+        // ChargeLine.widthCurve = AnimationCurve.Linear(0, 0.2f, 1, 0.2f+currentAngle/30f);
         
-        //设置颜色渐变,使得力度越大，颜色越接近绿色
-        Color endColor = Color.Lerp(Color.red, Color.green, currentAngle / MaxAngle);
-        Gradient ColorGradient = new Gradient();
-        ColorGradient.SetKeys(  new GradientColorKey[] { new GradientColorKey(Color.red, 0.0f), new GradientColorKey(endColor, 1.0f) }, 
-                                new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) });
-        ChargeLine.colorGradient = ColorGradient;
+        // //设置颜色渐变,使得力度越大，颜色越接近绿色
+        // Color endColor = Color.Lerp(Color.red, Color.green, currentAngle / MaxAngle);
+        // Gradient ColorGradient = new Gradient();
+        // ColorGradient.SetKeys(  new GradientColorKey[] { new GradientColorKey(Color.red, 0.0f), new GradientColorKey(endColor, 1.0f) }, 
+        //                         new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(1.0f, 1.0f) });
+        // ChargeLine.colorGradient = ColorGradient;
 
         return currentAngle;
+    }
+
+    public void StartChargeSound()
+    {
+        AudioSource.PlayClipAtPoint(chargeStartSound, firePoint.position);
+    }
+
+    public void FireSound()
+    {
+        AudioSource.PlayClipAtPoint(fireSound, firePoint.position);
     }
 
 }

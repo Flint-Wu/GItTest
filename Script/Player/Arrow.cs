@@ -20,9 +20,11 @@ public class Arrow : MonoBehaviour
     private float _gravity;
     public GameObject hitEffect;
     public AudioClip hitSound;
+    public AudioClip arrowSound;
     void OnEnable() {
         Destroy(this.gameObject,10f);
         tracer = this.gameObject.GetComponentInChildren<TrailRenderer>();
+        AudioSource.PlayClipAtPoint(arrowSound,this.transform.position);
     }
     public void InitPar(Vector3 _predictPos,Vector3 _predictForward,LayerMask mask,float velocity,float gravity)
     {

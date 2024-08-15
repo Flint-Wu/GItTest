@@ -1,4 +1,6 @@
-﻿ using UnityEngine;
+﻿using System.Collections.Generic;
+using OpenCover.Framework.Model;
+using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -14,6 +16,23 @@ namespace StarterAssets
 #endif
     public class ThirdPersonController : MonoBehaviour
     {
+
+        [System.Serializable]
+        public class AudioGroup
+        {
+            // Add at least one accessor (get or set) to the property
+            public AudioClip audioClip;
+            public string name;
+        }
+
+        [System.Serializable]
+        public class GroundedAudioGroup
+        {
+            // Add at least one accessor (get or set) to the property
+            public string type;
+            public AudioClip[] clipGroup;
+        }
+
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -30,6 +49,8 @@ namespace StarterAssets
 
         public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
+        public GroundedAudioGroup[] groundedAudioGroup;
+        public AudioGroup[] audioGroups;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
@@ -377,7 +398,17 @@ namespace StarterAssets
                 }
             }
         }
-
+        public void PlayAudio(string name)
+        {
+            foreach (var audioGroup in audioGroups)
+            {
+                if (audioGroup.name == name)
+                {
+                    AudioSource.PlayClipAtPoint(audioGroup.audioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    break;
+                }
+            }
+        }
         private void OnLand(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
