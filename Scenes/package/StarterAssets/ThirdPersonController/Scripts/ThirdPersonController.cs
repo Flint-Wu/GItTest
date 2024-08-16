@@ -18,15 +18,7 @@ namespace StarterAssets
     {
 
         [System.Serializable]
-        public class AudioGroup
-        {
-            // Add at least one accessor (get or set) to the property
-            public AudioClip audioClip;
-            public string name;
-        }
-
-        [System.Serializable]
-        public class GroundedAudioGroup
+        public class RandomAudioGroup
         {
             // Add at least one accessor (get or set) to the property
             public string type;
@@ -49,9 +41,9 @@ namespace StarterAssets
 
         public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
-        public GroundedAudioGroup[] groundedAudioGroup;
-        public GroundedAudioGroup[] runAudioGroup;
-        public AudioGroup[] audioGroups;
+        public RandomAudioGroup[] groundedAudioGroup;
+        public RandomAudioGroup[] runAudioGroup;
+        public RandomAudioGroup[] randomAudioGroup;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
@@ -413,26 +405,24 @@ namespace StarterAssets
         
         public void OnFootstepRun(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            foreach (var audioGroup in runAudioGroup)
             {
-                foreach (var audioGroup in runAudioGroup)
+                if (audioGroup.type == GroundedType)
                 {
-                    if (audioGroup.type == GroundedType)
-                    {
-                        var index = Random.Range(0, audioGroup.clipGroup.Length);
-                        AudioSource.PlayClipAtPoint(audioGroup.clipGroup[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
-                        break;
-                    }
+                    var index = Random.Range(0, audioGroup.clipGroup.Length);
+                    AudioSource.PlayClipAtPoint(audioGroup.clipGroup[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    break;
                 }
             }
         }
         public void PlayAudio(string name)
         {
-            foreach (var audioGroup in audioGroups)
+            foreach (var audioGroup in randomAudioGroup)
             {
-                if (audioGroup.name == name)
+                if (audioGroup.type == name)
                 {
-                    AudioSource.PlayClipAtPoint(audioGroup.audioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    var index = Random.Range(0, audioGroup.clipGroup.Length);
+                    AudioSource.PlayClipAtPoint(audioGroup.clipGroup[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                     break;
                 }
             }

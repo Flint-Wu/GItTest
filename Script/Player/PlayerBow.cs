@@ -180,7 +180,7 @@ public class PlayerBow : MonoBehaviour
     public float GetCurrentAngle()
     {
         //跟据鼠标位置计算射击力度
-        this.currentAngle = Mathf.Clamp(Vector3.Distance(this.transform.position, hitPos)*angleSensitive, MinAngle, MaxAngle);
+        this.currentAngle = Mathf.Clamp(MaxAngle - Vector3.Distance(this.transform.position, hitPos)*angleSensitive, MinAngle, MaxAngle);
 
         //绘制射击力度线
         ChargeLine.SetPosition(0, _playerTransform.position);

@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
     public List<GameObject> lights;
     //建立按钮与状态的映射
     private Dictionary<ButtonScript, GameObject> _ButtonStatus = new Dictionary<ButtonScript, GameObject>();
-    public Material[] lightMaterial;//0 = Default, 1 = 开门
+    //public Material[] lightMaterial;//0 = Default, 1 = 开门
     public bool isOpen = false;
     public bool isInteract = false;//是否被触发过，time limited door用
     private Animator _animation;
@@ -55,6 +55,7 @@ public class Door : MonoBehaviour
                 LightOn(button);
             }
         }
+
 
 
 
@@ -119,13 +120,13 @@ public class Door : MonoBehaviour
     }
     public void LightOn(ButtonScript button)
     {
-        Renderer renderer = _ButtonStatus[button].GetComponent<Renderer>();
-        renderer.material = lightMaterial[1];
+        _ButtonStatus[button].GetComponent<Animator>().CrossFade("Wireline_On", 0.1f);
+        
     }
     public void LightOff(ButtonScript button)
     {
-        Renderer renderer = _ButtonStatus[button].GetComponent<Renderer>();
-        renderer.material = lightMaterial[0];
+        // Renderer renderer = _ButtonStatus[button].GetComponent<Renderer>();
+        // renderer.material = lightMaterial[0];
     }
     public void ResetAll()
     {

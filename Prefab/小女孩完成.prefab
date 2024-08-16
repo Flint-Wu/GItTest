@@ -342,9 +342,43 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 38cf80f9055865441a9ad2d672c753d5, type: 3}
     - {fileID: 8300000, guid: da69d7aa5d928314fbbc9c4661a85d4e, type: 3}
     - {fileID: 8300000, guid: bcfbf2f3b44715e4093f6bd709f2edc7, type: 3}
-  audioGroups:
-  - audioClip: {fileID: 8300000, guid: 361c8bd0800064b44a630e81f553590b, type: 3}
-    name: jump
+  runAudioGroup:
+  - type: "\u77F3\u5934"
+    clipGroup:
+    - {fileID: 8300000, guid: 4b050c4408e5fa946b412d026256e35c, type: 3}
+    - {fileID: 8300000, guid: e71c509e476fce9448976f6b7fec32ee, type: 3}
+    - {fileID: 8300000, guid: 3e64f2e0d4bd22f4f8e6227a1181bac3, type: 3}
+    - {fileID: 8300000, guid: ab214a699ca74f7438feef846d3546bb, type: 3}
+  - type: "\u96EA\u5730"
+    clipGroup:
+    - {fileID: 8300000, guid: 068ed35eac36d5049a5e1aac87705a5e, type: 3}
+    - {fileID: 8300000, guid: d7e7a18113e19cc4a8de99ee8f9479ad, type: 3}
+    - {fileID: 8300000, guid: bdb6b7a6c7bb5b4439014e4d9054404b, type: 3}
+    - {fileID: 8300000, guid: 4e60685f121add147b181adbe2bb829a, type: 3}
+  - type: "\u8349\u5730"
+    clipGroup:
+    - {fileID: 8300000, guid: 7e56f94a72cff184b86b1393be1a053a, type: 3}
+    - {fileID: 8300000, guid: 1537cddc885db6b4b8888742856d6e8d, type: 3}
+    - {fileID: 8300000, guid: 91e226486be23434ea2b04789bb08e03, type: 3}
+    - {fileID: 8300000, guid: 977081fe28eee0f4a983dd9ce94f57b3, type: 3}
+  randomAudioGroup:
+  - type: jump
+    clipGroup:
+    - {fileID: 8300000, guid: 361c8bd0800064b44a630e81f553590b, type: 3}
+  - type: slowclimb
+    clipGroup:
+    - {fileID: 8300000, guid: 7b12ce59b58dacb4099e5dbd06f6ed45, type: 3}
+  - type: climb
+    clipGroup:
+    - {fileID: 8300000, guid: 7ea0b6a3bd15ea5458395ec4b9a496b6, type: 3}
+    - {fileID: 8300000, guid: ea758a69713490542a6c4924cd24bb34, type: 3}
+    - {fileID: 8300000, guid: 5f2e048ff323aad4eaf801e6ff4b7ed0, type: 3}
+    - {fileID: 8300000, guid: 1d83aaf56c509e24ba28ae53fd1821e9, type: 3}
+  - type: rockfall
+    clipGroup:
+    - {fileID: 8300000, guid: b01a06cb760b1ab40b70ebf549b4151f, type: 3}
+    - {fileID: 8300000, guid: 6201ec7b04c7b7447b2b79de9582dd1c, type: 3}
+    - {fileID: 8300000, guid: 13c7f038b719ffc4e817b2b2a2370fd7, type: 3}
   FootstepAudioVolume: 1
   JumpHeight: 1.2
   Gravity: -15
