@@ -120,7 +120,7 @@ public class Door : MonoBehaviour
     }
     public void LightOn(ButtonScript button)
     {
-        _ButtonStatus[button].GetComponent<Animator>().CrossFade("Wireline_On", 0.1f);
+        _ButtonStatus[button].GetComponent<Animator>().CrossFade("wireline_on", 0.1f);
         
     }
     public void LightOff(ButtonScript button)

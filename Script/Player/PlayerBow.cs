@@ -61,7 +61,7 @@ public class PlayerBow : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //从屏幕中心发射一条射线
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -72,7 +72,6 @@ public class PlayerBow : MonoBehaviour
             hitPos = hit.point;
             Debug.DrawLine(ray.origin, hit.point, Color.red);
             //自动瞄准逻辑
-            
         }
 
         if (fireRate > 0)
@@ -90,7 +89,9 @@ public class PlayerBow : MonoBehaviour
             currentAngle = GetCurrentAngle();
             //Debug.Log("currentForce: " + currentForce);
             float y = Vector3.Distance(firePoint.position, AimTransform.position)*Mathf.Tan(currentAngle*Mathf.Deg2Rad);
+            y = Mathf.Clamp(y, 0, 1e3f);
             AimTransform.position = new Vector3(2*transform.position.x-hitPos.x, transform.position.y + y,2*transform.position.z-hitPos.z);
+        
             // AimTransform.position = new Vector3(hitPos.x, transform.position.y + y,hitPos.z);
 
             //旋转player的rotation方向
