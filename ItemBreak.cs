@@ -20,12 +20,18 @@ public class ItemBreak : MonoBehaviour
 
     public void Break()
     {
-        AudioSource.PlayClipAtPoint(breakSound,transform.position);
+        
         //Destroy(this.gameObject);
         for(int i = 0; i < 3; i++)
         {
-            GameObject coin = Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            GameObject coin = Instantiate(coinPrefab,transform.position + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f), 0),Quaternion.identity);
             //coin.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100, 100), Random.Range(100, 300)));
         }
+        AudioSource.PlayClipAtPoint(breakSound,transform.position);
+        Invoke("DisableCollider",1f);
+    }
+    void DisableCollider()
+    {
+        this.GetComponent<Collider>().enabled = false;
     }
 }
