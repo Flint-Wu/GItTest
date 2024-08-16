@@ -7,18 +7,15 @@ public class ButtonScript : MonoBehaviour
 {
     // Start is called before the first frame update
     private SphereCollider Range;
-    public Material[] ButtonMaterial;//0 = Default, 1 = 可按, 2 = 按下
+    //public Material[] ButtonMaterial;//0 = Default, 1 = 可按, 2 = 按下
     public bool isPressed = false;
     public bool isInRange = false;
     public Door door;
+    public AudioClip PressSound;
     void Start()
     {
         Range = GetComponent<SphereCollider>();
         door = this.transform.root.GetComponent<Door>();
-        if(isPressed)
-        {
-            this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[2];
-        }
     }
 
     // Update is called once per frame
@@ -39,7 +36,7 @@ public class ButtonScript : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Player" && !isPressed) {
             Debug.Log("Enter Range");
-            this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[1];
+            //this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[1];
             isInRange = true;
             
             EventManager.InteractEvent += Press;
@@ -49,7 +46,7 @@ public class ButtonScript : MonoBehaviour
     private void OnTriggerExit(Collider other) {
         if (other.gameObject.tag == "Player" && !isPressed) {
             Debug.Log("Exit Range");
-            this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[0];
+            //this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[0];
             isInRange = false;
 
             EventManager.InteractEvent -= Press;
@@ -60,7 +57,7 @@ public class ButtonScript : MonoBehaviour
     {
         if (isPressed) 
         {
-            this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[0];
+            //this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[0];
             isPressed = false;
             if(door.type == Door.DoorType.mutiple || door.type == Door.DoorType.timelimited)
             {
@@ -80,10 +77,15 @@ public class ButtonScript : MonoBehaviour
     public void PressButton() 
     {
         if (isPressed) return;
-        this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[2];
+        //this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[2];
         isPressed = true;
         EventManager.CallUpdateUIEvent(10);
         door.CheckButton();
+
+        if(PressSound != null)
+        {
+            AudioSource.PlayClipAtPoint(PressSound, this.transform.position);
+        }
 
         if(door.type == Door.DoorType.mutiple || door.type == Door.DoorType.timelimited)
         {

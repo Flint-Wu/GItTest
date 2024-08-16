@@ -11,6 +11,7 @@ public class ParabolaDrawer : MonoBehaviour
     public float angle;
     //private List<GameObject> arrows = new List<GameObject>();
     public LineRenderer lineRenderer;
+
     //public LineRenderer reflectLine;
     [Tooltip("用来储存地面投影线的,1是绘制最后到墙上的线,2是绘制到地面的线,这是为了解决落地点比较低的情况下投影线绘制不完全的问题")]
     public DecalProjector projector;
@@ -22,6 +23,7 @@ public class ParabolaDrawer : MonoBehaviour
     //public bool isReflect = false;
     //public Transform reflectPoint;
     public GameObject endEffect;
+
     [Tooltip("用来储存反射特效")]
     //public GameObject reflectEffect;
     private LayerMask _mask;
@@ -101,7 +103,9 @@ public class ParabolaDrawer : MonoBehaviour
         projector2.pivot = new Vector3(0, 0f, distance / 2);
 
         //位置为鼠标在UI上的位置
+        if (UIcursor != null){
         UIcursor.transform.position = Input.mousePosition; 
+        }
     }
     //通过LineRender实时绘制抛物线,通过
     private void GetCurve(Transform origin,LineRenderer lineRenderer,bool DoReflect = false)

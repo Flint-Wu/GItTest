@@ -43,6 +43,7 @@ public class PlayerBow : MonoBehaviour
     private ParabolaDrawer _pd;
     private Transform _playerTransform;
     private AudioSource _audioSource;
+    public GameObject endCursor;
 
     void Start()
     {
@@ -85,7 +86,7 @@ public class PlayerBow : MonoBehaviour
             _pd.InitPar(mask,velocity,gravity);
             // 如果正在蓄力，增加力度值
             // 如果hitpos和raycastpoint的距离向量和firepoint的forward方向向量的点积大于0，说明向量同向，可以正确蓄力
-            if (Vector3.Dot((raycastPoint - hitPos).normalized, firePoint.forward) < 0) return;
+            //if (Vector3.Dot((raycastPoint - hitPos).normalized, firePoint.forward) < 0) return;
             currentAngle = GetCurrentAngle();
             //Debug.Log("currentForce: " + currentForce);
             float y = Vector3.Distance(firePoint.position, AimTransform.position)*Mathf.Tan(currentAngle*Mathf.Deg2Rad);
@@ -188,6 +189,8 @@ public class PlayerBow : MonoBehaviour
         Vector3 EndPos = _playerTransform.position - firePoint.forward * (currentAngle+10f)*0.2f;
         EndPos.y = _playerTransform.position.y;
         ChargeLine.SetPosition(1, EndPos);
+        endCursor.transform.position = EndPos+new Vector3(0,0.1f,0);
+
         // ChargeLine.widthCurve = AnimationCurve.Linear(0, 0.2f, 1, 0.2f+currentAngle/30f);
         
         // //设置颜色渐变,使得力度越大，颜色越接近绿色
