@@ -37,7 +37,7 @@ ModelImporter:
       takeName: 1645750473424_TempMotion
       internalID: -2850169869039720563
       firstFrame: 0
-      lastFrame: 155
+      lastFrame: 95
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -45,7 +45,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
@@ -57,28 +57,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.21751101
+      - time: 0.31568456
         functionName: OnFootstepGrounded
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5082199
-        functionName: OnFootstepGrounded
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.80653965
-        functionName: OnFootstepGrounded
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.99127215
+      - time: 0.7719186
         functionName: OnFootstepGrounded
         data: 
         objectReferenceParameter: {instanceID: 0}

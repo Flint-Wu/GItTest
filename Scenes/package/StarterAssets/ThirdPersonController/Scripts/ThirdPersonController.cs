@@ -50,6 +50,7 @@ namespace StarterAssets
         public AudioClip LandingAudioClip;
         public AudioClip[] FootstepAudioClips;
         public GroundedAudioGroup[] groundedAudioGroup;
+        public GroundedAudioGroup[] runAudioGroup;
         public AudioGroup[] audioGroups;
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
@@ -393,13 +394,33 @@ namespace StarterAssets
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
+
                 foreach (var group in groundedAudioGroup)
                 {
                     if (group.type == GroundedType)
                     {
                         var index = Random.Range(0, group.clipGroup.Length);
                         Debug.Log(group.type);
+                        
                         AudioSource.PlayClipAtPoint(group.clipGroup[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                        break;
+                    }
+                    
+                }
+
+            }
+        }
+        
+        public void OnFootstepRun(AnimationEvent animationEvent)
+        {
+            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            {
+                foreach (var audioGroup in runAudioGroup)
+                {
+                    if (audioGroup.type == GroundedType)
+                    {
+                        var index = Random.Range(0, audioGroup.clipGroup.Length);
+                        AudioSource.PlayClipAtPoint(audioGroup.clipGroup[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
                         break;
                     }
                 }
