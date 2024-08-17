@@ -30,12 +30,10 @@ public class ParabolaDrawer : MonoBehaviour
     private float _velocity;
     private float _gravity;
     public GameObject UIcursor;
-    private GameObject _endCursor;
     private void Start()
     {
         linemat = lineRenderer.material;
         mainTex = Shader.PropertyToID("_MainTex");
-        _endCursor = GetComponent<PlayerBow>().endCursor;
         // reflectmat = reflectLine.material;
         // reflectTex = Shader.PropertyToID("_MainTex");
         
@@ -85,7 +83,6 @@ public class ParabolaDrawer : MonoBehaviour
         //reflectEffect.SetActive(isEnable);
         endEffect.SetActive(isEnable);
         UIcursor.SetActive(isEnable);
-        _endCursor.SetActive(isEnable);
     }
 
     private void GetProjector(Vector3 StartPoint,Vector3 EndPoint)
