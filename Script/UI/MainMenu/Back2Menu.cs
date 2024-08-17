@@ -15,7 +15,8 @@ public class Back2Menu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            menu.SetActive(true);
+            if (menu != null)
+                menu.SetActive(true);
             current.SetActive(false);
         }
     }

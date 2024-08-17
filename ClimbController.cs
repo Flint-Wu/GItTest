@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using StarterAssets;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ClimbController : MonoBehaviour
 {
