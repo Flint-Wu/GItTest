@@ -193,7 +193,22 @@ namespace StarterAssets
             
             if(Grounded)
             {
-                GroundedType = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers)[0].gameObject.tag;
+                if (Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers).Length > 0)
+                {
+                    Collider[] colliders = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers);
+                    foreach (var collider in colliders)
+                    {
+                        if (collider.gameObject.tag == "石头" )
+                        {
+                            GroundedType = collider.gameObject.tag;
+                            break;
+                        }
+                        else
+                        {
+                            GroundedType = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers)[0].gameObject.tag;
+                        }
+                    }
+                }
             }
             // update animator if using character
             if (_hasAnimator)
