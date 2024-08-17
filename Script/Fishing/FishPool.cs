@@ -36,13 +36,14 @@ public class FishPool : MonoBehaviour
     //生成鱼的目标点
     public void StartFish()
     {
+        fishingRod.gameObject.SetActive(true);
         FishHookTransform = fishingRod.gameObject.transform.Find("鱼钩");
         int index = Random.Range(0, fishes.Count);
         fishes[index].FindTarget();
         _player.GetComponent<Animator>().CrossFade("fishingstart", 0.1f);
         _player.GetComponent<Animator>().SetBool("isFishing", true);
-        _player.GetComponent<InventoryManger>().EnableBow(false);
-        fishingRod.gameObject.SetActive(true);
+        //_player.GetComponent<InventoryManger>().EnableBow(false);
+        
         EventManager.InteractEvent -= StartFish;
         EventManager.InteractEvent += ExitFish;
     }
@@ -50,7 +51,7 @@ public class FishPool : MonoBehaviour
     public void ExitFish()
     {
         _player.GetComponent<Animator>().SetBool("isFishing", false);
-        _player.GetComponent<InventoryManger>().EnableBow(true);;
+        //_player.GetComponent<InventoryManger>().EnableBow(true);;
         fishingRod.gameObject.SetActive(false);
     }
     void OnTriggerEnter(Collider other)

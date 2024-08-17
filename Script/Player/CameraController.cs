@@ -36,6 +36,7 @@ namespace StylizedVolumetricLighting
 			
 			_movingClockWise = -1;
 			_lastStationaryAngle = this.transform.eulerAngles.y;
+			target = GameObject.FindGameObjectWithTag("Player").transform;
 			
 
 			// StartCoroutine(TempCoroutine());
