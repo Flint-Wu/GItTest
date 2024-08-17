@@ -312,7 +312,7 @@ namespace StarterAssets
                 }
 
                 // Jump
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+                if (_input.jump && _jumpTimeoutDelta <= 0.0f&&!_animator.GetBool("isFishing"))
                 {
                     _playerSensor.nextMovement = _playerSensor.ClimbDetection(transform, new Vector3(_input.move.x, 0.0f, _input.move.y), 0f);
                     if (_playerSensor.nextMovement == PlayerSensor.NextPlayerMovement.jump)
