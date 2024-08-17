@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour
     public GameObject GamePlay;
     public GameObject GameMenu;
     public GameObject Dialogue;
+    public GameObject cursor;
 
     public StarterAssetsInputs _playerInput;
     public bool _menuEnabled;
@@ -44,6 +45,15 @@ public class UIManager : MonoBehaviour
 
             if (!GameMenu.activeInHierarchy)
                 CurrentUI = GameMenu;
+        }
+
+        if (GameMenu.activeSelf)
+        {
+            cursor.SetActive(false);
+        }
+        else
+        {
+            cursor.SetActive(true);
         }
     }
 
