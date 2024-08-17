@@ -93,7 +93,7 @@ public class Arrow : MonoBehaviour
     {
         if (other.collider.gameObject.tag == "Button")
         {
-            other.collider.gameObject.GetComponentInChildren<ButtonScript>().PressButton();
+            other.collider.gameObject.transform.parent.GetComponentInChildren<ButtonScript>().PressButton();
         }
 
         GameObject effect = Instantiate(hitEffect,other.contacts[0].point,Quaternion.identity);

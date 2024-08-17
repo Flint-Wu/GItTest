@@ -12,10 +12,15 @@ public class ButtonScript : MonoBehaviour
     public bool isInRange = false;
     public Door door;
     public AudioClip PressSound;
+    bool _hasAnimator = false;
     void Start()
     {
         Range = GetComponent<SphereCollider>();
         door = this.transform.root.GetComponent<Door>();
+        if(this.transform.parent.GetComponent<Animator>() != null)
+        {
+            _hasAnimator = true;
+        }
     }
 
     // Update is called once per frame
@@ -58,6 +63,10 @@ public class ButtonScript : MonoBehaviour
         if (isPressed) 
         {
             //this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[0];
+            if(_hasAnimator)
+            {
+                this.transform.parent.GetComponent<Animator>().CrossFade("closedoor", 0.1f);
+            }
             isPressed = false;
             if(door.type == Door.DoorType.mutiple || door.type == Door.DoorType.timelimited)
             {
@@ -77,7 +86,10 @@ public class ButtonScript : MonoBehaviour
     public void PressButton() 
     {
         if (isPressed) return;
-        //this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[2];
+        if(_hasAnimator)
+        {
+            this.transform.parent.GetComponent<Animator>().CrossFade("opendoor", 0.1f);
+        }
         isPressed = true;
         EventManager.CallUpdateUIEvent(10);
         door.CheckButton();
