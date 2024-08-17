@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 
 public class FishingRod : MonoBehaviour
@@ -24,11 +25,13 @@ public class FishingRod : MonoBehaviour
     public bool isHooked = false;
     public FishAI hookedFish;
     // Start is called before the first frame update
+    private StarterAssetsInputs inputs;
     void Start()
     {
         fishrodLine = GetComponent<LineRenderer>();
         BeginTransform = transform.GetChild(0);
         EndTransform = transform.GetChild(1);
+        inputs = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssetsInputs>();
     }
 
     // Update is called once per frame
@@ -125,6 +128,10 @@ public class FishingRod : MonoBehaviour
                 {
                     ReleaseFish();
                 }
+            }
+            if(inputs.jump)
+            {
+                inputs.jump = false;
             }
         }
     }
