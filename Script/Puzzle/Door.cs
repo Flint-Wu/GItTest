@@ -82,7 +82,7 @@ public class Door : MonoBehaviour
                 _animation.speed = 1f / timeLimit;
                 _currentTime -= Time.deltaTime;
                 ClipTime = 1 - _animation.GetCurrentAnimatorStateInfo(0).normalizedTime;
-                if (timeLimit <= 0)
+                if (_currentTime <= 0)
                 {
                     ResetAll();
                     _currentTime = 10f;
@@ -127,6 +127,7 @@ public class Door : MonoBehaviour
     {
         // Renderer renderer = _ButtonStatus[button].GetComponent<Renderer>();
         // renderer.material = lightMaterial[0];
+        _ButtonStatus[button].GetComponent<Animator>().CrossFade("wireline_off", 0.1f);
     }
     public void ResetAll()
     {

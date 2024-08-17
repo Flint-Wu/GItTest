@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3831028947882657562}
   - component: {fileID: 1355156663129617360}
   - component: {fileID: 2244965553889834354}
+  - component: {fileID: 5591889132029063656}
   m_Layer: 0
   m_Name: "\u80FD\u91CF\u7403v2\u84DD"
   m_TagString: Untagged
@@ -109,6 +110,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.8791236, y: 2.2193956, z: 0.49617398}
   m_Center: {x: -0.000015318394, y: 0.0000037999102, z: 0.24808702}
+--- !u!95 &5591889132029063656
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 706651442034217477}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb53d6d60fa070d44bf0d9c8795b6933, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4118561377637577398
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,11 +379,10 @@ GameObject:
   - component: {fileID: 803578874221779598}
   - component: {fileID: 8126111158853421104}
   - component: {fileID: 5015724788682180616}
-  - component: {fileID: 4820983049112359663}
   - component: {fileID: 1843998564246071150}
   m_Layer: 0
   m_Name: "\u7403\u4F53"
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -458,59 +479,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4820983049112359663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7609214856496912001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91fc9178a0b0c3d4bb8b6d91b16d9893, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerOptions:
-    triggerType: 0
-    minimumCollisionForce: 0
-    filterCollisionsByTag: 1
-    triggerAllowedTags:
-    - Arrow
-    triggerKey: 0
-  fractureOptions:
-    fragmentCount: 10
-    xAxis: 1
-    yAxis: 1
-    zAxis: 1
-    detectFloatingFragments: 0
-    asynchronous: 0
-    insideMaterial: {fileID: 2100000, guid: 3c197d3bcc26b3143a6fc097ff5eb820, type: 2}
-    textureScale: {x: 1, y: 1}
-    textureOffset: {x: 0, y: 0}
-  refractureOptions:
-    enableRefracturing: 0
-    maxRefractureCount: 1
-    invokeCallbacks: 0
-  callbackOptions:
-    onFracture:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2104719485531480760}
-          m_TargetAssemblyTypeName: ButtonScript, Assembly-CSharp
-          m_MethodName: PressButton
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    onCompleted:
-      m_PersistentCalls:
-        m_Calls: []
-  currentRefractureCount: 0
 --- !u!135 &1843998564246071150
 SphereCollider:
   m_ObjectHideFlags: 0
