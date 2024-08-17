@@ -179,7 +179,7 @@ public class ClimbController : MonoBehaviour
                     if (info.IsName("ClimbLow"))
                     {
                         currentClimbparameter = defaultClimbParameter;
-                        animator.MatchTarget(leftHandPosition, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.one, 0f), 4f, 6f);
+                        animator.MatchTarget(leftHandPosition, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.one, 0f), 0f, 0.6f);
                         //animator.MatchTarget(leftHandPosition + Vector3.up * 0.18f, Quaternion.identity, AvatarTarget.LeftHand, new MatchTargetWeightMask(Vector3.up, 0f), 0.6f, 0.9f);
                     }
                     else if (info.IsName("ClimbHigh"))
