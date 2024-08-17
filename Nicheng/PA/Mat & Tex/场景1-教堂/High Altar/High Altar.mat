@@ -105,7 +105,7 @@ Material:
     - BACKFACE_NORMAL_MODE: 1
     - EFFECT_BILLBOARD: 0
     - EFFECT_EXTRA_TEX: 1
-    - _AO: 0
+    - _AO: 1
     - _AlphaClip: 0
     - _AlphaClipThreshold: 0.33
     - _AlphaToMask: 0

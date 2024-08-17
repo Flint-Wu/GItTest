@@ -131,6 +131,16 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+
+            // //如果当前场景为Scence2，则隐藏菜单
+            // if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "patest")
+            // {
+            //     this.gameObject.transform.position = new Vector3(-70f,5f,-30f);
+            // }
+            // else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "scence0817")
+            // {
+            //     this.gameObject.transform.position = new Vector3(-46f,2f,-2f);
+            // }
         }
 
         private void Start()
@@ -153,6 +163,8 @@ namespace StarterAssets
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
         }
+
+
 
         private void Update()
         {
@@ -449,5 +461,6 @@ namespace StarterAssets
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
         }
+
     }
 }

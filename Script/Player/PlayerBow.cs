@@ -47,13 +47,13 @@ public class PlayerBow : MonoBehaviour
 
     void Start()
     {
-        inputs = this.transform.root.GetComponent<StarterAssetsInputs>();
+        inputs = this.transform.GetComponent<StarterAssetsInputs>();
         //世界原点生成chargeLine
         //ChargeLine = Instantiate(ChargeLine, Vector3.zero, Quaternion.identity);
-        _animator = this.transform.root.GetComponent<Animator>();
+        _animator = this.transform.GetComponent<Animator>();
         _pd = this.GetComponentInChildren<ParabolaDrawer>();
         _pd.InitPar(mask,velocity,gravity);
-        _playerTransform = this.transform.root;
+        _playerTransform = this.transform;
 
 
         _audioSource = this.AddComponent<AudioSource>();
@@ -97,7 +97,7 @@ public class PlayerBow : MonoBehaviour
 
             //旋转player的rotation方向
             Vector3 newRotation = new Vector3(0, Mathf.Atan2(hitPos.x - transform.position.x, hitPos.z - transform.position.z) * Mathf.Rad2Deg, 0);
-            this.transform.root.rotation = Quaternion.Euler(newRotation+new Vector3(0,-90f,0));
+            this.transform.rotation = Quaternion.Euler(newRotation+new Vector3(0,-90f,0));
 
             //FirePoint以player为，angle为当前角度绕forward旋转
             firePoint.localRotation = Quaternion.Euler(new Vector3(-currentAngle, -90f, 0));
