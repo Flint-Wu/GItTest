@@ -32,6 +32,11 @@ public class ItemBreak : MonoBehaviour
     }
     void DisableCollider()
     {
-        this.GetComponent<Collider>().enabled = false;
+        //取消所有子物体的碰撞器
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
+        foreach (var item in colliders)
+        {
+            item.enabled = false;
+        }
     }
 }
