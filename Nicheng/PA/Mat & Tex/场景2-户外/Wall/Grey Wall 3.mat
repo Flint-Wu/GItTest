@@ -176,10 +176,10 @@ Material:
     - _smothnessscale: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.6659309, g: 0.6247775, b: 0.6792453, a: 1}
+    - _Color: {r: 0.72948754, g: 0.709275, b: 0.735, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Offset: {r: 10, g: 10, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Tilling: {r: 1, g: 1, b: 0, a: 0}
-    - _tilling: {r: 0.1, g: 0.1, b: 0, a: 0}
+    - _tilling: {r: 0.05, g: 0.05, b: 0, a: 0}
   m_BuildTextureStacks: []
