@@ -36,7 +36,7 @@ ModelImporter:
       name: SlowClimb_Child
       takeName: 2362590387808_TempMotion
       internalID: -3299609137470729876
-      firstFrame: 0
+      firstFrame: 239
       lastFrame: 378
       wrapMode: 0
       orientationOffsetY: 0
@@ -596,26 +596,22 @@ ModelImporter:
     - name: Character1_RightFoot
       parentName: Character1_RightLeg
       position: {x: -0.00000011444094, y: -0.5503375, z: 0}
-      rotation: {x: -0.000000029802322, y: -0.000000011175872, z: 0.000000029802322,
-        w: 1}
+      rotation: {x: -0.000000029802322, y: -0.000000011175872, z: 0.000000029802322, w: 1}
       scale: {x: 1.0000001, y: 1.0000002, z: 1.0000002}
     - name: Character1_RightToeBase
       parentName: Character1_RightFoot
       position: {x: 0.00000011444091, y: -0.06262275, z: 0.20681517}
-      rotation: {x: 0.000000011641532, y: 0.0000000029103893, z: -0.000000012732926,
-        w: 1}
+      rotation: {x: 0.000000011641532, y: 0.0000000029103893, z: -0.000000012732926, w: 1}
       scale: {x: 1.0000001, y: 1.0000001, z: 1}
     - name: Character1_LeftUpLeg
       parentName: Character1_Hips
       position: {x: -0.08909999, y: -0.06269958, z: 0.0000006103515}
-      rotation: {x: 0.00000000145522, y: 0.000000018917486, z: 0.0000000014551987,
-        w: 1}
+      rotation: {x: 0.00000000145522, y: 0.000000018917486, z: 0.0000000014551987, w: 1}
       scale: {x: 1.0000002, y: 1, z: 0.99999976}
     - name: Character1_LeftLeg
       parentName: Character1_LeftUpLeg
       position: {x: -0.0000006103515, y: -0.30384266, z: 0}
-      rotation: {x: -0.00000000145522, y: -0.000000030093357, z: -0.000000005180489,
-        w: 1}
+      rotation: {x: -0.00000000145522, y: -0.000000030093357, z: -0.000000005180489, w: 1}
       scale: {x: 1.0000001, y: 1.0000006, z: 1.0000005}
     - name: Character1_LeftFoot
       parentName: Character1_LeftLeg
@@ -625,8 +621,7 @@ ModelImporter:
     - name: Character1_LeftToeBase
       parentName: Character1_LeftFoot
       position: {x: -0.000000038146975, y: -0.062622994, z: 0.2068149}
-      rotation: {x: -0.00000006984919, y: 0.000000005820766, z: 0.00000000145519,
-        w: 1}
+      rotation: {x: -0.00000006984919, y: 0.000000005820766, z: 0.00000000145519, w: 1}
       scale: {x: 1.0000001, y: 1.0000005, z: 1.0000002}
     - name: Character1_Spine
       parentName: Character1_Hips
@@ -656,20 +651,17 @@ ModelImporter:
     - name: Character1_Spine1
       parentName: Character1_Spine
       position: {x: -0.00000007629394, y: 0.14534484, z: -0.0000006103515}
-      rotation: {x: 0.000000011641546, y: -0.000000011641534, z: 0.000000010186337,
-        w: 1}
+      rotation: {x: 0.000000011641546, y: -0.000000011641534, z: 0.000000010186337, w: 1}
       scale: {x: 1.0000001, y: 0.9999999, z: 1}
     - name: Character1_Spine2
       parentName: Character1_Spine1
       position: {x: 0.0000003051758, y: 0.1453444, z: 0.0000009155275}
-      rotation: {x: -0.000000005820809, y: 0.000000011641541, z: -0.000000032014206,
-        w: 1}
+      rotation: {x: -0.000000005820809, y: 0.000000011641541, z: -0.000000032014206, w: 1}
       scale: {x: 1.0000001, y: 1, z: 1.0000004}
     - name: Character1_RightShoulder
       parentName: Character1_Spine2
       position: {x: 0.06999993, y: 0.010335237, z: -0.0000009155275}
-      rotation: {x: -0.00000001746227, y: -0.000000023283064, z: 0.0000000014551781,
-        w: 1}
+      rotation: {x: -0.00000001746227, y: -0.000000023283064, z: 0.0000000014551781, w: 1}
       scale: {x: 1.0000005, y: 1, z: 1.0000004}
     - name: Character1_RightArm
       parentName: Character1_RightShoulder
@@ -704,8 +696,7 @@ ModelImporter:
     - name: Character1_RightHandMiddle4
       parentName: Character1_RightHandMiddle3
       position: {x: 0.003006592, y: -0.02811432, z: 0.0025627138}
-      rotation: {x: -0.0000000048007665, y: -0.000000014106629, z: -0.000000059604638,
-        w: 1}
+      rotation: {x: -0.0000000048007665, y: -0.000000014106629, z: -0.000000059604638, w: 1}
       scale: {x: 1.0000006, y: 1.0000005, z: 1.0000005}
     - name: Character1_RightHandRing1
       parentName: Character1_RightHand
@@ -725,8 +716,7 @@ ModelImporter:
     - name: Character1_RightHandRing4
       parentName: Character1_RightHandRing3
       position: {x: 0.0031567386, y: -0.026616823, z: -0.00000007629395}
-      rotation: {x: -6.0008176e-10, y: -0.000000001763296, z: -0.000000059604638,
-        w: 1}
+      rotation: {x: -6.0008176e-10, y: -0.000000001763296, z: -0.000000059604638, w: 1}
       scale: {x: 1.0000006, y: 1.0000007, z: 1.0000006}
     - name: Character1_RightHandPinky1
       parentName: Character1_RightHand
@@ -746,8 +736,7 @@ ModelImporter:
     - name: Character1_RightHandPinky4
       parentName: Character1_RightHandPinky3
       position: {x: 0.006454753, y: -0.025301205, z: 0.0022789}
-      rotation: {x: -0.000000004800769, y: -0.000000014106642, z: -0.000000029802319,
-        w: 1}
+      rotation: {x: -0.000000004800769, y: -0.000000014106642, z: -0.000000029802319, w: 1}
       scale: {x: 1.0000006, y: 1.0000006, z: 1.0000005}
     - name: Character1_RightHandIndex1
       parentName: Character1_RightHand
@@ -767,8 +756,7 @@ ModelImporter:
     - name: Character1_RightHandIndex4
       parentName: Character1_RightHandIndex3
       position: {x: 0.0059695444, y: -0.026264349, z: 0.0024481588}
-      rotation: {x: -0.0000000048007527, y: -0.00000001410666, z: 0.000000059604638,
-        w: 1}
+      rotation: {x: -0.0000000048007527, y: -0.00000001410666, z: 0.000000059604638, w: 1}
       scale: {x: 1.0000012, y: 1.0000007, z: 1.0000008}
     - name: Character1_RightHandThumb1
       parentName: Character1_RightHand
@@ -798,8 +786,7 @@ ModelImporter:
     - name: Character1_Head
       parentName: Character1_Neck
       position: {x: -0.0000001525879, y: 0.19999933, z: 0}
-      rotation: {x: -0.00000003562309, y: -0.0000000035506649, z: 0.000000020896545,
-        w: 1}
+      rotation: {x: -0.00000003562309, y: -0.0000000035506649, z: 0.000000020896545, w: 1}
       scale: {x: 1, y: 1.0000001, z: 1}
     - name: Character1_LeftShoulder
       parentName: Character1_Spine2
@@ -814,8 +801,7 @@ ModelImporter:
     - name: Character1_LeftForeArm
       parentName: Character1_LeftArm
       position: {x: -0.22744253, y: -0.18920895, z: -0.0000006103515}
-      rotation: {x: -0.0000000025520095, y: 0.000000042048153, z: -0.000000059604623,
-        w: 1}
+      rotation: {x: -0.0000000025520095, y: 0.000000042048153, z: -0.000000059604623, w: 1}
       scale: {x: 1.0000001, y: 0.99999994, z: 0.9999997}
     - name: Character1_LeftHand
       parentName: Character1_LeftForeArm
@@ -840,8 +826,7 @@ ModelImporter:
     - name: Character1_LeftHandMiddle4
       parentName: Character1_LeftHandMiddle3
       position: {x: -0.003005677, y: -0.028114326, z: 0.0025627143}
-      rotation: {x: -0.000000023374769, y: -0.000000023745352, z: -0.000000089406946,
-        w: 1}
+      rotation: {x: -0.000000023374769, y: -0.000000023745352, z: -0.000000089406946, w: 1}
       scale: {x: 1.000001, y: 1.0000004, z: 1.0000004}
     - name: Character1_LeftHandRing1
       parentName: Character1_LeftHand
@@ -946,8 +931,7 @@ ModelImporter:
     - name: joint5
       parentName: Character1_Hips
       position: {x: -0.1808086, y: -0.08662474, z: -0.16432676}
-      rotation: {x: -0.000000029802322, y: -0.0000000037252903, z: 0.0000000037252903,
-        w: 1}
+      rotation: {x: -0.000000029802322, y: -0.0000000037252903, z: 0.0000000037252903, w: 1}
       scale: {x: 0.99999994, y: 1.0000001, z: 1}
     - name: pCylinder5
       parentName: slowlyclimb(Clone)
