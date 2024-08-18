@@ -29,7 +29,7 @@ public class ScoreAdd : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ScoreText.text = Score.ToString();
+        ScoreText.text = Score.ToString();
     }
 
     private void CallUpdateUIEvent(float ScoreAdd)

@@ -23,7 +23,7 @@ public class Dialogue : MonoBehaviour
     public List<DialogueEntry> DialogueEntries;
 
     private Dictionary<string, Sprite> characterPortraits = new Dictionary<string, Sprite>();
-    private List<string> dialogues = new List<string>();
+    private List<(string characterName, string dialogueText)> dialogues = new List<(string characterName, string dialogueText)>();
     private int currentDialogueIndex = 0;
 
     public int talkCount;
@@ -55,11 +55,12 @@ public class Dialogue : MonoBehaviour
         talkCount = dialogues.Count;
     }
 
-    private void DialogueBegin(TextAsset asset)
+    private void DialogueBegin(TextAsset asset, DialogueEntry dialogueEntry)
     {
         dialogues.Clear();
         LoadCharacterPortraits();
 
+        DialogueEntries.Add(dialogueEntry);
         characterPortraits[DialogueEntries[1].characterName] = DialogueEntries[1].characterPortrait;
 
         LoadDialogueFile(asset);
@@ -90,7 +91,7 @@ public class Dialogue : MonoBehaviour
                     string characterName = splitLine[0].Trim();
                     string dialogueText = splitLine[1].Trim().Trim('"');
 
-                    dialogues.Add(dialogueText);
+                    dialogues.Add((characterName, dialogueText));
                 }
             }
         }
@@ -109,16 +110,16 @@ public class Dialogue : MonoBehaviour
         }
 
         var dialogue = dialogues[index];
-        dialogueText.text =  dialogue;
+        dialogueText.text = dialogue.characterName + ": " + dialogue.dialogueText;
 
-        if (characterPortraits.TryGetValue(dialogue, out Sprite portrait))
+        if (characterPortraits.TryGetValue(dialogue.characterName, out Sprite portrait))
         {
             portraitImage.sprite = portrait;
             portraitImage.SetNativeSize();
         }
         else
         {
-            Debug.LogWarning("未找到角色头像: " + dialogue);
+            Debug.LogWarning("未找到角色头像: " + dialogue.characterName);
         }
     }
 

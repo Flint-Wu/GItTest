@@ -24,10 +24,10 @@ public static class EventManager
         InteractEvent?.Invoke();
     }
 
-    public static event Action<TextAsset> DialogueBeginEvent;
-    public static void CallDialogutBeginEvent(TextAsset text)
+    public static event Action<TextAsset, DialogueEntry> DialogueBeginEvent;
+    public static void CallDialogutBeginEvent(TextAsset text, DialogueEntry dialogueEntry)
     {
-        DialogueBeginEvent?.Invoke(text);
+        DialogueBeginEvent?.Invoke(text,dialogueEntry);
     }
 
     public static event Action DialogueFinishEvent;
