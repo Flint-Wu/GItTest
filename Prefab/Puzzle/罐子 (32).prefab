@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 8948311626438620701}
   - component: {fileID: 9035339807292567816}
   - component: {fileID: 8964981350203735364}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: "\u7F50\u5B50 (32)"
-  m_TagString: Untagged
+  m_TagString: BreakableItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fabec5e5310c15640a751394609ac201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemType: 1
   breakSound: {fileID: 8300000, guid: 74bcf508cd4b1c64ea3e4a003a2626b8, type: 3}
   coinPrefab: {fileID: 6660448454297307039, guid: c81d5d2ee4b3c69428ef5a82559be286,
     type: 3}

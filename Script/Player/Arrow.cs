@@ -95,10 +95,15 @@ public class Arrow : MonoBehaviour
         {
             other.collider.gameObject.transform.parent.GetComponentInChildren<ButtonScript>().PressButton();
         }
+        else if (other.collider.gameObject.tag == "BreakableItem")
+        {
+            other.collider.gameObject.GetComponent<Rigidbody>().AddForce(this.transform.forward*300);
+        }
 
         GameObject effect = Instantiate(hitEffect,other.contacts[0].point,Quaternion.identity);
         effect.transform.forward = other.contacts[0].normal;
         
+        //other.collider.gameObject.GetComponent<Rigidbody>().AddForce(this.transform.forward*1000f);
         AudioSource.PlayClipAtPoint(hitSound,this.transform.position);
         Destroy(effect,1f);
         Destroy(this.gameObject);

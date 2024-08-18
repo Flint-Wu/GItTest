@@ -21,6 +21,7 @@ public class FishAI : MonoBehaviour
     public float stateTime;
     public float StruggleTime = 0f;
     public List<float> StruggleTimeList = new List<float>();
+    public Transform player;
     void Start()
     {
         fishState = FishState.Move;
@@ -28,6 +29,7 @@ public class FishAI : MonoBehaviour
         TargetTransform = Instantiate(new GameObject()).transform;
         EscapeTransform = fishPool.transform.Find("EscapePoint");
         GenerateTarget();
+        player = GameObject.FindWithTag("Player").transform;
 
     }
 
@@ -71,7 +73,15 @@ public class FishAI : MonoBehaviour
     //减少挣扎值
     void DeadBehavior()
     {
-        this.transform.position = Vector3.MoveTowards(transform.position, _GetHookTransform + Vector3.up, 0.5f * Time.deltaTime);
+        //this.transform.Translate(Vector3.down * 1f * Time.deltaTime);
+
+        Vector3 dir = player.position+Vector3.up - transform.position;
+        transform.Translate(dir.normalized * Time.deltaTime*3,Space.World);
+
+        if (Vector3.Distance(player.position+Vector3.up,transform.position) < 0.2f)
+        {
+            Destroy(this.gameObject);
+        }
     }
     void OnHooked()
     {
