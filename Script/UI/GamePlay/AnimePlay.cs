@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,6 +29,7 @@ public class AnimePlay : MonoBehaviour
     {
         EndVideo.SetActive(true);
         Endcamera.SetActive(true);
+        EndVideo.transform.root.gameObject.SetActive(true);
     }
 
 
