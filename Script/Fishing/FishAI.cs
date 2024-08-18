@@ -95,6 +95,7 @@ public class FishAI : MonoBehaviour
             fishState = FishState.Move;
             _GetHookTransform = Vector3.zero;
             fishPool.FishHookTransform.parent.GetComponent<FishingRod>().ReleaseFish();
+            fishPool.ExitFish();
         }
 
     }

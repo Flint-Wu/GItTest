@@ -50,7 +50,6 @@ public class Door : MonoBehaviour
             }
         }
 
-
         foreach (var button in Buttons)
         {
            if(button.isPressed)
@@ -58,9 +57,6 @@ public class Door : MonoBehaviour
                 LightOn(button);
             }
         }
-
-
-
 
     }
 
@@ -77,6 +73,7 @@ public class Door : MonoBehaviour
                 if (_animation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
                 {
                     _animation.SetBool("isTimelimited", true);
+                    _animation.CrossFade("closedoor", 0.1f);
                 }
             }
             
@@ -84,11 +81,12 @@ public class Door : MonoBehaviour
             {
                 _animation.speed = 1f / timeLimit;
                 _currentTime -= Time.deltaTime;
-                ClipTime = 1 - _animation.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                // ClipTime = 1 - _animation.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                ClipTime = _currentTime / timeLimit;
                 if (_currentTime <= 0)
                 {
                     ResetAll();
-                    _currentTime = 10f;
+                    _currentTime = timeLimit;
                 }
             }
 
@@ -102,7 +100,7 @@ public class Door : MonoBehaviour
         isInteract = true;
         //播放开门动画，tag为opendoor
         _animation.CrossFade("opendoor", 0.1f);
-        _animation.speed = 1 / openSound.length;
+        _animation.speed = 0.2f;
     }
     
     public void CheckButton()

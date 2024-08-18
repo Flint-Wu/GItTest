@@ -16,6 +16,7 @@ public class FishPool : MonoBehaviour
     public GameObject FlashCFX;
     public ParticleSystem WaterWave;
     public bool canFish = true;
+    public GameObject announce;
 
     void Start()
     {
@@ -44,6 +45,7 @@ public class FishPool : MonoBehaviour
         {
             return;
         }
+        announce.SetActive(false);
         fishingRod.gameObject.SetActive(true);
         FishHookTransform = fishingRod.gameObject.transform.Find("鱼钩");
         int index = Random.Range(0, fishes.Count);
