@@ -180,7 +180,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 1
-  breakSound: {fileID: 8300000, guid: 74bcf508cd4b1c64ea3e4a003a2626b8, type: 3}
+  breakSound:
+  - {fileID: 8300000, guid: 144a3bd704bf75346aee0f39d9f44765, type: 3}
+  - {fileID: 8300000, guid: 95fd7439c46e2bc4fbdb4349e0bcc047, type: 3}
+  - {fileID: 8300000, guid: ab225bb077cb5bf4fa08aaa0ba3eb0f3, type: 3}
   coinPrefab: {fileID: 6660448454297307039, guid: c81d5d2ee4b3c69428ef5a82559be286,
     type: 3}
 --- !u!136 &8964981350203735364

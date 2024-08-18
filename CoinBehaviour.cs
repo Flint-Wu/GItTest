@@ -14,7 +14,7 @@ public class CoinBehaviour : MonoBehaviour
     float lifeTime =0f;
     public CoinState coinState = CoinState.Idle;
     public Transform target;
-    public AudioClip getCoinSound;
+    public AudioClip[] getCoinSound;
     void Start()
     {
         target = GameObject.FindWithTag("Player").transform;
@@ -53,7 +53,9 @@ public class CoinBehaviour : MonoBehaviour
         if (Vector3.Distance(target.position+Vector3.up,transform.position) < 0.2f)
         {
             if (getCoinSound != null)
-            AudioSource.PlayClipAtPoint(getCoinSound,transform.position);
+            {
+                AudioSource.PlayClipAtPoint(getCoinSound[Random.Range(0, getCoinSound.Length)], transform.position, 0.5f);
+            }
             AddCoin();
             Destroy(this.gameObject);
         }

@@ -366,7 +366,8 @@ MonoBehaviour:
   isPressed: 0
   isInRange: 0
   door: {fileID: 0}
-  PressSound: {fileID: 0}
+  PressSounds:
+  - {fileID: 8300000, guid: e03a87a71649a5b4a8adab38268f1543, type: 3}
 --- !u!1 &7609214856496912001
 GameObject:
   m_ObjectHideFlags: 0

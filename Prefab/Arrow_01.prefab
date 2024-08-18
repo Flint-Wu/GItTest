@@ -246,7 +246,10 @@ MonoBehaviour:
     m_Bits: 0
   hitEffect: {fileID: 3463157229188906966, guid: 47096eff328e11a418ace7db2d72aa97,
     type: 3}
-  hitSound: {fileID: 8300000, guid: 74bcf508cd4b1c64ea3e4a003a2626b8, type: 3}
+  hitSounds:
+  - {fileID: 8300000, guid: 8ebf0e2bc63b75b49b4aa52c13acb1e5, type: 3}
+  - {fileID: 8300000, guid: 45eaf519f4da75a4eb619b2bb182396d, type: 3}
+  - {fileID: 8300000, guid: 5caaf26437d7a5c4b8e5b72915fcd5ff, type: 3}
   arrowSound: {fileID: 8300000, guid: aa0ffeb9c2e62b340a5dd38b80285596, type: 3}
 --- !u!54 &6874238579330418658
 Rigidbody:

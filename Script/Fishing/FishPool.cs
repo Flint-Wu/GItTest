@@ -13,6 +13,10 @@ public class FishPool : MonoBehaviour
     public int FishCount;
     public FishingRod fishingRod;
     private GameObject _player;
+    public GameObject FlashCFX;
+    public ParticleSystem WaterWave;
+    public bool canFish = true;
+
     void Start()
     {
         fishes = new List<FishAI>();
@@ -36,6 +40,10 @@ public class FishPool : MonoBehaviour
     //生成鱼的目标点
     public void StartFish()
     {
+        if (!canFish)
+        {
+            return;
+        }
         fishingRod.gameObject.SetActive(true);
         FishHookTransform = fishingRod.gameObject.transform.Find("鱼钩");
         int index = Random.Range(0, fishes.Count);
@@ -48,14 +56,30 @@ public class FishPool : MonoBehaviour
         EventManager.InteractEvent += ExitFish;
     }
 
+    public void PlayFlash()
+    {
+        GameObject flash = Instantiate(FlashCFX, FishHookTransform.position, Quaternion.identity);
+    }
+
     public void ExitFish()
     {
         _player.GetComponent<Animator>().SetBool("isFishing", false);
         //_player.GetComponent<InventoryManger>().EnableBow(true);;
         fishingRod.gameObject.SetActive(false);
+
+
+        foreach (FishAI fish in fishes)
+        {
+            if (fish.fishState == FishAI.FishState.Dead)
+            {
+                canFish = false;
+                WaterWave.Stop();
+            }
+        }
     }
     void OnTriggerEnter(Collider other)
     {
+
         EventManager.InteractEvent += StartFish;
     }
 

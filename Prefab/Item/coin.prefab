@@ -98,4 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinState: 0
   target: {fileID: 0}
-  getCoinSound: {fileID: 0}
+  getCoinSound:
+  - {fileID: 8300000, guid: 0ee7b99ce53047b4ab2d9a823e616ceb, type: 3}
+  - {fileID: 8300000, guid: af967724f74b52c4e80344aece6bb660, type: 3}
+  - {fileID: 8300000, guid: b448ec2d3c0338c4fb81e72f8b49aefc, type: 3}

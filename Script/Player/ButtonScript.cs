@@ -11,8 +11,9 @@ public class ButtonScript : MonoBehaviour
     public bool isPressed = false;
     public bool isInRange = false;
     public Door door;
-    public AudioClip PressSound;
     bool _hasAnimator = false;
+    public AudioClip[] PressSounds;
+    public ParticleSystem Shine;
     void Start()
     {
         Range = GetComponent<SphereCollider>();
@@ -44,7 +45,7 @@ public class ButtonScript : MonoBehaviour
             //this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[1];
             isInRange = true;
             
-            EventManager.InteractEvent += Press;
+            //EventManager.InteractEvent += Press;
         }
         
     }
@@ -54,7 +55,7 @@ public class ButtonScript : MonoBehaviour
             //this.transform.parent.GetComponent<MeshRenderer>().material = ButtonMaterial[0];
             isInRange = false;
 
-            EventManager.InteractEvent -= Press;
+            //EventManager.InteractEvent -= Press;
         }
         
     }
@@ -93,10 +94,13 @@ public class ButtonScript : MonoBehaviour
         isPressed = true;
         EventManager.CallUpdateUIEvent(10);
         door.CheckButton();
-
-        if(PressSound != null)
+        if(Shine != null)
+            Shine.Stop();
+        
+        
+        if(PressSounds.Length > 0)
         {
-            AudioSource.PlayClipAtPoint(PressSound, this.transform.position);
+            AudioSource.PlayClipAtPoint(PressSounds[UnityEngine.Random.Range(0, PressSounds.Length)], this.transform.position);
         }
 
         if(door.type == Door.DoorType.mutiple || door.type == Door.DoorType.timelimited)
@@ -108,4 +112,5 @@ public class ButtonScript : MonoBehaviour
             }
         }
     }
+    
 }

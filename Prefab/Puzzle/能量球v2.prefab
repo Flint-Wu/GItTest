@@ -345,7 +345,11 @@ MonoBehaviour:
   isPressed: 0
   isInRange: 0
   door: {fileID: 0}
-  PressSound: {fileID: 0}
+  PressSounds:
+  - {fileID: 8300000, guid: d67a09b50aa27f541b41af5c5cd27514, type: 3}
+  - {fileID: 8300000, guid: 3c7c49db093b44848994a7f61cd11f2c, type: 3}
+  - {fileID: 8300000, guid: ea2f240a57e2ff9469700f932862d5e4, type: 3}
+  Shine: {fileID: 5673214996086542391}
 --- !u!1 &7609214856496912001
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +628,12 @@ PrefabInstance:
 --- !u!4 &5673214996086542345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1652143759095011302, guid: e2c1ac940434a5242b54d72b66654687,
+    type: 3}
+  m_PrefabInstance: {fileID: 6365513742969784303}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5673214996086542391 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1652143759095011288, guid: e2c1ac940434a5242b54d72b66654687,
     type: 3}
   m_PrefabInstance: {fileID: 6365513742969784303}
   m_PrefabAsset: {fileID: 0}

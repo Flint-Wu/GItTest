@@ -19,7 +19,7 @@ public class Arrow : MonoBehaviour
     private Vector3 previousVelocity;
     private float _gravity;
     public GameObject hitEffect;
-    public AudioClip hitSound;
+    public AudioClip[] hitSounds;
     public AudioClip arrowSound;
     void OnEnable() {
         Destroy(this.gameObject,10f);
@@ -104,7 +104,7 @@ public class Arrow : MonoBehaviour
         effect.transform.forward = other.contacts[0].normal;
         
         //other.collider.gameObject.GetComponent<Rigidbody>().AddForce(this.transform.forward*1000f);
-        AudioSource.PlayClipAtPoint(hitSound,this.transform.position);
+        AudioSource.PlayClipAtPoint(hitSounds[Random.Range(0,hitSounds.Length)],this.transform.position);
         Destroy(effect,1f);
         Destroy(this.gameObject);
 

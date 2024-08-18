@@ -22,6 +22,7 @@ public class FishAI : MonoBehaviour
     public float StruggleTime = 0f;
     public List<float> StruggleTimeList = new List<float>();
     public Transform player;
+    //public GameObject Flash;
     void Start()
     {
         fishState = FishState.Move;
@@ -104,11 +105,13 @@ public class FishAI : MonoBehaviour
         if(StruggleTime<StruggleTimeList[0])
         {
             fishState = FishState.Dead;
+            fishPool.ExitFish();
             return 1;
         }
         else if(StruggleTime<StruggleTimeList[1])
         {
             fishState = FishState.Dead;
+            fishPool.ExitFish();
             return 2;
         }
         else
@@ -129,6 +132,10 @@ public class FishAI : MonoBehaviour
             {
                 stateTime = 0;
                 fishState = FishState.Hooked;
+                fishPool.PlayFlash();
+                // Flash.transform.position = transform.position+Vector3.up*2f;
+                // Flash.gameObject.SetActive(true);
+
                 _GetHookTransform = TargetTransform.position;
                 fishPool.FishHookTransform.parent.GetComponent<FishingRod>().CatchFish(this);
 

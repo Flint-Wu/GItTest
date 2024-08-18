@@ -454,9 +454,14 @@ namespace StarterAssets
         }
         private void OnLand(AnimationEvent animationEvent)
         {
-            if (animationEvent.animatorClipInfo.weight > 0.5f)
+            foreach (var audioGroup in runAudioGroup)
             {
-                AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                if (audioGroup.type == GroundedType)
+                {
+                    var index = Random.Range(0, audioGroup.clipGroup.Length);
+                    AudioSource.PlayClipAtPoint(audioGroup.clipGroup[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                    break;
+                }
             }
         }
 

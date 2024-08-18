@@ -25,6 +25,9 @@ public class Door : MonoBehaviour
     public bool isInteract = false;//是否被触发过，time limited door用
     private Animator _animation;
     public float ClipTime;
+    public AudioClip openSound;
+    public AudioClip closeSound;
+    public AudioClip timelimitedSound;
 
     void Start()
     {
@@ -99,6 +102,7 @@ public class Door : MonoBehaviour
         isInteract = true;
         //播放开门动画，tag为opendoor
         _animation.CrossFade("opendoor", 0.1f);
+        _animation.speed = 1 / openSound.length;
     }
     
     public void CheckButton()
@@ -139,5 +143,20 @@ public class Door : MonoBehaviour
         isOpen = false;
         _animation.speed = 1f;
         _animation.CrossFade("empty", 0f);
+    }
+
+    void PlayOpenDoorSound()
+    {
+        AudioSource.PlayClipAtPoint(openSound, this.transform.position);
+    }
+
+    void PlayCloseDoorSound()
+    {
+        AudioSource.PlayClipAtPoint(closeSound, this.transform.position);
+    }
+
+    void PlayTimeLimitedSound()
+    {
+        AudioSource.PlayClipAtPoint(timelimitedSound, this.transform.position);
     }
 }

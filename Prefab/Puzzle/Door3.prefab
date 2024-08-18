@@ -332,6 +332,8 @@ MonoBehaviour:
   isOpen: 0
   isInteract: 0
   ClipTime: 0
+  openSound: {fileID: 8300000, guid: ad80536106aca204080a06587722fead, type: 3}
+  closeSound: {fileID: 0}
 --- !u!1 &2931139676131106543
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class ItemBreak : MonoBehaviour
         Jar,
     }
     public Enum itemType;
-    public AudioClip breakSound;
+    public AudioClip[] breakSound;
     public GameObject coinPrefab;
     void Start()
     {
@@ -46,7 +46,7 @@ public class ItemBreak : MonoBehaviour
         {
             StartCoroutine(DisableCollider(child));
         }
-        AudioSource.PlayClipAtPoint(breakSound,transform.position);
+        PlaySound(2f);
     }
 
     void BreakJar()
@@ -58,12 +58,18 @@ public class ItemBreak : MonoBehaviour
             //coin.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-100, 100), Random.Range(100, 300)));
         }
         
-        Invoke("DisableCollider",2f);
+        //StartCoroutine(DisableCollider(transform));
+        PlaySound(1f);
     }
     // void DisableCollider()
     // {
 
     // }
+
+    void PlaySound(float volume)
+    {
+        AudioSource.PlayClipAtPoint(breakSound[Random.Range(0, breakSound.Length)],transform.position,volume);
+    }
     IEnumerator DisableCollider(Transform child)
     {
         yield return new WaitForSeconds(1f);

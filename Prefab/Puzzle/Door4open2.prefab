@@ -1641,6 +1641,9 @@ MonoBehaviour:
   isOpen: 0
   isInteract: 0
   ClipTime: 0
+  openSound: {fileID: 8300000, guid: ad80536106aca204080a06587722fead, type: 3}
+  closeSound: {fileID: 8300000, guid: 20e5887fbbabd984a83c564cfb49aa4f, type: 3}
+  timelimitedSound: {fileID: 8300000, guid: 5f90f8a9c6c900f41957d74e98a84a23, type: 3}
 --- !u!1 &4893430826732528186
 GameObject:
   m_ObjectHideFlags: 0
