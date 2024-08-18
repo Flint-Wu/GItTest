@@ -7,8 +7,6 @@ using UnityEngine;
 
 public class _DialogueStart : MonoBehaviour
 {
-    public DialogueEntry _dialogueEntry;
-
     private UIManager UIManager;
 
     public TextAsset _dialogueText;
@@ -49,8 +47,16 @@ public class _DialogueStart : MonoBehaviour
             Debug.Log("talk");
             GetComponent<Collider>().enabled = false;
             UIManager.DialogueEnable();
-            EventManager.CallDialogutBeginEvent(_dialogueText, _dialogueEntry);
+            EventManager.CallDialogutBeginEvent(_dialogueText);
             _playerInput.inter = false;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        GetComponent<Collider>().enabled = false;
+        UIManager.DialogueEnable();
+        EventManager.CallDialogutBeginEvent(_dialogueText);
+        _playerInput.inter = false;
     }
 }

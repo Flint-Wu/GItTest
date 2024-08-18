@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelArea : MonoBehaviour
@@ -7,27 +8,46 @@ public class LevelArea : MonoBehaviour
     public LevelName beforeLevel;
     public LevelName currentLevel;
     public LevelManager levelManager;
+    public CanvasGroup fadeCanvasGroup;
+    public float fadeDuration;
 
     private void Awake()
     {
-        levelManager = FindObjectOfType<LevelManager>();
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("something in");
-        if (collision.transform.CompareTag("Player"))
-        {
-            levelManager.LevelChange(beforeLevel, currentLevel);
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("something in");
-        if (other.transform.CompareTag("Player"))
+        StartCoroutine(LevelChanged());
+    }
+
+    private IEnumerator LevelChanged()
+    {
+        yield return Fade(1);
+
+        yield return Fade(0);
+        Debug.Log("¸ü»»½áÊø");
+    }
+
+    private IEnumerator Fade(float targetAlpha)
+    {
+
+        fadeCanvasGroup.blocksRaycasts = true;
+
+        float speed = Mathf.Abs(fadeCanvasGroup.alpha - targetAlpha) / fadeDuration;
+
+        while (!Mathf.Approximately(fadeCanvasGroup.alpha, targetAlpha))
         {
-            levelManager.LevelChange(beforeLevel, currentLevel);
+            fadeCanvasGroup.alpha = Mathf.MoveTowards(fadeCanvasGroup.alpha, targetAlpha, speed * Time.deltaTime);
+            yield return null;
         }
+
+        fadeCanvasGroup.blocksRaycasts = false;
+
     }
 }
