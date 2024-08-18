@@ -642,7 +642,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2086564881691837195}
-  - component: {fileID: 5758733606431983738}
   - component: {fileID: 903412038935760567}
   m_Layer: 0
   m_Name: DoorTime 1
@@ -669,27 +668,6 @@ Transform:
   - {fileID: 3128906871320451020}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 87.857, z: 0}
---- !u!95 &5758733606431983738
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6327224425438478571}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b7154c3ba837cd849b3c5e871b2ae92f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &903412038935760567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,8 +688,10 @@ MonoBehaviour:
   - {fileID: 488367365185080227}
   isOpen: 0
   isInteract: 0
-  ClipTime: 0
-  openSound: {fileID: 8300000, guid: 5f90f8a9c6c900f41957d74e98a84a23, type: 3}
+  door: {fileID: 1505251007757605742}
+  updistance: 3
+  upTime: 4.5
+  openSound: {fileID: 8300000, guid: ad80536106aca204080a06587722fead, type: 3}
   closeSound: {fileID: 8300000, guid: 20e5887fbbabd984a83c564cfb49aa4f, type: 3}
   timelimitedSound: {fileID: 8300000, guid: 5f90f8a9c6c900f41957d74e98a84a23, type: 3}
 --- !u!1001 &3020027670039781235
