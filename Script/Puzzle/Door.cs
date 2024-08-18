@@ -14,6 +14,7 @@ public class Door : MonoBehaviour
         single,
         mutiple,
         timelimited,
+        rotate,
     }
 
     public class Line
@@ -102,7 +103,16 @@ public class Door : MonoBehaviour
     {
         //isOpen = true;
         isInteract = true;
-        door.transform.DOMoveY(door.transform.position.y + updistance, upTime).OnComplete(() => isOpen = true);
+        if (type != DoorType.rotate)
+        {
+            door.transform.DOMoveY(door.transform.position.y + updistance, upTime).OnComplete(() => isOpen = true);
+            //this.GetComponentInChildren<TextMeshPro>().text = timeLimit.ToString("F2");
+        }
+        else
+        {
+            this.GetComponent<Animator>().CrossFade("opendoor", 0.1f);
+        }
+
         PlayOpenDoorSound();
         //播放开门动画，tag为opendoor
         // _animation.CrossFade("opendoor", 0.1f);
